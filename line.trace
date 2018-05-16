@@ -1,0 +1,131 @@
+- GC #4.39.98.161.864.28894:   (0 ms)
+[opening /tmp/emacs1472-iR/sml14728qu]
+val it = () : unit
+val it = () : unit
+val it = () : unit
+val it = () : unit
+NML: ***parsing...
+NML: ***evaluation...
+NML: LANG...
+NML:   fun increment x = + {1 = x,2 = 1}
+NML: EMBED... 
+NML:   val rec increment = fn increment-1 => case increment-1 of
+NML:                                           x => (prim:+ (x,1))
+NML: CPS... 
+NML:   return letrec increment =
+NML:            fn {} <increment-1> => return caseA increment-1
+NML:                                          of x => prim-+ (x,1) in
+NML:          increment
+NML: CODE... 
+NML:   increment_q0 = NewFn:increment{
+NML:                    // #frame=0 #args=1
+NML:                    q1 = BuiltinApp:+ (<increment-1_ARG_0, value<1>>) // prim-+ (x,1)
+NML:                    Return: q1
+NML:                  }
+NML:   Return: increment_q0
+NML: LANG...
+NML:   fun square y = *  {1 = y,2 = y}
+NML: EMBED... 
+NML:   val rec square = fn square-1 => case square-1 of
+NML:                                     y => (prim:* (y,y))
+NML: CPS... 
+NML:   return letrec square =
+NML:            fn {} <square-1> => return caseA square-1
+NML:                                       of y => prim-* (y,y) in
+NML:          square
+NML: CODE... 
+NML:   square_q2 = NewFn:square{
+NML:                 // #frame=0 #args=1
+NML:                 q3 = BuiltinApp:* (<square-1_ARG_0, square-1_ARG_0>) // prim-* (y,y)
+NML:                 Return: q3
+NML:               }
+NML:   Return: square_q2
+NML: LANG...
+NML:   fun compose (f,g) = fn x => f (g x)
+NML: EMBED... 
+NML:   val rec compose = fn compose-1 => case compose-1 of
+NML:                                       (f,g) => (fn x => f (g x))
+NML: CPS... 
+NML:   return letrec compose =
+NML:            fn {} <compose-1> => return caseA compose-1
+NML:                                        of (f,g) => fn {g,f} <x> => let {f} U-1 =
+NML:                                                                      g <x> in
+NML:                                                                    f <U-1> in
+NML:          compose
+NML: CODE... 
+NML:   compose_q4 = NewFn:compose{
+NML:                  // #frame=0 #args=1
+NML:                  f_q5 = compose-1_ARG_0[0] // f
+NML:                  g_q6 = compose-1_ARG_0[1] // g
+NML:                  q7 = NewFn:anon{
+NML:                         // #frame=2 #args=1
+NML:                         PushContinuation(1) {
+NML:                           // {f}
+NML:                           // CRET= g <x>
+NML:                           Call: f_FRAME_0 <CRET>
+NML:                         }
+NML:                         SetContFrame: cont[0] = f_FRAME_1
+NML:                         q8 = Copy (x_ARG_0) // <CopyIfArg>
+NML:                         Call: g_FRAME_0 <q8>
+NML:                       }
+NML:                  SetFrame: q7[0] = g_q6
+NML:                  SetFrame: q7[1] = f_q5
+NML:                  Return: q7
+NML:                }
+NML:   Return: compose_q4
+NML: LANG...
+NML:   fun foo b = (compose (increment,square)) b
+NML: EMBED... 
+NML:   val rec foo = fn foo-1 => case foo-1 of
+NML:                               b => ((compose (increment,square)) b)
+NML: CPS... 
+NML:   return letrec foo =
+NML:            fn {} <foo-1> => case foo-1
+NML:                             of b => <closure:compose> <(<closure:increment>,<closure:square>),b> in
+NML:          foo
+NML: CODE... 
+NML:   foo_q9 = NewFn:foo{
+NML:              // #frame=0 #args=1
+NML:              q10 = NewTuple2 // (<closure:increment>,<closure:square>)
+NML:              SetTuple: q10[0] = value<<closure:increment>>
+NML:              SetTuple: q10[1] = value<<closure:square>>
+NML:              q11 = Copy (foo-1_ARG_0) // <CopyIfArg>
+NML:              Call: value<<closure:compose>> <q10, q11>
+NML:            }
+NML:   Return: foo_q9
+NML: val increment = <closure:increment>
+NML: val square = <closure:square>
+NML: val compose = <closure:compose>
+NML: val foo = <closure:foo>
+val it = () : unit
+val it = () : unit
+val it = () : unit
+NML: ***parsing...
+NML: ***evaluation...
+NML: LANG...
+NML:   val it = foo 7
+NML: EMBED... 
+NML:   val it = foo 7
+NML: CPS... 
+NML:   <closure:foo> <7>
+NML: CODE... 
+NML:   Call: value<<closure:foo>> <value<7>>
+NML:  foo
+NML:  compose
+NML:  anon
+NML:   square
+NML:  increment
+NML: icounts:  Control: Call=5, Push=1, Handle=0, Reapp=1, Return=3, Raise=0, Skip=0
+NML:           FrameSet: Function=2, Continuation=1, Handler=0
+NML:           Branch: If=0, CodeWhere=0, Goto=0
+NML:           Match: Scon=0, Con=0, Excon=0, GenEx=0
+NML:           New: Closure=1, Pap=0, Tuple=1, TupleElem=2, Con=0, Ref=0, Exception=0
+NML:           Destruct TupleElem=2, Con=0, Excon=0, Ref=0
+NML:           Builtin: App=2, Copy=2
+NML:           Max-Control-Stack-Depth=2
+NML: val it = 50
+val it = () : unit
+val it = () : unit
+val it = () : unit
+val it = () : unit
+- 

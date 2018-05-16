@@ -1,0 +1,1 @@
+run -debug predefined/nml_NonPrim.ML -x open NonPrim /home/nic/project/prelude/pervasives.ML /home/nic/project/prelude/PREL.ML -x structure Prel = 'PREL()' examples/fact.ML -x fact_input --export ,C/fact2.C

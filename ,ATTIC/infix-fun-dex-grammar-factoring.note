@@ -1,0 +1,64 @@
+
+NP -- name_pats
+A -- atomic pat
+P -- pat
+N == nonfixed ident
+I == infixed ident
+
+NI = N | I
+NP = 
+  fun op NI P P... 
+  fun N P P...
+  fun A I A
+  fun (A I A) P...
+A =
+  I
+  ()
+  (P)
+  (P,P...)
+  [...]
+P =
+  A
+  I A
+  <more>
+resolve clash: A--( on (
+  fun A I A
+  fun (A I A) P...
+-->
+  fun (NP1
+NP1 =
+  A1 I A
+  A I A) P...
+A1 =
+  )
+  P)
+  P,P...)
+A = 
+  (A1
+  [...]
+
+resolve clash: A1--A on (
+NP1 =
+  (NP2
+  ) I A
+  P) I A
+  P,P...) I A
+  [...]
+NP2 =
+  A2 I A
+  A1 I A) P...
+A1 =
+  (A2
+  )
+  P)
+  P,P...)
+A2 =
+  P1)
+  P1,P...)
+P =
+  (P1
+  I A
+P1 =
+  A1
+  
+Never ending process of sucking out LPs...

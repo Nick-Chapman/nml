@@ -1,0 +1,6 @@
+
+
+executable=$1; shift; args="$@"
+echo '***'GDB: $executable $args...
+echo "run $args" > .gdbrun
+gdb $executable --command=.gdbrun
