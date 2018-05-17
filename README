@@ -1,0 +1,7 @@
+Resurrect nml from >10 years of slumber.
+
+Fixed runtime system enough to get first example working.
+Instructions:
+
+Install sml/nj
+$ run1.sh

@@ -1,5 +1,5 @@
 
-val preludeDir = "/home/nic/project/prelude/"
+val preludeDir = "prelude/"
 fun prefixPrelude s = preludeDir^s
 val pervasives = map prefixPrelude ["pervasives.ML"]; (*["option.ML","either.ML"];*)
 ;map use pervasives;

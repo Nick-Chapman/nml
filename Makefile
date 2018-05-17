@@ -11,7 +11,7 @@ CC = g++
 #NODEBUG = -DNDEBUG
 #PROFILE = -pg
 
-CXXFLAGS= $(PROFILE) $(NODEBUG) -g -pipe -Wall -Wstrict-prototypes -Wmissing-prototypes -Iruntime 
+CXXFLAGS= $(PROFILE) $(NODEBUG) -g -pipe -Wall -Wno-write-strings -Wno-format -Iruntime 
 
 regs =\
 	ids1\
@@ -122,7 +122,7 @@ $(obj)/%.o : $(genC)/%.C
 
 
 # Build the executable from the obj + runtime.o
-go/% : $(obj)/%.o runtime/nml_runtime.o
+go/% : runtime/nml_runtime.o $(obj)/%.o 
 	g++ $(PROFILE) $^ -o $@ 
 
 

@@ -1,0 +1,5 @@
+runtime/nml_runtime.o
+go/*
+,C/*
+,obj/*
+*~

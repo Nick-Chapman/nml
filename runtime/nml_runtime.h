@@ -7,6 +7,8 @@
  CONTENTS-END-LINE:
  ------------------------------------------------------------------------------*/
 
+#define xint long
+
 class SiCont;
 class SiClosure;
 class Hob;
@@ -14,8 +16,8 @@ class Hob;
 class Nword {
 private:
 	//unsigned _raw;
-	int _raw;
-	Nword(int raw) : _raw(raw) {}
+	xint _raw;
+	Nword(xint raw) : _raw(raw) {}
 public:
 	Nword(Hob* hob); // implicit conversion from Hob* pointer to Nword
 	Nword() {}; // default constructor - distinct from pointer
@@ -23,12 +25,12 @@ public:
 	friend bool isPointer(Nword);
 	friend Hob* getPointer(Nword);
 public:
-	static Nword fromRawUnboxed(int); // unboxed values, distinct from pointer
+	static Nword fromRawUnboxed(xint); // unboxed values, distinct from pointer
 	static Nword fromInt(int); 
 	static Nword fromUnsigned(unsigned);
 	static Nword fromChar(char);
 public:
-	static int getRawUnboxed(Nword); //careful
+	static xint getRawUnboxed(Nword); //careful
 	static int getInt(Nword);
 	static unsigned getUnsigned(Nword);
 	static char getChar(Nword);

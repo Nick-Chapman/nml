@@ -71,10 +71,11 @@
 
 #include "nml_runtime.h"
 #include <fstream>
-#include <string>
-#include <set>
+#include <cassert>
+#include <iostream>
+#include <cstdlib>
 
-#include <stdio.h>
+using namespace std;
 
 bool debug = false;
 
@@ -98,12 +99,14 @@ Ncode ReturnWith(Nword res); // forward
 
 class Counter {
 public:
-	enum { scale = 1000 };
-	//enum { scale = 1 };
+  //enum { scale = 1000 };
+	enum { scale = 1 };
 	std::string name;
 	unsigned count;
 public:
-	Counter(std::string name_) : name(name_), count(0) {}
+	Counter(std::string name_) : name(name_), count(0) {
+	  //printf("create: Counter(%s)\n",name_.c_str());
+	}
 	void inc(unsigned n) { count += n; }
 private:
 	Counter(Counter&);
@@ -142,7 +145,9 @@ Counter unit_data_allocation("Du");
 Counter char_data_allocation("Dc");
 Counter word_data_allocation("Dw");
 Counter num_data_allocation("Dn");
+
 Counter string_data_allocation("Ds");
+
 Counter io_data_allocation("Dio");
 Counter con0_data_allocation("Dc0");
 Counter con1_data_allocation("Dc1");
@@ -351,8 +356,10 @@ public:
 	char* base;
 	char* top;
 public:
-	HeapSpace() : base(0), top(0) {}
-	HeapSpace(char* base_, char* top_) : base(base_), top(top_) {}
+    HeapSpace() : base(0), top(0) {}
+	HeapSpace(char* base_, char* top_) : base(base_), top(top_) {
+	  //printf("HeapSpace(%x,%x)\n",base,top);
+	}
 	bool inSpace(Hob* hob) {
 		char* hp = reinterpret_cast<char*>(hob);
 		return (base <= hp) && (hp < top);
@@ -377,32 +384,32 @@ HeapSpace currentSpace;
 //INDEX: low-level tagging
 //----------------------------------------------------------------------
 
-bool isTaggedPointer(int raw) { return (raw & ~255) && !(raw & 3); } //two LSM bits are zero & value>255; property of pointer
-int TagPointer(Hob* pointer) {
-	int raw = reinterpret_cast<int>(pointer); //unchanged
+bool isTaggedPointer(xint raw) { return (raw & ~255) && !(raw & 3); } //two LSM bits are zero & value>255; property of pointer
+xint TagPointer(Hob* pointer) {
+	xint raw = reinterpret_cast<xint>(pointer); //unchanged
 	assert(isTaggedPointer(raw));
 	return raw;
 }
 
-int TagInt(int i) {
+xint TagInt(xint i) {
 	assert ((static_cast<unsigned>(i) >> 30 == 0) //two MSB bit are the same (i.e. we have a 31bit int)
 			|| (static_cast<unsigned>(i) >> 30 == 3));
 	return (i << 1) | 1; // shift & tag
 }
 
-int TagUnsigned(unsigned u) {
+xint TagUnsigned(unsigned u) {
 	assert(!(u>>30)); //two MSB bit are zero (i.e. we have a 30bit unsigned)
 	return (u << 1) | 1; // shift & tag
 }
 
-int TagChar(char c) {
-	return static_cast<int>(c); //unchanged
+xint TagChar(char c) {
+	return static_cast<xint>(c); //unchanged
 }
 
-Hob* UnTagPointer(int raw) { return reinterpret_cast<Hob*>(raw); }
-int UnTagInt(int raw) { return raw >> 1; }
-unsigned UnTagUnsigned(int raw) { return raw >> 1; }
-char UnTagChar(int raw) { assert(raw<=255); return static_cast<char>(raw); }
+Hob* UnTagPointer(xint raw) { return reinterpret_cast<Hob*>(raw); }
+int UnTagInt(xint raw) { return raw >> 1; }
+unsigned UnTagUnsigned(xint raw) { return raw >> 1; }
+char UnTagChar(xint raw) { assert(raw<=255); return static_cast<char>(raw); }
 
 //----------------------------------------------------------------------
 //INDEX: Nword
@@ -420,12 +427,12 @@ Hob* getPointer(Nword w) {
 	return hob;
 }
 
-Nword Nword::fromRawUnboxed(int raw) { return Nword(raw); }
+Nword Nword::fromRawUnboxed(xint raw) { return Nword(raw); }
 Nword Nword::fromInt(int i) { return Nword(TagInt(i)); }
 Nword Nword::fromUnsigned(unsigned u) { return Nword(TagUnsigned(u)); }
 Nword Nword::fromChar(char c) { return Nword(TagChar(c)); }
 
-int Nword::getRawUnboxed(Nword w) { 
+xint Nword::getRawUnboxed(Nword w) { 
 	assert(!isPointer(w));
 	return w._raw;
 }
@@ -583,6 +590,11 @@ char* HeapPointer = TheInitHeap; //where allocation occurs. The heap grows upwar
 //----------------------------------------------------------------------
 
 void* heap_alloc(Counter& counter, size_t size) {
+	// printf("heap_alloc(%s,%d)\n",counter.name.c_str(),size);
+	// printf("HeapPointer=%x\n",HeapPointer);
+	// printf("base=%x\n",allocSpace.base);
+	// printf("top=%x\n",allocSpace.top);
+
 	assert(size%4==0);
 	counter.inc(size);
 	HeapAllocation.inc(size);
@@ -731,8 +743,10 @@ public:
 	void scavenge() {}
 };
 
-Hob* the_unit = new (unit_data_allocation) Value_unit();
+//Hob* the_unit = new (unit_data_allocation) Value_unit();
 Hob* get_unit() {
+  static Hob* the_unit = new (unit_data_allocation) Value_unit();
+
 	return the_unit;
 }
 
@@ -2354,14 +2368,18 @@ Handler CatchAllHandler(&SiCatchAll,0);
 	} \
 }
 
-int main(unsigned argc, char* argv[]) {
+int main(int argc, char* argv[]) {
+
+  	if (debug) { 
+  		print_stats("main"); 
+  	}
 
 	AssertWords(1,Continuation);
 	AssertWords(2,Handler);
 
 	const unsigned H = 1; // should be just 1, for the vtable
 
-	AssertWords(1,string);
+	//AssertWords(1,string);
 
 	AssertWords(H,Hob);
 	AssertWords(1+H,Value_outstream);
@@ -2369,7 +2387,7 @@ int main(unsigned argc, char* argv[]) {
 	AssertWords(2+H,Value_Array);
 	AssertWords(2+H,Value_Vector);
 	AssertWords(H,Value_unit);
-	AssertWords(1+H,Value_String);
+	//AssertWords(1+H,Value_String);
 	//AssertWords(1+H,Value_BoxInt);
 	AssertWords(1+H,Value_Word);
 	//AssertWords(1+H,Value_Char);
@@ -2384,7 +2402,7 @@ int main(unsigned argc, char* argv[]) {
 	AssertWords(1+H,Value_Con1);
 
 	AssertWords(3,SiCont);
-	AssertWords(4,SiClosure);
+	AssertWords(3,SiClosure);
 	AssertWords(1+H,Closure);
 	AssertWords(1+H,Value_Op1);
 	AssertWords(1+H,Value_Op2);
@@ -2414,8 +2432,10 @@ int main(unsigned argc, char* argv[]) {
 		}
 	}
 
-	char SpaceA[HeapSpaceSize];
-	char SpaceB[HeapSpaceSize];
+	//char SpaceA[HeapSpaceSize];
+	//char SpaceB[HeapSpaceSize];
+	char* SpaceA = new char[HeapSpaceSize];
+	char* SpaceB = new char[HeapSpaceSize];
 
 	HeapSpaceA = HeapSpace (SpaceA, SpaceA + HeapSpaceSize);
 	HeapSpaceB = HeapSpace (SpaceB, SpaceB + HeapSpaceSize);
@@ -2427,9 +2447,9 @@ int main(unsigned argc, char* argv[]) {
 	currentSpace = allocSpace;
 	HeapPointer = allocSpace.base;
 
-//  	if (debug) { 
-//  		print_stats("init"); 
-//  	}
+  	if (debug) { 
+  		print_stats("init"); 
+  	}
 
 	SetArg(0,command_args);
 	PushContinuation(//control_allocation,
