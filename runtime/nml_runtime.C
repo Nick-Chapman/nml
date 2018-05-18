@@ -2193,7 +2193,10 @@ Nword builtin_TextIO_flushOut(Nword) {
 }
 
 Nword builtin_TextIO_closeOut(Nword w) {
-	//NOT_YET;
+	//cout << "**builtin_closeOut: " << "??" << endl;
+	ostream& os = getOutstream(w);
+	ofstream& ofs = dynamic_cast<ofstream&>(os); //not all ostream are ofstream!
+	ofs.close();
 	return get_unit();
 }
 
