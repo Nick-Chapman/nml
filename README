@@ -1,7 +1,45 @@
-Resurrect nml from >10 years of slumber.
+nml -- Nick's ML
 
-Fixed runtime system to work for 64 bits.
-Fix link order to ensure runtime system is initiialized first.
+Resurrected from >10 years of slumber:
+- Fixed runtime system to work for 64 bits.
+- Begin cleanup/reorganization of code (move various things to: to-be-sorted)
 
-Get self compile working (using sml)
-Get self compile working (using boot/nux)
+
+The nml system is not quite a REPL. But a slightly more primitive beast which is directed by command line arguments to:
+(1) load an ML file
+(2) Execute a ML expression
+(3) Export an ML value representing a "main" program (of type: string list -> unit) to a file
+
+This explains the name "nux" which might mean: `Nml,Use/eXport'. (But this is useful enough!)
+
+
+Nux can be used like a top level:
+$ boot/nux.exe -x 'fun sqr x = x * x' -x 'sqr 7'
+$ boot/nux.exe 'predefined/nml_NonPrim.ML' -x 'open NonPrim; length (explode "something")'
+
+Or like a compiler:
+$ boot/nux.exe -x 'fn _ => print "Hello Nux!\n";' --export hello.C
+
+The generated C++ being compiled and linked thus:
+$ g++ -Wno-write-strings -Iruntime -c hello.C -o hello.o
+$ g++ runtime/nml_runtime.o hello.o -o hello.exe
+
+
+The nml system in written in ML; the code is in ML/*.ML
+Nml is bootstrapped using sml/nj; and can then self-compile. The Makefile defines the phases:
+
+	sml/nj + ML/*.ML compiling ML/*.ML --> boot/nux.C --> boot/nux.exe
+	boot/nux.exe compiling ML/*.ML     --> gen1/nux.C --> gen1/nux.exe
+	gen1/nux.exe compiling ML/*.ML     --> gen2/nux.C --> gen2/nux.exe
+
+(boot/nux.C is provided in case sml/nj is not available)
+
+
+There are currently some differences between: {boot,gen1}/nux.C
+I plan to investigate and hopefully eliminate.
+But the next stage of self-compilation is stable; no diffs except for the prompt string:
+
+$ diff gen[12]/nux.C
+< Nword n16_scon = g_mkString ("NML-gen1: ");
+---
+> Nword n16_scon = g_mkString ("NML-gen2: ");
