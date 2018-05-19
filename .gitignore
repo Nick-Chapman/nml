@@ -1,6 +1,6 @@
 *~
 *.exe
 *.o
-gen1/*.C
-gen2/*.C
-nfib/*.C
+gen1
+gen2
+nfib/nfib.C
