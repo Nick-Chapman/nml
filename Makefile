@@ -35,4 +35,7 @@ boot/nux.exe : runtime/nml_runtime.o boot/nux.o
 boot/nux.C: boot/nux.ml
 	echo 'use "boot/nux.ml";' | sml #sml/nj
 
+%.exe : runtime/nml_runtime.o %.o
+	g++ $^ -o $@ 
+
 
