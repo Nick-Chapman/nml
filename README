@@ -1,7 +1,7 @@
 Resurrect nml from >10 years of slumber.
 
-Fixed runtime system enough to get first example working.
-Instructions:
+Fixed runtime system to work for 64 bits.
+Fix link order to ensure runtime system is initiialized first.
 
-Install sml/nj
-$ run1.sh
+Get self compile working (using sml)
+Get self compile working (using boot/nux)

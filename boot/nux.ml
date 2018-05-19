@@ -1,7 +1,6 @@
-
 val preludeDir = "prelude/"
 fun prefixPrelude s = preludeDir^s
-val pervasives = map prefixPrelude ["pervasives.ML"]; (*["option.ML","either.ML"];*)
+val pervasives = map prefixPrelude ["pervasives.ML"]
 ;map use pervasives;
 val nml_sources = map (fn s => "ML/"^s)
 	[
@@ -37,17 +36,15 @@ val nml_sources = map (fn s => "ML/"^s)
 	 "IMP_HASH.ML"
 	 ]
 	
-(* load the code into NJ... *)
 ;map use nml_sources;
-
-(*----------------------------------------------------------------------*)
-(* nfib...... *)
 val prefixNML = "NML: ";
 use "bind.ML";
+
+
 Run.Nuse "predefined/nml_NonPrim.ML";
 Run.Nexec "open NonPrim";
 map Run.Nuse pervasives;
-Run.Nuse (prefixPrelude "PREL.ML");
-Run.Nexec "structure Prel = PREL();";
-Run.Nuse "examples/nfib.ML";
-Run.Nexport ",C/nfib.C" "nfib_top";
+map Run.Nuse nml_sources;
+Run.Nexec "val prefixNML = \"NML-boot: \";"; 
+Run.Nuse "bind.ML";
+Run.Nexport "boot/nux.C" "Run.nux";

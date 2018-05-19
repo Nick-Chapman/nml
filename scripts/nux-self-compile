@@ -1,5 +1,11 @@
-# using nux to make nux2
-go/nux predefined/nml_NonPrim.ML \
+#!/bin/bash
+exe=$1
+prefix=$2
+generatedC=$3
+mkdir -p $(dirname $generatedC)
+
+$exe \
+predefined/nml_NonPrim.ML \
 -x 'open NonPrim' \
 prelude/pervasives.ML \
 ML/CCODE.ML \
@@ -30,7 +36,7 @@ prelude/ASSOC.ML \
 prelude/QLAYOUT.ML \
 prelude/MISCLAY.ML \
 prelude/IMP_HASH.ML \
--x 'val prefixNML = "NML-squared: ";' \
+-x 'val prefixNML = "'$prefix': ";' \
 bind.ML \
 -x Run.nux \
---export ",C/nux2.C"
+--export $generatedC

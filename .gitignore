@@ -1,5 +1,6 @@
-runtime/nml_runtime.o
-go/*
-,C/*
-,obj/*
 *~
+*.exe
+*.o
+gen1/*.C
+gen2/*.C
+nfib/*.C
