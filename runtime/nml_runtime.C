@@ -668,8 +668,8 @@ void gc() {
 		hp += hob->bytes();
 	}
 
-	unsigned Q = currentSpace.top - currentSpace.base;
-	unsigned L = HeapPointer - allocSpace.base;
+	unsigned long Q = currentSpace.top - currentSpace.base;
+	unsigned long L = HeapPointer - allocSpace.base;
 
 	//cout << "***GC(" << gc_count << ")... ";
 	cout << Q << " -> " << L << " [" << (100*L/Q) << "%]" << endl;
