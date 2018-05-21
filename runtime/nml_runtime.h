@@ -15,32 +15,32 @@ class Hob;
 
 class Nword {
 private:
-	//unsigned _raw;
-	xint _raw;
-	Nword(xint raw) : _raw(raw) {}
+    //unsigned _raw;
+    xint _raw;
+    Nword(xint raw) : _raw(raw) {}
 public:
-	Nword(Hob* hob); // implicit conversion from Hob* pointer to Nword
-	Nword() {}; // default constructor - distinct from pointer
+    Nword(Hob* hob); // implicit conversion from Hob* pointer to Nword
+    Nword() {}; // default constructor - distinct from pointer
 public:
-	friend bool isPointer(Nword);
-	friend Hob* getPointer(Nword);
+    friend bool isPointer(Nword);
+    friend Hob* getPointer(Nword);
 public:
-	static Nword fromRawUnboxed(xint); // unboxed values, distinct from pointer
-	static Nword fromInt(int); 
-	static Nword fromUnsigned(unsigned);
-	static Nword fromChar(char);
+    static Nword fromRawUnboxed(xint); // unboxed values, distinct from pointer
+    static Nword fromInt(int);
+    static Nword fromUnsigned(unsigned);
+    static Nword fromChar(char);
 public:
-	static xint getRawUnboxed(Nword); //careful
-	static int getInt(Nword);
-	static unsigned getUnsigned(Nword);
-	static char getChar(Nword);
+    static xint getRawUnboxed(Nword); //careful
+    static int getInt(Nword);
+    static unsigned getUnsigned(Nword);
+    static char getChar(Nword);
 };
 
 class Ncode;
 typedef Ncode (*NcodeFP) (void);
 struct Ncode {
-	NcodeFP _fp;
-	explicit Ncode(NcodeFP fp) : _fp(fp) {}
+    NcodeFP _fp;
+    explicit Ncode(NcodeFP fp) : _fp(fp) {}
 };
 
 extern Nword TheProgram;
@@ -66,7 +66,7 @@ Nword g_DeTuple             (Nword,unsigned);
 
 Nword g_mkNum               (int);
 Nword g_mkWord              (unsigned);
-Nword g_mkChar				(char);
+Nword g_mkChar              (char);
 Nword g_mkString            (char*);
 Nword g_mkExname            (char*,unsigned);
 Nword g_mkExname            (char*,unsigned,Nword); // yuck, overloaded
@@ -74,7 +74,7 @@ Nword g_mkExname            (char*,unsigned,Nword); // yuck, overloaded
 Nword g_Copy                (Nword);
 Nword g_MakeCon              (unsigned tag,Nword);
 Nword g_MakeRef              (Nword);
-Nword g_con0				(unsigned tag,unsigned arity);
+Nword g_con0                (unsigned tag,unsigned arity);
 Nword g_unit                ();
 Nword g_stdOut              ();
 Nword g_MakeException        (char*);
@@ -89,26 +89,26 @@ void g_SetXcontFrameElem    (unsigned,Nword);
 Ncode g_returnWith          (Nword);
 Ncode g_raise               (Nword);
 
-Nword g_MakePap				(Nword func, unsigned num_early_args, unsigned num_remaining_args);
+Nword g_MakePap             (Nword func, unsigned num_early_args, unsigned num_remaining_args);
 
-SiCont* g_MakeSiCont		(char* name, Ncode code, unsigned frame_size);
-SiCont* g_MakeSiHandle		(char* name, Ncode code, unsigned frame_size); //identical except for allocation stats attribution
-SiClosure* g_MakeSiFn		(char* name, Ncode code, unsigned frame_size, unsigned num_args);
+SiCont* g_MakeSiCont        (char* name, Ncode code, unsigned frame_size);
+SiCont* g_MakeSiHandle      (char* name, Ncode code, unsigned frame_size); //identical except for allocation stats attribution
+SiClosure* g_MakeSiFn       (char* name, Ncode code, unsigned frame_size, unsigned num_args);
 
-Nword g_MakeTuple			(unsigned n);
-Nword g_MakeFn				(SiClosure* si);
-void g_PushContinuation		(SiCont* si);
-void g_PushHandler			(SiCont* si);
+Nword g_MakeTuple           (unsigned n);
+Nword g_MakeFn              (SiClosure* si);
+void g_PushContinuation     (SiCont* si);
+void g_PushHandler          (SiCont* si);
 
-#define m_MakeSiCont(frame_size,code)			(g_MakeSiCont(#code,Ncode(code),frame_size))
-#define m_MakeSiHandle(frame_size,code)			(g_MakeSiHandle(#code,Ncode(code),frame_size))
-#define m_MakeSiFn(frame_size,num_args,code)	(g_MakeSiFn(#code,Ncode(code),frame_size,num_args))
+#define m_MakeSiCont(frame_size,code)           (g_MakeSiCont(#code,Ncode(code),frame_size))
+#define m_MakeSiHandle(frame_size,code)         (g_MakeSiHandle(#code,Ncode(code),frame_size))
+#define m_MakeSiFn(frame_size,num_args,code)    (g_MakeSiFn(#code,Ncode(code),frame_size,num_args))
 
 typedef Nword               (*NwordOp1) (Nword);
 typedef Nword               (*NwordOp2) (Nword,Nword);
 typedef Nword               (*NwordOp3) (Nword,Nword,Nword);
 
-Nword g_CloseBuiltin_1		(char*,NwordOp1);
+Nword g_CloseBuiltin_1      (char*,NwordOp1);
 Nword g_CloseBuiltin_2      (char*,NwordOp2);
 Nword g_CloseBuiltin_3      (char*,NwordOp3);
 
@@ -167,18 +167,18 @@ Ncode callFunc(unsigned num_actual_args, Nword func);
 
 
 #define g_call_6(func,x0,x1,x2,x3,x4,x5) ( \
-	SetArg(0,x0), SetArg(1,x1), SetArg(2,x2), SetArg(3,x3), SetArg(4,x4), SetArg(5,x5), \
-	g_call(6,func) \
+    SetArg(0,x0), SetArg(1,x1), SetArg(2,x2), SetArg(3,x3), SetArg(4,x4), SetArg(5,x5), \
+    g_call(6,func) \
 )
 
 #define g_call_7(func,x0,x1,x2,x3,x4,x5,x6) ( \
-	SetArg(0,x0), SetArg(1,x1), SetArg(2,x2), SetArg(3,x3), SetArg(4,x4), SetArg(5,x5), SetArg(6,x6), \
-	g_call(7,func) \
+    SetArg(0,x0), SetArg(1,x1), SetArg(2,x2), SetArg(3,x3), SetArg(4,x4), SetArg(5,x5), SetArg(6,x6), \
+    g_call(7,func) \
 )
 
 #define g_call_8(func,x0,x1,x2,x3,x4,x5,x6,x7) ( \
-	SetArg(0,x0), SetArg(1,x1), SetArg(2,x2), SetArg(3,x3), SetArg(4,x4), SetArg(5,x5), SetArg(6,x6), SetArg(7,x7), \
-	g_call(8,func) \
+    SetArg(0,x0), SetArg(1,x1), SetArg(2,x2), SetArg(3,x3), SetArg(4,x4), SetArg(5,x5), SetArg(6,x6), SetArg(7,x7), \
+    g_call(8,func) \
 )
 
 //----------------------------------------------------------------------

@@ -81,7 +81,7 @@ sig
 	datatype outstream_descriptor = OSD'stdOut | OSD'stdErr | OSD'File of string
 
 	val value'instream	: instream_descriptor * TextIO.instream -> value
-	val instream'value	: string -> value -> TextIO.instream
+	val instream'value	: string -> value -> TextIO.instream  
 
 	val value'outstream : outstream_descriptor * TextIO.outstream -> value
 	val outstream'value : string -> value -> TextIO.outstream

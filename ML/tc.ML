@@ -71,31 +71,31 @@
   fun op -- (xs,ys) = filter (fn x => not (exists (curry op = x) ys)) xs
   fun op && (xs,ys) = xs @ (ys -- xs)
 
-	  
+
   fun parseThen PROG READER =
-	  let (*val U as () = echo ("***parsing...")*)
-		  val (pos,{eof},tdso) = READER()
-		  val U = if eof then () else abort ("***parser did not reach eof, pos="^sofPos pos)
-	  in case tdso of
-			 None => abort ("***parse-error, pos="^sofPos pos)
-		   | Some tds => PROG tds
-	  end
-		  
+      let (*val U as () = echo ("***parsing...")*)
+          val (pos,{eof},tdso) = READER()
+          val U = if eof then () else abort ("***parser did not reach eof, pos="^sofPos pos)
+      in case tdso of
+             None => abort ("***parse-error, pos="^sofPos pos)
+           | Some tds => PROG tds
+      end
+
   fun notYet s = abort ("notYet: tc: "^s)
 
   fun lay'id (ID x) = Word (case x of "*" => "* " | _ => x)
   fun lay'lab lab =
-	  case lab of
-		  LAB'Id id => lay'id id
-		| LAB'Num n => layInt n
+      case lab of
+          LAB'Id id => lay'id id
+        | LAB'Num n => layInt n
 
   (* dup from EMBED.ML *)
   fun leq'id (ID x1, ID x2) = (x1 <= x2)
   val leq'lab =
-	  fn (LAB'Num x1, LAB'Num x2) => (x1<=x2)
-	   | (LAB'Num _, LAB'Id _) => true
-	   | (LAB'Id _, LAB'Num _) => false
-	   | (LAB'Id x1, LAB'Id x2) => leq'id (x1,x2)
+      fn (LAB'Num x1, LAB'Num x2) => (x1<=x2)
+       | (LAB'Num _, LAB'Id _) => true
+       | (LAB'Id _, LAB'Num _) => false
+       | (LAB'Id x1, LAB'Id x2) => leq'id (x1,x2)
   fun leq'keyed leq ((k1,v1),(k2,v2)) = leq (k1,k2)
 
   fun tyrow'tuple tys = TYROW (map (fn (ty,n) => (LAB'Num n, ty)) (enumerateFrom 1 tys))
@@ -104,19 +104,19 @@
 
   (* dup from EMBED.ML *)
   fun vid'pat pat =
-	  case pat of
-		  PAT'Typed (pat,_)  => vid'pat pat
-		| PAT'Var (LONG([],vid)) => vid
-		| PAT'Var (LONG(_::_,vid)) => abort "vid'pat/long"
-		| _ => abort "vid'pat"
+      case pat of
+          PAT'Typed (pat,_)  => vid'pat pat
+        | PAT'Var (LONG([],vid)) => vid
+        | PAT'Var (LONG(_::_,vid)) => abort "vid'pat/long"
+        | _ => abort "vid'pat"
   val match'exp =
-	  fn EXP'Fn match => match
-	   | _ => abort "match'exo"
+      fn EXP'Fn match => match
+       | _ => abort "match'exo"
   fun xfs'valbind vb =
-	  case vb of		
-		  VALBIND'Rec vb => xfs'valbind vb (* 2nd inner rec ignored *)
-		| VALBIND'Seq (pat,exp,None) => [(vid'pat pat,match'exp exp)]
-		| VALBIND'Seq (pat,exp,Some vb) => (vid'pat pat,match'exp exp) :: xfs'valbind vb
+      case vb of
+          VALBIND'Rec vb => xfs'valbind vb (* 2nd inner rec ignored *)
+        | VALBIND'Seq (pat,exp,None) => [(vid'pat pat,match'exp exp)]
+        | VALBIND'Seq (pat,exp,Some vb) => (vid'pat pat,match'exp exp) :: xfs'valbind vb
 
 (*----------------------------------------------------------------------
 INDEX: source language generation - fvalbind (dup EMBED)
@@ -125,39 +125,39 @@ INDEX: source language generation - fvalbind (dup EMBED)
   fun exp'fnVid pos x body = EXP'Fn (MATCH (pos,[MRULE (PAT'Var (LONG ([],x)),body)]))
 
   fun exp'fnVids pos [] body = body
-	| exp'fnVids pos (x::xs) body = exp'fnVid pos x (exp'fnVids pos xs body)
+    | exp'fnVids pos (x::xs) body = exp'fnVid pos x (exp'fnVids pos xs body)
 
   fun mrule'clause (pats,tyo_IGNORED,exp) = MRULE (PAT'Tuple pats,exp)
 
 
   fun exp'fnPat pos pat body = EXP'Fn (MATCH (pos,[MRULE (pat,body)]))
   fun exp'fnPats pos [] body = body
-	| exp'fnPats pos (x::xs) body = exp'fnPat pos x (exp'fnPats pos xs body)
-									
+    | exp'fnPats pos (x::xs) body = exp'fnPat pos x (exp'fnPats pos xs body)
+
   fun exp'clauses prefix pos [] = abort "exp'clauses:[]"
 (*de-optimization!!
-	(* special case for 1 clause *)
-	| exp'clauses prefix pos [(pats,_,exp)] = exp'fnPats pos pats exp
+    (* special case for 1 clause *)
+    | exp'clauses prefix pos [(pats,_,exp)] = exp'fnPats pos pats exp
 *)
-	(* general cases for 2 or more clauses*)
-	| exp'clauses prefix pos (clauses as (pats,_,_)::_) =
-	  let (*val vids = genVids prefix (length pats)*)
-		  val vids = map (fn n => VID (ID (prefix^"-"^stringOfInt n))) (upto (1,length pats))
-	  in exp'fnVids pos vids
-		 (EXP'Case (EXP'Tuple (map (exp'vid pos) vids),
-					MATCH (pos,map mrule'clause clauses)))
-	  end
+    (* general cases for 2 or more clauses*)
+    | exp'clauses prefix pos (clauses as (pats,_,_)::_) =
+      let (*val vids = genVids prefix (length pats)*)
+          val vids = map (fn n => VID (ID (prefix^"-"^stringOfInt n))) (upto (1,length pats))
+      in exp'fnVids pos vids
+         (EXP'Case (EXP'Tuple (map (exp'vid pos) vids),
+                    MATCH (pos,map mrule'clause clauses)))
+      end
 
   fun valbind'pes [] = abort "valbind'pes[]"
-	| valbind'pes [(p,e)] = VALBIND'Seq (p,e,None)
-	| valbind'pes ((p,e)::pes) = VALBIND'Seq (p,e,Some(valbind'pes pes))
+    | valbind'pes [(p,e)] = VALBIND'Seq (p,e,None)
+    | valbind'pes ((p,e)::pes) = VALBIND'Seq (p,e,Some(valbind'pes pes))
 
   fun valbind'fvalbind (FVALBIND fs) =
-	  VALBIND'Rec 
-	  (valbind'pes
-	   (map (fn (pos,vid,clauses) => let val exp = exp'clauses (sof'vid vid) pos clauses
-									 in (PAT'Var (LONG ([],vid)), exp)
-									 end) fs))
+      VALBIND'Rec
+      (valbind'pes
+       (map (fn (pos,vid,clauses) => let val exp = exp'clauses (sof'vid vid) pos clauses
+                                     in (PAT'Var (LONG ([],vid)), exp)
+                                     end) fs))
 
 (*----------------------------------------------------------------------
 INDEX: err -  like option, but with a string
@@ -168,34 +168,34 @@ INDEX: err -  like option, but with a string
 INDEX: zip'rows
 ----------------------------------------------------------------------*)
   val zip'rows : (lab*'a) list * (lab*'b) list -> (lab*('a*'b)) list err
-	= fn (row1,row2) =>
-		 let fun loop acc [] [] = Okay (rev acc)
-			   | loop acc ((lab,x)::row1) ((lab2,y)::row2) = if (eq'lab lab lab2) then loop ((lab,(x,y))::acc) row1 row2 
-															 else Err (sof'lab lab ^ "/" ^ sof'lab lab2)
-			   | loop _ [] (_::_) = Err "[]/::"
-			   | loop _ (_::_) [] = Err "::/[]"
-			 val row1' = Sort.sort (leq'keyed leq'lab) row1
-			 val row2' = Sort.sort (leq'keyed leq'lab) row2
-		 in loop [] row1' row2'
-		 end
+    = fn (row1,row2) =>
+         let fun loop acc [] [] = Okay (rev acc)
+               | loop acc ((lab,x)::row1) ((lab2,y)::row2) = if (eq'lab lab lab2) then loop ((lab,(x,y))::acc) row1 row2
+                                                             else Err (sof'lab lab ^ "/" ^ sof'lab lab2)
+               | loop _ [] (_::_) = Err "[]/::"
+               | loop _ (_::_) [] = Err "::/[]"
+             val row1' = Sort.sort (leq'keyed leq'lab) row1
+             val row2' = Sort.sort (leq'keyed leq'lab) row2
+         in loop [] row1' row2'
+         end
 
 (*----------------------------------------------------------------------
 INDEX: optTupleRow
 ----------------------------------------------------------------------*)
   val optTupleRow : (lab*'a) list -> 'a list option
-	= fn row =>
-		 let fun loop acc [] = Some (rev acc)
-			   | loop acc (((lab,x),n)::row) = if (eq'lab lab (LAB'Num n)) then loop (x::acc) row
-											   else None
-		 in loop [] (enumerateFrom 1 (Sort.sort (leq'keyed leq'lab) row))
-		 end
+    = fn row =>
+         let fun loop acc [] = Some (rev acc)
+               | loop acc (((lab,x),n)::row) = if (eq'lab lab (LAB'Num n)) then loop (x::acc) row
+                                               else None
+         in loop [] (enumerateFrom 1 (Sort.sort (leq'keyed leq'lab) row))
+         end
 
 (*----------------------------------------------------------------------
 INDEX: lang - general fold ops
 ----------------------------------------------------------------------*)
 
   fun fold'ty {V,T} acc ty =
-	  case ty
+      case ty
        of TY'Var x                  => V acc x
         | TY'Record (TYROW xs)      => fold (fn acc => fn (lab,exp) => T acc exp) acc xs
         | TY'Con (tys,ltc)          => fold T acc tys
@@ -203,7 +203,7 @@ INDEX: lang - general fold ops
         | TY'Func (ty1,ty2)         => T (T acc ty1) ty2
 
   fun fold'pat {T,P} acc pat =
-      case pat 
+      case pat
        of PAT'Wild                      => acc
         | PAT'Scon scon                 => acc
         | PAT'Var x                     => acc
@@ -220,8 +220,8 @@ INDEX: lang - general fold ops
         fn MATCH (pos,mrules) => fold (fn acc => fn MRULE (pat,exp) => E (P acc pat) exp) acc mrules
 
   fun fold'exp {T,P,E,D} acc exp =
-      case exp 
-	   of EXP'Scon _				=> acc
+      case exp
+       of EXP'Scon _                => acc
         | EXP'Var (x,pos)           => acc
         | EXP'Record (EXPROW xs)    => fold (fn acc => fn (lab,exp) => E acc exp) acc xs
         | EXP'Select (pos,lab)      => acc
@@ -244,12 +244,12 @@ INDEX: lang - general fold ops
 
   fun fold'valbind P E acc vb =
       case vb
-	   of VALBIND'Seq (pat,exp,None)    => E (P acc pat) exp
+       of VALBIND'Seq (pat,exp,None)    => E (P acc pat) exp
         | VALBIND'Seq (pat,exp,Some vb) => fold'valbind P E (E (P acc pat) exp) vb
         | VALBIND'Rec vb                => fold'valbind P E acc vb
 
   fun fold'exbind1 T acc b =
-	  case b 
+      case b
        of EXBIND1'New (vid,Some ty) => T acc ty
         | EXBIND1'New (vid,None)    => acc
         | EXBIND1'Copy (vid,longY)  => acc
@@ -260,7 +260,7 @@ INDEX: lang - general fold ops
         | DEC'Fval fb               => acc
         | DEC'Type typbind          => acc
         | DEC'Datatype (db,tbo)     => acc
-        | DEC'DataReplicate (a,b)	=> acc
+        | DEC'DataReplicate (a,b)   => acc
         | DEC'Abstype (db,tbo,dec)  => D acc dec
         | DEC'Exception (EXBIND bs) => fold (fold'exbind1 T) acc bs
         | DEC'Local (dec1,dec2)     => D (D acc dec1) dec2
@@ -268,15 +268,15 @@ INDEX: lang - general fold ops
         | DEC'Empty                 => acc
         | DEC'Seq (dec1,dec2)       => D (D acc dec1) dec2
 
-	  local
+      local
           fun V acc x   = if exists (eq'tyvar x) acc then acc else x :: acc
           fun T acc ty  = fold'ty {T = T, V = V} acc ty
           fun P acc pat = fold'pat {T=T,P=P} acc pat
           fun D acc dec = fold'dec {T=T,D=D} acc dec
           fun E acc exp = fold'exp {T=T,P=P,E=E,D=D} acc exp
       in
-	  val unguarded'vb = fold'valbind P E []
-	  val tyvars'ty = T []
+      val unguarded'vb = fold'valbind P E []
+      val tyvars'ty = T []
       end
 
 (*----------------------------------------------------------------------
@@ -304,12 +304,12 @@ INDEX: tor - computed types
 ----------------------------------------------------------------------*)
 
   datatype tor
-	= TOR'Ut	of ut
-	| TOR'Rigid of tyvar (* ascribed tyvar *)
-	| TOR'Arrow of tor * tor
-	| TOR'Row	of (lab * tor) list
-	| TOR'Cons  of tname * tor list
-				  
+    = TOR'Ut    of ut
+    | TOR'Rigid of tyvar (* ascribed tyvar *)
+    | TOR'Arrow of tor * tor
+    | TOR'Row   of (lab * tor) list
+    | TOR'Cons  of tname * tor list
+
   val tor'ut    = TOR'Ut
   val tor'rigid = TOR'Rigid
   val tor'arrow = TOR'Arrow
@@ -345,17 +345,17 @@ INDEX: tor - computed types
                          | TOR'Row xs           => TOR'Row (map (fn (lab,tor) => (lab,TOR tor)) xs)
                          | TOR'Cons (tname,tors)=> TOR'Cons (tname,map TOR tors)
       in TOR
-	  end
+      end
 
   fun mapUt'tor UT = mapUtRigid'tor UT TOR'Rigid
 
   fun optMapUt'tor O_UT = (* chance for optimization here - dont build new structure when None *)
-	  mapUt'tor (fn ut => case (O_UT ut) of Some tor => tor | None => tor'ut ut)
+      mapUt'tor (fn ut => case (O_UT ut) of Some tor => tor | None => tor'ut ut)
 
   fun mapRigid'tor RIGID = mapUtRigid'tor tor'ut RIGID
 
   fun optMapRigid'tor O_RIGID = (* chance for optimization here - dont build new structure when None *)
-	  mapRigid'tor (fn rigid => case (O_RIGID rigid) of Some tor => tor | None => TOR'Rigid rigid)
+      mapRigid'tor (fn rigid => case (O_RIGID rigid) of Some tor => tor | None => TOR'Rigid rigid)
 
   fun existsUt'tor UT =
       let val rec TOR = fn TOR'Ut ut            => UT ut
@@ -364,50 +364,50 @@ INDEX: tor - computed types
                          | TOR'Row xs           => exists (fn (_,tor) => TOR tor) xs
                          | TOR'Cons (_,tors)    => exists TOR tors
       in TOR
-	  end
+      end
 
   fun lay'tor_UT UT tor =
-	  let fun Bracket0 b x = if (b>0) then layBracket x else x
-		  fun Bracket1 b x = if (b>1) then layBracket x else x
-		  fun TOR b =
+      let fun Bracket0 b x = if (b>0) then layBracket x else x
+          fun Bracket1 b x = if (b>1) then layBracket x else x
+          fun TOR b =
               fn TOR'Ut ut              => UT ut
                | TOR'Rigid tyvar        => Word (sof'rigid tyvar)
                | TOR'Arrow (tor1,tor2)  => Bracket0 b (TOR 1 tor1 ++ Word "->" ++ TOR 0 tor2)
                | TOR'Row xs             => (case (optTupleRow xs)
-											 of Some [] => Word "unit"
-											  | Some tors => Bracket1 b (layListSep (Word "*") (map (TOR 2) tors))
-											  | None => layBrace (layListSep
-																  (Right ",")
-																  (map (fn (lab,tor) => lay'lab lab ++ Right ":" ++ TOR 0 tor)
-																	   xs)))
+                                             of Some [] => Word "unit"
+                                              | Some tors => Bracket1 b (layListSep (Word "*") (map (TOR 2) tors))
+                                              | None => layBrace (layListSep
+                                                                  (Right ",")
+                                                                  (map (fn (lab,tor) => lay'lab lab ++ Right ":" ++ TOR 0 tor)
+                                                                       xs)))
                | TOR'Cons (tname,tors)  => (case tors of [] => Blank
-													   | [tor] => TOR 2 tor
-													   | _ => layTuple (map (TOR 0) tors))
-										   ++ Word (sof'tname tname)
+                                                       | [tor] => TOR 2 tor
+                                                       | _ => layTuple (map (TOR 0) tors))
+                                           ++ Word (sof'tname tname)
       in TOR 0 tor
-	  end
+      end
 
   local fun collect acc tor =
-			case tor
+            case tor
              of TOR'Ut ut               => if exists (eq'ut ut) acc then acc else ut :: acc
               | TOR'Rigid _             => acc
               | TOR'Arrow (tor1,tor2)   => collect (collect acc tor1) tor2
               | TOR'Row xs              => fold (fn acc => fn (lab,tor) => collect acc tor) acc xs
-			  | TOR'Cons (_,tors)		=> fold collect acc tors
+              | TOR'Cons (_,tors)       => fold collect acc tors
   in fun utsOf'tor tor = rev (collect [] tor)
-	 fun utsOf'tors tors = rev (fold collect [] tors)
+     fun utsOf'tors tors = rev (fold collect [] tors)
   end
 
 (*----------------------------------------------------------------------
 INDEX: scon
 ----------------------------------------------------------------------*)
   fun tor'scon scon =
-	  case scon of
-		  SCON'Num n	=> tor'int
-		| SCON'Word w	=> notYet "scon/word"
-		| SCON'Real r	=> notYet "scon/real"
-		| SCON'Char c	=> tor'char
-		| SCON'String s => tor'string
+      case scon of
+          SCON'Num n    => tor'int
+        | SCON'Word w   => notYet "scon/word"
+        | SCON'Real r   => notYet "scon/real"
+        | SCON'Char c   => tor'char
+        | SCON'String s => tor'string
 
 (*----------------------------------------------------------------------
 INDEX: sub
@@ -421,10 +421,10 @@ INDEX: sub
 
   (*fun sub'listPairs pairs = fold (curry compose'sub) empty'sub (map unit'sub pairs) - NO - must be simultaneous *)
   fun sub'listPairs pairs =
-	  fold (fn sub => 
-			   fn (v,tor) => 
-				  Sub (fn v2 => if (v=v2) then tor else deSub sub v2)
-				  ) empty'sub pairs
+      fold (fn sub =>
+               fn (v,tor) =>
+                  Sub (fn v2 => if (v=v2) then tor else deSub sub v2)
+                  ) empty'sub pairs
 
 (*----------------------------------------------------------------------
 INDEX: unification abstraction
@@ -434,18 +434,18 @@ INDEX: unification abstraction
 
   fun resultUni a = Uni (fn sub => Okay (sub,a))
 
-  fun bindUni (Uni f, M) = 
-	  Uni (fn sub => 
-			  case (f sub) 
-			   of Err s => Err s
-				| Okay (sub,a) => deUni (M a) sub)
-	  
+  fun bindUni (Uni f, M) =
+      Uni (fn sub =>
+              case (f sub)
+               of Err s => Err s
+                | Okay (sub,a) => deUni (M a) sub)
+
   fun execUni (Uni f) = case (f empty'sub) of Err s => Err s | Okay (_,a) => Okay a
 
   fun failUni s = Uni (fn _ => Err s)
 
   fun makeSubUni sub1 =
-	  Uni (fn sub => Okay (compose'sub (sub1,sub), ()))
+      Uni (fn sub => Okay (compose'sub (sub1,sub), ()))
 
   val theSubUni = Uni (fn sub => Okay (sub,sub))
 
@@ -460,7 +460,7 @@ INDEX: unification abstraction
   val joinListUni = fold (curry op -$$) (resultUni ())
 
   fun linkUni [] = resultUni []
-	| linkUni (u::us) = u >> (fn x => linkUni us >> (fn xs => resultUni (x::xs)))
+    | linkUni (u::us) = u >> (fn x => linkUni us >> (fn xs => resultUni (x::xs)))
 
   val err2uni = fn Okay x => resultUni x | Err s => failUni s
 
@@ -475,22 +475,22 @@ INDEX: unification of types
   fun occurs v = existsUt'tor (fn v' =>v=v')
 
   fun unifyTT (tor1,tor2) =
-	  refineTorUni tor1 >> (fn tor1 =>
-	  refineTorUni tor2 >> (fn tor2 =>
-		  case (tor1,tor2)
-		   of (TOR'Ut ut1,TOR'Ut ut2)	=> if (ut1=ut2) then resultUni () else makeSubUni (unit'sub (ut1,tor'ut ut2))
-			| (TOR'Ut ut,tor)			=> if (occurs ut tor) then failUni "v/occ" else makeSubUni (unit'sub (ut,tor))
-			| (tor,TOR'Ut ut)			=> if (occurs ut tor) then failUni "occ/v" else makeSubUni (unit'sub (ut,tor))
-			| (TOR'Cons (n1,ts1),TOR'Cons (n2,ts2)) => if (eq'tname n1 n2) 
-													   then joinListUni (map unifyTT (zipPair ts1 ts2))
-													   else failUni ("tname:"^sof'tname n1^"/"^sof'tname n2)
-			| (TOR'Arrow (a1,b1),TOR'Arrow (a2,b2)) => unifyTT (a1,a2) -$$ unifyTT (b1,b2)
-			| (TOR'Row row1, TOR'Row row2) => (case (zip'rows (row1,row2))
-												of Err s => failUni ("row:"^s)
-												 | Okay zipped => joinListUni (map (fn (_,tt) => unifyTT tt) zipped))
-			| (TOR'Rigid s1, TOR'Rigid s2)=> if (s1=s2) then resultUni () else failUni ("rigid:"^sof'rigid s1^"/"^sof'rigid s2)
-			| _ => 
-			  failUni (brief_sof'tor tor1 ^ "/" ^ brief_sof'tor tor2)))
+      refineTorUni tor1 >> (fn tor1 =>
+      refineTorUni tor2 >> (fn tor2 =>
+          case (tor1,tor2)
+           of (TOR'Ut ut1,TOR'Ut ut2)   => if (ut1=ut2) then resultUni () else makeSubUni (unit'sub (ut1,tor'ut ut2))
+            | (TOR'Ut ut,tor)           => if (occurs ut tor) then failUni "v/occ" else makeSubUni (unit'sub (ut,tor))
+            | (tor,TOR'Ut ut)           => if (occurs ut tor) then failUni "occ/v" else makeSubUni (unit'sub (ut,tor))
+            | (TOR'Cons (n1,ts1),TOR'Cons (n2,ts2)) => if (eq'tname n1 n2)
+                                                       then joinListUni (map unifyTT (zipPair ts1 ts2))
+                                                       else failUni ("tname:"^sof'tname n1^"/"^sof'tname n2)
+            | (TOR'Arrow (a1,b1),TOR'Arrow (a2,b2)) => unifyTT (a1,a2) -$$ unifyTT (b1,b2)
+            | (TOR'Row row1, TOR'Row row2) => (case (zip'rows (row1,row2))
+                                                of Err s => failUni ("row:"^s)
+                                                 | Okay zipped => joinListUni (map (fn (_,tt) => unifyTT tt) zipped))
+            | (TOR'Rigid s1, TOR'Rigid s2)=> if (s1=s2) then resultUni () else failUni ("rigid:"^sof'rigid s1^"/"^sof'rigid s2)
+            | _ =>
+              failUni (brief_sof'tor tor1 ^ "/" ^ brief_sof'tor tor2)))
 
 (*----------------------------------------------------------------------
 INDEX: tscheme
@@ -499,14 +499,14 @@ INDEX: tscheme
   fun tscheme'cons uts tor = Tscheme (uts,tor)
 
   fun sof'UtInt n = "'" ^
-					(if n<26 then implode [chr (ord #"a" + n)]
-					 else "ut_" ^ stringOfInt n)
+                    (if n<26 then implode [chr (ord #"a" + n)]
+                     else "ut_" ^ stringOfInt n)
 
   fun lay'tscheme (Tscheme (uts,tor)) =
-	  let val assoc = assoc'list (enumerateFrom 0 uts)
-		  fun UT ut = Word (case (lookup'assoc assoc ut) of Some n => sof'UtInt n | None => sof'ut ut)
-	  in (*laySqBracket (layCommaSep (map UT uts)) ++ *) lay'tor_UT UT tor
-	  end
+      let val assoc = assoc'list (enumerateFrom 0 uts)
+          fun UT ut = Word (case (lookup'assoc assoc ut) of Some n => sof'UtInt n | None => sof'ut ut)
+      in (*laySqBracket (layCommaSep (map UT uts)) ++ *) lay'tor_UT UT tor
+      end
 
   fun tor'tscheme (Tscheme (_::_,tor)) = abort "tor'tscheme/::"
     | tor'tscheme (Tscheme ([],tor)) = tor
@@ -515,17 +515,17 @@ INDEX: tscheme
 
   fun tscheme'close sub scoped contextUts tor =
       let
-		  val tor = refineTor sub tor
-		  val a = assoc'list (map (fn rigid => (rigid, tor'ut (genUt()))) scoped)
-		  val tor = optMapRigid'tor (fn rigid => find'assoc a (eq'tyvar rigid)) tor
+          val tor = refineTor sub tor
+          val a = assoc'list (map (fn rigid => (rigid, tor'ut (genUt()))) scoped)
+          val tor = optMapRigid'tor (fn rigid => find'assoc a (eq'tyvar rigid)) tor
           (*val uts = utsOf'tor tor -- contextUts*)
           val uts = utsOf'tor tor -- utsOf'tors (map (refineTor sub o TOR'Ut) contextUts)
       in Tscheme (uts,tor)
       end
 
   fun instance'tscheme (Tscheme (uts,tor)) =
-	  let val a = assoc'list (map (fn ut => (ut, tor'ut (genUt()))) uts)
-	  in optMapUt'tor (fn ut => find'assoc a (eq'ut ut)) tor
+      let val a = assoc'list (map (fn ut => (ut, tor'ut (genUt()))) uts)
+      in optMapUt'tor (fn ut => find'assoc a (eq'ut ut)) tor
       end
 
 (*----------------------------------------------------------------------
@@ -549,17 +549,17 @@ INDEX: valenv
   fun utsOf'valenv (VALENV a) = (* dups ok *)
       linkMap (fn (_,(tscheme,_)) => utsOf'tscheme tscheme) (list'assoc a)
 
-  fun valenv'close sub scoped contextUts (VALENV a) = 
+  fun valenv'close sub scoped contextUts (VALENV a) =
       VALENV (mapV'assoc (fn (tscheme,ids) => (tscheme'close sub scoped contextUts (tor'tscheme tscheme),ids)) a)
 
   fun lay'valenv (VALENV assoc) =
-	  layVert
-	  (map (fn (vid,(tscheme,IGNORED_ids)) =>
-			   case (*ids*) Basis.IDSTATUS'V
-				of Basis.IDSTATUS'V => Word "val" ++ lay'vid vid ++ Word ":" ++ lay'tscheme tscheme
-				 | Basis.IDSTATUS'C => Word "con" ++ lay'vid vid
-				 | Basis.IDSTATUS'E => Word "excon" ++ lay'vid vid
-			   ) (revList'assoc assoc))
+      layVert
+      (map (fn (vid,(tscheme,IGNORED_ids)) =>
+               case (*ids*) Basis.IDSTATUS'V
+                of Basis.IDSTATUS'V => Word "val" ++ lay'vid vid ++ Word ":" ++ lay'tscheme tscheme
+                 | Basis.IDSTATUS'C => Word "con" ++ lay'vid vid
+                 | Basis.IDSTATUS'E => Word "excon" ++ lay'vid vid
+               ) (revList'assoc assoc))
 
 (*----------------------------------------------------------------------
 INDEX: typefun
@@ -590,10 +590,10 @@ INDEX: tyenv
 
 
   fun lay'tyenv (TYENV assoc) =
-	  layVert
-	  (map (fn (tycon,tystr) => 
-			   Word "type" ++ lay'tycon tycon ++ Word "=" ++ lay'tystr tystr
-			   ) (revList'assoc assoc))
+      layVert
+      (map (fn (tycon,tystr) =>
+               Word "type" ++ lay'tycon tycon ++ Word "=" ++ lay'tystr tystr
+               ) (revList'assoc assoc))
 
 (*----------------------------------------------------------------------
 INDEX: strenv, env
@@ -618,21 +618,21 @@ INDEX: strenv, env
 
   val env'empty = ENV (strenv'empty,tyenv'empty,valenv'empty)
   fun env'plus (ENV (se1,te1,ve1)) (ENV (se2,te2,ve2)) =
-	  let val se = strenv'plus se1 se2
-		  val te = tyenv'plus te1 te2
-		  val ve = valenv'plus ve1 ve2
-	  in ENV (se,te,ve)
-	  end
+      let val se = strenv'plus se1 se2
+          val te = tyenv'plus te1 te2
+          val ve = valenv'plus ve1 ve2
+      in ENV (se,te,ve)
+      end
 
   fun lay'strenv lay'env (STRENV assoc) =
-	  layVert
-	  (map (fn (strid,env) =>
-			   Word "structure" ++ lay'strid strid ++ Word "=" 
-					//`` (Word "struct" //`` lay'env env // Word "end")
-			   ) (revList'assoc assoc))
+      layVert
+      (map (fn (strid,env) =>
+               Word "structure" ++ lay'strid strid ++ Word "="
+                    //`` (Word "struct" //`` lay'env env // Word "end")
+               ) (revList'assoc assoc))
 
   fun lay'env (ENV (s,t,v)) =
-	  lay'strenv lay'env s // lay'tyenv t // lay'valenv v
+      lay'strenv lay'env s // lay'tyenv t // lay'valenv v
 
 (*----------------------------------------------------------------------
 INDEX: tvscoped
@@ -654,11 +654,11 @@ INDEX: context
   fun context'tvscoped tvscoped = CONTEXT (env'empty,tvscoped)
   fun tvscoped'context (CONTEXT (_,tvscoped)) = tvscoped
 
-  fun context'plus (CONTEXT (env1,tvs1)) (CONTEXT (env2,tvs2)) = 
-	  let val env = env'plus env1 env2
-		  val tvs = tvscoped'plus tvs1 tvs2
-	  in CONTEXT (env,tvs)
-	  end
+  fun context'plus (CONTEXT (env1,tvs1)) (CONTEXT (env2,tvs2)) =
+      let val env = env'plus env1 env2
+          val tvs = tvscoped'plus tvs1 tvs2
+      in CONTEXT (env,tvs)
+      end
 
   val strenv'context = strenv'env o env'context
   val tyenv'context = tyenv'env o env'context
@@ -677,39 +677,39 @@ INDEX: bool,list - fromcontext
 ----------------------------------------------------------------------*)
 
   fun tor'bool context =
-	  let val tc = TYCON (ID "bool") (* maybe better to find this is special structure *)
-		  val tf = typefun'tystr (look'tycon (tyenv'context context) tc)
-	  in err2uni (apply'typefun tf [])
-	  end
+      let val tc = TYCON (ID "bool") (* maybe better to find this is special structure *)
+          val tf = typefun'tystr (look'tycon (tyenv'context context) tc)
+      in err2uni (apply'typefun tf [])
+      end
 
   fun tor'list context =
-	  let val tc = TYCON (ID "list") (* maybe better to find this is special structure *)
-		  val tf = typefun'tystr (look'tycon (tyenv'context context) tc)
-	  in fn t => err2uni (apply'typefun tf [t])
-	  end
+      let val tc = TYCON (ID "list") (* maybe better to find this is special structure *)
+          val tf = typefun'tystr (look'tycon (tyenv'context context) tc)
+      in fn t => err2uni (apply'typefun tf [t])
+      end
 
 (*----------------------------------------------------------------------
 INDEX: tyrow, ty
 ----------------------------------------------------------------------*)
   fun tc'tyrow T tyrow =
-	  case tyrow of
-		  TYROW xs => linkUni (map (fn (lab,ty) => T ty >>> (fn tor => (lab, tor))) xs) >>> tor'row
+      case tyrow of
+          TYROW xs => linkUni (map (fn (lab,ty) => T ty >>> (fn tor => (lab, tor))) xs) >>> tor'row
 
 
   fun tc'ty TV (tyenv,ty) =
-	  let val rec T = 
-			  fn TY'Var tyvar              => err2uni (TV tyvar)
-			   | TY'Record tyrow           => tc'tyrow T tyrow
-			   | TY'Con (tys,LONG([],tc))  => linkUni (map T tys) >>
-													  (fn tors =>
-														  case (apply'typefun (typefun'tystr (look'tycon tyenv tc)) tors)
-														   of Err s => failUni s
-															| Okay tor => resultUni tor)
-			   | TY'Con (tys,ltc)          => notYet "ty/long-tc"
-			   | TY'Tuple tys              => tc'tyrow T (tyrow'tuple tys)
-			   | TY'Func (ty1,ty2)         => (T ty1 ** T ty2) >>> tor'arrow
-	  in T ty
-	  end
+      let val rec T =
+              fn TY'Var tyvar              => err2uni (TV tyvar)
+               | TY'Record tyrow           => tc'tyrow T tyrow
+               | TY'Con (tys,LONG([],tc))  => linkUni (map T tys) >>
+                                                      (fn tors =>
+                                                          case (apply'typefun (typefun'tystr (look'tycon tyenv tc)) tors)
+                                                           of Err s => failUni s
+                                                            | Okay tor => resultUni tor)
+               | TY'Con (tys,ltc)          => notYet "ty/long-tc"
+               | TY'Tuple tys              => tc'tyrow T (tyrow'tuple tys)
+               | TY'Func (ty1,ty2)         => (T ty1 ** T ty2) >>> tor'arrow
+      in T ty
+      end
 
 (*----------------------------------------------------------------------
 INDEX: tc schemes
@@ -725,39 +725,39 @@ INDEX: patrow
 
   fun tc'patrow (P:P) (context,PATROW (xs,{wildcard=Some pos})) = notYet ("tc'patrow/wildcard: "^Pos.sofPos pos)
     | tc'patrow (P:P) (context,PATROW (xs,{wildcard=None})) =
-	  linkUni (map (fn (lab,pat) => P (context,pat) >>> (fn (tor,ve) => ((lab,tor),ve))) xs)
-	  >>> unzip
-	  >>> (fn (ys,ves) => (tor'row ys, valenv'plusList ves))
+      linkUni (map (fn (lab,pat) => P (context,pat) >>> (fn (tor,ve) => ((lab,tor),ve))) xs)
+      >>> unzip
+      >>> (fn (ys,ves) => (tor'row ys, valenv'plusList ves))
 
   fun tc'pats (P:P) (context,pats) =
-	  linkUni (map (fn pat => P (context,pat)) pats)
-	  >>> unzip
-	  >>> (fn (ys,ves) => (ys, valenv'plusList ves))
+      linkUni (map (fn pat => P (context,pat)) pats)
+      >>> unzip
+      >>> (fn (ys,ves) => (ys, valenv'plusList ves))
 
 (*----------------------------------------------------------------------
 INDEX: pat
 ----------------------------------------------------------------------*)
 
   fun tc'var context x =
-	  case (case (lookup'vid (valenv'context context) x)
-			 of None => None
-			  | Some (_,IDS'V) => None
-			  | Some (tscheme,_) => Some tscheme)
-	   of None => let val tor = tor'ut (genUt())
-					  val valenv = valenv'single (x,(tscheme'cons [] tor,IDS'V))
-				  in (tor,valenv)
-				  end
-		| Some tscheme => let val tor = instance'tscheme tscheme
-						  in (tor,valenv'empty)
-						  end
+      case (case (lookup'vid (valenv'context context) x)
+             of None => None
+              | Some (_,IDS'V) => None
+              | Some (tscheme,_) => Some tscheme)
+       of None => let val tor = tor'ut (genUt())
+                      val valenv = valenv'single (x,(tscheme'cons [] tor,IDS'V))
+                  in (tor,valenv)
+                  end
+        | Some tscheme => let val tor = instance'tscheme tscheme
+                          in (tor,valenv'empty)
+                          end
 
   fun tc'cons context x =
-	  case (lookup'vid (valenv'context context) x)
-	   of None => failUni ("cons/unbound/"^sof'vid x)
-		| Some (_,IDS'V) => failUni ("cons/V/"^sof'vid x)
-		| Some (tscheme,_) => let val tor = instance'tscheme tscheme
-							  in resultUni (tor,valenv'empty)
-							  end
+      case (lookup'vid (valenv'context context) x)
+       of None => failUni ("cons/unbound/"^sof'vid x)
+        | Some (_,IDS'V) => failUni ("cons/V/"^sof'vid x)
+        | Some (tscheme,_) => let val tor = instance'tscheme tscheme
+                              in resultUni (tor,valenv'empty)
+                              end
 
 
   val TV = (Okay o TOR'Rigid)
@@ -774,20 +774,20 @@ INDEX: pat
         | PAT'Unit                  => resultUni (tor'unit,valenv'empty)
         | PAT'Tuple pats            => tc'patrow P (context,patrow'tuple pats)
         | PAT'List pats             => let val t1 = tor'ut (genUt())
-									   in tc'pats P (context,pats) >> (fn (tors,valenv) =>
-										   joinListUni (map (fn t2 => unifyTT (t1,t2)) tors) -$$
-										   tor'list context t1 >>> (fn list_t1 => (list_t1, valenv)))
-									   end
+                                       in tc'pats P (context,pats) >> (fn (tors,valenv) =>
+                                           joinListUni (map (fn t2 => unifyTT (t1,t2)) tors) -$$
+                                           tor'list context t1 >>> (fn list_t1 => (list_t1, valenv)))
+                                       end
         | PAT'Cons (LONG ([],x),pat)=> let val tor = tor'ut (genUt())
                                        in  tc'cons context x >> (fn (tor1,valenv1) =>
                                            P (context,pat) >> (fn (tor2,valenv2) =>
-                                           unifyTT (tor1, tor'arrow (tor2,tor)) 
-										   -$$ resultUni (tor, valenv'plus valenv1 valenv2)))
+                                           unifyTT (tor1, tor'arrow (tor2,tor))
+                                           -$$ resultUni (tor, valenv'plus valenv1 valenv2)))
                                        end
         | PAT'Cons (x,pat)          => notYet "pat/cons/long"
         | PAT'Typed (pat,ty)        => P (context,pat) >> (fn res as (t1,valenv) =>
-									   T TV (tyenv'context context, ty) >> (fn t2 =>
-									   unifyTT (t1,t2) -$$ resultUni res))
+                                       T TV (tyenv'context context, ty) >> (fn t2 =>
+                                       unifyTT (t1,t2) -$$ resultUni res))
         | PAT'Layered (vid,tyo,pat) => notYet "pat/layered"
 
 (*----------------------------------------------------------------------
@@ -795,11 +795,11 @@ INDEX: mrule
 ----------------------------------------------------------------------*)
   fun tc'mrule (P:P) (E:E) (context,mrule) =
       case mrule
-       of MRULE (pat,exp) => 
-		  P (context,pat) >> (fn (tor1,valenv1) =>
-		  let val context = context'plus context (context'valenv valenv1)
-		  in E (context,exp) >>> (fn tor2 => tor'arrow (tor1,tor2))
-		  end)
+       of MRULE (pat,exp) =>
+          P (context,pat) >> (fn (tor1,valenv1) =>
+          let val context = context'plus context (context'valenv valenv1)
+          in E (context,exp) >>> (fn tor2 => tor'arrow (tor1,tor2))
+          end)
 
 (*----------------------------------------------------------------------
 INDEX: match
@@ -807,15 +807,15 @@ INDEX: match
   fun tc'match (P:P) (E:E) (context,match) =
       case match
        of MATCH (pos,[]) => abort "tc'match/[]"
-        | MATCH (pos,mrule1::mrules) => 
-		  tc'mrule P E (context,mrule1) >> (fn t1 =>
-		  joinListUni (map (fn mrule => tc'mrule P E (context,mrule) >> (fn t2 => unifyTT (t1,t2))) mrules) -$$
-		  resultUni t1)
+        | MATCH (pos,mrule1::mrules) =>
+          tc'mrule P E (context,mrule1) >> (fn t1 =>
+          joinListUni (map (fn mrule => tc'mrule P E (context,mrule) >> (fn t2 => unifyTT (t1,t2))) mrules) -$$
+          resultUni t1)
 
 (*----------------------------------------------------------------------
 INDEX: exprow
 ----------------------------------------------------------------------*)
-  fun tc'exprow (E:E) (context,EXPROW xs) = 
+  fun tc'exprow (E:E) (context,EXPROW xs) =
       linkUni (map (fn (lab,exp) => E (context,exp) >>> (fn tor => (lab,tor))) xs)
       >>> tor'row
 
@@ -835,11 +835,11 @@ INDEX: exp
         | EXP'Tuple exps            => tc'exprow E (context,exprow'tuple exps)
         | EXP'List exps             => let val t1 = tor'ut (genUt())
                                        in joinListUni (map (fn exp => E (context,exp) >> (fn t2 => unifyTT (t1,t2))) exps) -$$
-										   tor'list context t1
-									   end
+                                           tor'list context t1
+                                       end
         | EXP'Vector exps           => notYet "vector"
         | EXP'Seq exps              => linkUni (map (fn exp => E (context,exp)) exps) >>> rev >>> (fn [] => abort "seq/[]" | t::_ => t)
-        | EXP'Let (dec,exp)         => D (context,dec) >> (fn env => 
+        | EXP'Let (dec,exp)         => D (context,dec) >> (fn env =>
                                        E (context'plus context (context'env env),exp))
         | EXP'App (func,arg)        => let val tor = tor'ut (genUt())
                                        in  E (context,func) >> (fn tor1 =>
@@ -847,23 +847,23 @@ INDEX: exp
                                            unifyTT (tor1, tor'arrow (tor2,tor)) -$$ resultUni tor))
                                        end
         | EXP'Typed (exp,ty)        => E (context,exp) >> (fn t1 =>
-									   T TV (tyenv'context context,ty) >> (fn t2 =>
-									   unifyTT (t1,t2) -$$ resultUni t1))
+                                       T TV (tyenv'context context,ty) >> (fn t2 =>
+                                       unifyTT (t1,t2) -$$ resultUni t1))
         | EXP'Andalso (e1,e2)       =>
-									   tor'bool context >> (fn tor_bool =>
-									   E (context,e1) >> (fn tor1 => unifyTT (tor1,tor_bool) -$$
+                                       tor'bool context >> (fn tor_bool =>
+                                       E (context,e1) >> (fn tor1 => unifyTT (tor1,tor_bool) -$$
                                        E (context,e2) >> (fn tor2 => unifyTT (tor2,tor_bool) -$$
-									   resultUni tor_bool)))
-        | EXP'Orelse (e1,e2)        => 
-									   tor'bool context >> (fn tor_bool =>
-									   E (context,e1) >> (fn tor1 => unifyTT (tor1,tor_bool) -$$
+                                       resultUni tor_bool)))
+        | EXP'Orelse (e1,e2)        =>
+                                       tor'bool context >> (fn tor_bool =>
+                                       E (context,e1) >> (fn tor1 => unifyTT (tor1,tor_bool) -$$
                                        E (context,e2) >> (fn tor2 => unifyTT (tor2,tor_bool) -$$
-									   resultUni tor_bool)))
+                                       resultUni tor_bool)))
         | EXP'Handle (exp,match)    => notYet "handle"
         | EXP'Raise exp             => E (context,exp) >> (fn tor => unifyTT (tor, tor'exn))
-										 -$$ resultUni (tor'ut (genUt()))
+                                         -$$ resultUni (tor'ut (genUt()))
         | EXP'If (e1,e2,e3)         => E (context,e1) >> (fn tor1 =>
-									   tor'bool context >> (fn tor_bool => unifyTT (tor1,tor_bool) -$$
+                                       tor'bool context >> (fn tor_bool => unifyTT (tor1,tor_bool) -$$
                                        E (context,e2) >> (fn tor2 =>
                                        E (context,e3) >> (fn tor3 =>
                                        unifyTT (tor2,tor3) -$$
@@ -878,86 +878,86 @@ INDEX: valbind
   fun tc'valbind (P:P) (E:E) (context,vb) =
       case vb of
           VALBIND'Seq (pat,exp,vbo)     => P (context,pat) >> (fn (tor1,valenv1) =>
-                                           E (context,exp) >> (fn tor2 => 
-										   unifyTT (tor1,tor2) -$$
-										   (case vbo of None => resultUni valenv1 
-													  | Some vb => 
-														tc'valbind P E (context,vb) >>> (fn valenv2 =>
-														valenv'plus valenv1 valenv2))))
+                                           E (context,exp) >> (fn tor2 =>
+                                           unifyTT (tor1,tor2) -$$
+                                           (case vbo of None => resultUni valenv1
+                                                      | Some vb =>
+                                                        tc'valbind P E (context,vb) >>> (fn valenv2 =>
+                                                        valenv'plus valenv1 valenv2))))
         | VALBIND'Rec vb =>
-		  let val xfs = xfs'valbind vb
-			  val pairs = map (fn (x,_) => (x,tor'ut (genUt()))) xfs
-			  val valenv  = valenv'plusList (map (fn (x,tor) => valenv'single (x,(tscheme'cons [] tor,IDS'V))) pairs)
-			  val context = context'plus context (context'valenv valenv)
-		  in 
-			  tc'valbind P E (context,vb) >> (fn valenv =>
-			  joinListUni (map (fn (x,tor) => unifyTT (tor, case (look'vid valenv x) of (tscheme,_) => tor'tscheme tscheme)) pairs)
-			  -$$ resultUni valenv)
-		  end
+          let val xfs = xfs'valbind vb
+              val pairs = map (fn (x,_) => (x,tor'ut (genUt()))) xfs
+              val valenv  = valenv'plusList (map (fn (x,tor) => valenv'single (x,(tscheme'cons [] tor,IDS'V))) pairs)
+              val context = context'plus context (context'valenv valenv)
+          in
+              tc'valbind P E (context,vb) >> (fn valenv =>
+              joinListUni (map (fn (x,tor) => unifyTT (tor, case (look'vid valenv x) of (tscheme,_) => tor'tscheme tscheme)) pairs)
+              -$$ resultUni valenv)
+          end
 
 (*----------------------------------------------------------------------
 INDEX: datbind
 ----------------------------------------------------------------------*)
 
   fun makeTypefun tname N =
-	  typefun'fn (fn tors =>
-					 if (length tors <> N)
-					 then Err (sof'tname tname ^ "/arity")
-					 else Okay (tor'cons (tname,tors)))
-	  
+      typefun'fn (fn tors =>
+                     if (length tors <> N)
+                     then Err (sof'tname tname ^ "/arity")
+                     else Okay (tor'cons (tname,tors)))
+
 
   fun tc'datbind (T:T) context (DATBIND xs) =
-	  case xs
-	   of [(tyvars,tycon,clauses)] =>
-		  let val tname = genTname tycon
-			  val typefun = makeTypefun tname (length tyvars)
-			  val pairs = map (fn tyvar => (tyvar,genUt())) tyvars
-			  val uts = map #2 pairs
-			  val tor = tor'cons (tname,map TOR'Ut uts)
-			  val a = assoc'list pairs
-			  fun TV tv = case (lookup'assoc a tv) of Some ut => Okay (TOR'Ut ut) | None => Err (sof'tyvar tv)
-			  fun tyenv'valenv valenv = tyenv'single (tycon, tystr'cons (typefun,valenv))
-			  val tyenv = tyenv'plus (tyenv'context context) (tyenv'valenv valenv'empty)
-		  in
-			  linkUni (map (fn (vid,tyopt) => 
-							   (case tyopt
-								 of Some ty => T TV (tyenv,ty) >>> (fn tor' => tor'arrow (tor',tor))
-								  | None => resultUni tor) 
-							   >>> (fn tor => valenv'single (vid,(tscheme'cons uts tor,IDS'C))))
-						   clauses)
-					  >>> valenv'plusList >>> (fn valenv => (tyenv'valenv valenv, valenv))
-		  end
-		| _ => notYet "datbind/2+"		  
+      case xs
+       of [(tyvars,tycon,clauses)] =>
+          let val tname = genTname tycon
+              val typefun = makeTypefun tname (length tyvars)
+              val pairs = map (fn tyvar => (tyvar,genUt())) tyvars
+              val uts = map #2 pairs
+              val tor = tor'cons (tname,map TOR'Ut uts)
+              val a = assoc'list pairs
+              fun TV tv = case (lookup'assoc a tv) of Some ut => Okay (TOR'Ut ut) | None => Err (sof'tyvar tv)
+              fun tyenv'valenv valenv = tyenv'single (tycon, tystr'cons (typefun,valenv))
+              val tyenv = tyenv'plus (tyenv'context context) (tyenv'valenv valenv'empty)
+          in
+              linkUni (map (fn (vid,tyopt) =>
+                               (case tyopt
+                                 of Some ty => T TV (tyenv,ty) >>> (fn tor' => tor'arrow (tor',tor))
+                                  | None => resultUni tor)
+                               >>> (fn tor => valenv'single (vid,(tscheme'cons uts tor,IDS'C))))
+                           clauses)
+                      >>> valenv'plusList >>> (fn valenv => (tyenv'valenv valenv, valenv))
+          end
+        | _ => notYet "datbind/2+"
 
 (*----------------------------------------------------------------------
 INDEX: exbind
 ----------------------------------------------------------------------*)
 
   fun tc'exbind1 (T:T) context b =
-	  case b 
-       of EXBIND1'New (vid,tyo) => (case tyo 
-									 of None => resultUni (tor'exn)
-									  | Some ty => T TV (tyenv'context context,ty) >>> (fn tor => tor'arrow (tor,tor'exn)))
-								   >>> (fn tor => valenv'single (vid, (tscheme'cons [] tor, IDS'E)))
+      case b
+       of EXBIND1'New (vid,tyo) => (case tyo
+                                     of None => resultUni (tor'exn)
+                                      | Some ty => T TV (tyenv'context context,ty) >>> (fn tor => tor'arrow (tor,tor'exn)))
+                                   >>> (fn tor => valenv'single (vid, (tscheme'cons [] tor, IDS'E)))
         | EXBIND1'Copy (vid,longY)  => notYet "exbind1/copy"
 
-  fun tc'exbind T context (EXBIND bs) = 
-	  linkUni (map (tc'exbind1 T context) bs) >>> valenv'plusList
+  fun tc'exbind T context (EXBIND bs) =
+      linkUni (map (tc'exbind1 T context) bs) >>> valenv'plusList
 
 (*----------------------------------------------------------------------
 INDEX: dec
 ----------------------------------------------------------------------*)
   fun U_tc'dec {T:T,P,E,D:D} : D = fn (context,dec) =>
       case dec
-       of DEC'Val (tyvars,vb)		=> let val X = unguarded'vb vb
-										   val Y = list'tvscoped (tvscoped'context context)
-										   val scoped = tyvars && (X -- Y) 
-										   val context = context'plus context (context'tvscoped (tvscoped'list scoped))
-									   in 
-										   tc'valbind P E (context,vb) >> (fn valenv => 
-										   theSubUni >>> (fn sub =>
-										   env'valenv (valenv'close sub scoped (utsOf'context context) valenv)))
-									   end
+       of DEC'Val (tyvars,vb)       => let val X = unguarded'vb vb
+                                           val Y = list'tvscoped (tvscoped'context context)
+                                           val scoped = tyvars && (X -- Y)
+                                           val context = context'plus context (context'tvscoped (tvscoped'list scoped))
+                                       in
+                                           tc'valbind P E (context,vb) >> (fn valenv =>
+                                           theSubUni >>> (fn sub =>
+                                           env'valenv (valenv'close sub scoped (utsOf'context context) valenv)))
+                                       end
         | DEC'Fval fb               => D (context, DEC'Val ([], valbind'fvalbind fb))
         | DEC'Type typbind          => notYet "type"
         | DEC'Datatype (db,None)    => tc'datbind T context db >>> (fn (te,ve) => env'plus (env'valenv ve) (env'tyenv te))
@@ -969,7 +969,7 @@ INDEX: dec
         | DEC'Open [LONG([],strid)] => resultUni (look'strid (strenv'context context) strid)
         | DEC'Open xs               => notYet "open"
         | DEC'Empty                 => resultUni env'empty
-        | DEC'Seq (dec1,dec2)       => D (context,dec1) >> (fn env1 => 
+        | DEC'Seq (dec1,dec2)       => D (context,dec1) >> (fn env1 =>
                                        D (context'plus context (context'env env1),dec2) >>> (fn env2 =>
                                        env'plus env1 env2))
 
@@ -977,11 +977,11 @@ INDEX: dec
 INDEX: fix: T,P, E/D
 ----------------------------------------------------------------------*)
   local fun T x = tc'ty x
-		fun P x = U_tc'pat {T=T,P=P} x
+        fun P x = U_tc'pat {T=T,P=P} x
         fun E x = U_tc'exp {T=T,P=P,E=E,D=D} x
         and D x = U_tc'dec {T=T,P=P,E=E,D=D} x
   in val tc'exp = E
-	 val tc'dec = D
+     val tc'dec = D
   end
 
 (*----------------------------------------------------------------------
@@ -1002,10 +1002,10 @@ INDEX: basis
 
   datatype sigenv = SIGENV of (sigid,env) assoc
   datatype funenv = FUNENV of (funid,functorclosure) assoc
-							
+
   val funenv'empty = FUNENV assoc'empty
   val sigenv'empty = SIGENV assoc'empty
-					 
+
   fun funenv'plus (FUNENV a1) (FUNENV a2) = FUNENV (assoc'plus a1 a2)
   fun sigenv'plus (SIGENV a1) (SIGENV a2) = SIGENV (assoc'plus a1 a2)
 
@@ -1017,18 +1017,18 @@ INDEX: basis
 
   datatype basis = BASIS of funenv*sigenv*env
   val basis'empty = BASIS (funenv'empty,sigenv'empty,env'empty)
-												  
+
   fun basis'plus (BASIS (fe1,ge1,env1)) (BASIS (fe2,ge2,env2)) =
-	  let val fe = funenv'plus fe1 fe2
-		  val ge = sigenv'plus ge1 ge2
-		  val env = env'plus env1 env2
-	  in BASIS (fe,ge,env)
-	  end
+      let val fe = funenv'plus fe1 fe2
+          val ge = sigenv'plus ge1 ge2
+          val env = env'plus env1 env2
+      in BASIS (fe,ge,env)
+      end
 
   fun basis'funenv funenv = BASIS (funenv,sigenv'empty,env'empty)
   fun basis'sigenv sigenv = BASIS (funenv'empty,sigenv,env'empty)
   fun basis'env env = BASIS (funenv'empty,sigenv'empty,env)
-					
+
   fun look'sigid (BASIS (_,SIGENV a,_)) = look'assoc "look'sigid" sof'sigid a
   fun look'funid (BASIS (FUNENV a,_,_)) = look'assoc "look'funid" sof'funid a
   fun env'basis (BASIS (fe,ge,env)) = env
@@ -1037,16 +1037,16 @@ INDEX: basis
 
 
   fun lay'sigenv (SIGENV assoc) =
-	  layVert
-	  (map (fn (sigid,env) =>
-			   Word "signature" ++ lay'sigid sigid ++ Word "="
-					//`` (Word "sig" //`` lay'env env // Word "end")
-			   ) (revList'assoc assoc))
+      layVert
+      (map (fn (sigid,env) =>
+               Word "signature" ++ lay'sigid sigid ++ Word "="
+                    //`` (Word "sig" //`` lay'env env // Word "end")
+               ) (revList'assoc assoc))
 
   fun lay'funenv (FUNENV assoc) = Blank
-	  
+
   fun lay'basis (BASIS (fe,ge,env)) =
-	  lay'sigenv ge // lay'funenv fe // lay'env env (* sigs before functors *)
+      lay'sigenv ge // lay'funenv fe // lay'env env (* sigs before functors *)
 
 (*----------------------------------------------------------------------
 INDEX: sigexp, spec
@@ -1057,52 +1057,52 @@ INDEX: sigexp, spec
   type SIG = (sigexp -> env)
 
   fun U_tc'sigexp (SPEC:SPEC) : SIG = fn sigexp =>
-	  case sigexp
+      case sigexp
        of SIG'Spec spec         => SPEC spec
-        | SIG'Id sigid          => notYet "sig/id" 
-        | SIG'TypeRealisation _ => notYet "sig/TypeRealisation" 
+        | SIG'Id sigid          => notYet "sig/id"
+        | SIG'TypeRealisation _ => notYet "sig/TypeRealisation"
 
   fun U_tc'spec (TY:TY) (SPEC:SPEC) : SPEC = fn spec =>
-	  case spec 
+      case spec
        of SPEC'Val xs           => env'valenv (valenv'plusList (map (fn (vid,ty) =>
-																		valenv'single (vid,(TY ty, IDS'V)))
-																	xs))
+                                                                        valenv'single (vid,(TY ty, IDS'V)))
+                                                                    xs))
         | SPEC'Type xs          => notYet "spec/type"
         | SPEC'Eqtype xs        => notYet "spec/eqtype"
         | SPEC'Datatype xs      => notYet "spec/datatype"
         | SPEC'DataReplicate x  => notYet "spec/data-rep"
         | SPEC'Exception xs     => notYet "spec/exception"
         | SPEC'Structure xs     => notYet "spec/structure"
-        | SPEC'Include sigexp   => notYet "spec/include" 
+        | SPEC'Include sigexp   => notYet "spec/include"
         | SPEC'Empty            => env'empty
         | SPEC'Seq (spec1,spec2)=> env'plus (SPEC spec1) (SPEC spec2)
-        | SPEC'Sharing (spec,_) => notYet "spec/sharing" 
+        | SPEC'Sharing (spec,_) => notYet "spec/sharing"
 
 
   fun tscheme'ty (basis,ty) =
-	  case (execUni (tc'ty (Okay o TOR'Rigid) (tyenv'context (context'basis basis), ty)
-						   >>> tscheme'close empty'sub (tyvars'ty ty) []))
-	   of Err s => abort ("tscheme'ty - "^s)
-		| Okay x => x
+      case (execUni (tc'ty (Okay o TOR'Rigid) (tyenv'context (context'basis basis), ty)
+                           >>> tscheme'close empty'sub (tyvars'ty ty) []))
+       of Err s => abort ("tscheme'ty - "^s)
+        | Okay x => x
 
 
-  local 
-	  fun TY basis x = tscheme'ty (basis,x)
-	  fun SPEC basis x = U_tc'spec (TY basis) (SPEC basis) x
-	  fun SIG basis x  = U_tc'sigexp (SPEC basis) x
+  local
+      fun TY basis x = tscheme'ty (basis,x)
+      fun SPEC basis x = U_tc'spec (TY basis) (SPEC basis) x
+      fun SIG basis x  = U_tc'sigexp (SPEC basis) x
   in
-	 val tc'sigexp = SIG
+     val tc'sigexp = SIG
   end
 
   fun tc'sigdec basis x =
-	  case x of
-		  SIGDEC xs =>
-		  sigenv'plusList
-			  (map (fn (sigid,sigexp) =>
-					   let val env = tc'sigexp basis sigexp
-						   val sigenv = sigenv'single (sigid,env)
-					   in sigenv
-					   end) xs)
+      case x of
+          SIGDEC xs =>
+          sigenv'plusList
+              (map (fn (sigid,sigexp) =>
+                       let val env = tc'sigexp basis sigexp
+                           val sigenv = sigenv'single (sigid,env)
+                       in sigenv
+                       end) xs)
 
 (*----------------------------------------------------------------------
 INDEX: strexp, strdec
@@ -1112,48 +1112,48 @@ INDEX: strexp, strdec
   type SD = (basis * strdec -> env uni)
 
   fun U_tc'strexp (SE:SE) (SD:SD) : SE = fn (basis,x) =>
-	  case x 
-	   of STREXP'Struct strdec				=> SD (basis,strdec)
+      case x
+       of STREXP'Struct strdec              => SD (basis,strdec)
         | STREXP'Id stridlong               => notYet "strexp/id"
         | STREXP'TransCon (strexp,sigexp)   => notYet "strexp/TransCon"
         | STREXP'OpaqueCon (strexp,sigexp)  => notYet "strexp/OpaqueCon"
-        | STREXP'FunctorApp (funid,strexp)  => notYet "strexp/FunctoApp" 
+        | STREXP'FunctorApp (funid,strexp)  => notYet "strexp/FunctoApp"
         | STREXP'Let (strdec,strexp)        => notYet "strexp/Let"
 
   fun U_tc'strdec (SE:SE) (SD:SD) : SD = fn (basis,x) =>
-	  case x 
+      case x
        of STRDEC'Dec dec            => tc'dec (context'basis basis,dec)
         | STRDEC'Structure xs       => linkUni (map (fn (strid,strexp) => SE (basis,strexp) >>> (fn env => strenv'single (strid,env))) xs)
-										   >>> strenv'plusList >>> env'strenv
-        | STRDEC'Local (sd1,sd2)    => SD (basis,sd1) >> (fn env1 => 
+                                           >>> strenv'plusList >>> env'strenv
+        | STRDEC'Local (sd1,sd2)    => SD (basis,sd1) >> (fn env1 =>
                                        SD (basis'plus basis (basis'env env1),sd2))
         | STRDEC'Empty              => resultUni env'empty
-        | STRDEC'Seq (sd1,sd2)      => SD (basis,sd1) >> (fn env1 => 
+        | STRDEC'Seq (sd1,sd2)      => SD (basis,sd1) >> (fn env1 =>
                                        SD (basis'plus basis (basis'env env1),sd2) >>> (fn env2 =>
                                        env'plus env1 env2))
 
   local
-	  fun SE x = U_tc'strexp SE SD x
-	  and SD x = U_tc'strdec SE SD x
+      fun SE x = U_tc'strexp SE SD x
+      and SD x = U_tc'strdec SE SD x
   in
-	val tc'strdec = SD
+    val tc'strdec = SD
   end
 
 (*----------------------------------------------------------------------
 INDEX: topdec(s)
 ----------------------------------------------------------------------*)
   fun tc'topdec (basis,td) =
-	  case td 
+      case td
        of TOPDEC'Exp exp    => tc'dec (context'basis basis,makeItDec exp) >>> basis'env
         | TOPDEC'Strdec x   => tc'strdec (basis,x) >>> basis'env
         | TOPDEC'Sigdec x   => resultUni (tc'sigdec basis x) >>> basis'sigenv
         | TOPDEC'Fundec x   => notYet "fundec"
 
   fun tc'topdecs (basis,tds) =
-	  case tds
+      case tds
        of []                => resultUni basis'empty
-        | td::tds           => tc'topdec (basis,td) >> (fn basis1 => 
-							   tc'topdecs (basis'plus basis basis1,tds) >>> (fn basis2 =>
+        | td::tds           => tc'topdec (basis,td) >> (fn basis1 =>
+                               tc'topdecs (basis'plus basis basis1,tds) >>> (fn basis2 =>
                                basis'plus basis1 basis2))
 
 (*----------------------------------------------------------------------
@@ -1167,9 +1167,9 @@ INDEX: runTc
       in case (execUni (tc'topdecs (basis,tds)))
           of Err s => see (Word ("TcErr:"^s))
            | Okay basis => let val () = see (Word "TC :" @@ lay'basis basis)
-							   val () = extendTheBasis basis
-						   in ()
-						   end
+                               val () = extendTheBasis basis
+                           in ()
+                           end
       end
 
   fun tc string = parseThen runTc (fn () => Run.tpString string)
@@ -1179,11 +1179,10 @@ INDEX: runTc
 INDEX: predefined context
 ----------------------------------------------------------------------*)
   val tyenv'initial =
-	  (TYENV o assoc'list o map (fn (s,f) => (TYCON (ID s), tystr'cons (typefun'fn f,valenv'empty))))
-	  [
+      (TYENV o assoc'list o map (fn (s,f) => (TYCON (ID s), tystr'cons (typefun'fn f,valenv'empty))))
+      [
        ("unit"  , fn []  => Okay tor'unit       | _ => Err "unit/arity"),
        ("int"   , fn []  => Okay tor'int        | _ => Err "int/arity"),
        ("char"  , fn []  => Okay tor'char       | _ => Err "char/arity"),
        ("string", fn []  => Okay tor'string     | _ => Err "string/arity")
       ]
-

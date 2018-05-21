@@ -17,14 +17,14 @@ INDEX: export
 
 signature CcodeSig =
 sig
-	type cid
-	type clab
-	type ctype
-	type ccall
-	type cexp
-	type cact
-	type cstat
-	type cdef
+    type cid
+    type clab
+    type ctype
+    type ccall
+    type cexp
+    type cact
+    type cstat
+    type cdef
 
     val makeCid                     : string -> cid
     val clab's                      : string -> clab
@@ -39,8 +39,8 @@ sig
     val cexp'IntLit                 : int -> cexp
     val cexp'StringLit              : string -> cexp
 
-	val cact'Assign					: cid * cexp -> cact
-	val cact'Call					: ccall -> cact
+    val cact'Assign                 : cid * cexp -> cact
+    val cact'Call                   : ccall -> cact
 
     val cstat'StaticThen            : ctype * cid * cstat -> cstat
     val cstat'DecListThen           : ctype * cid list * cstat -> cstat
@@ -91,9 +91,9 @@ sig
     val cexp'DeTuple                : cexp -> int -> cexp
     val cexp'Builtin                : string -> cexp list -> cexp
 
-	val cexp'MakeSiCont				: int -> cid -> cexp
-	val cexp'MakeSiHandle			: int -> cid -> cexp
-	val ccall'PushContinuation		: cexp -> ccall
+    val cexp'MakeSiCont             : int -> cid -> cexp
+    val cexp'MakeSiHandle           : int -> cid -> cexp
+    val ccall'PushContinuation      : cexp -> ccall
     val ccall'PushHandler           : cexp -> ccall
 
     val ccall'SetTupleElement       : cexp -> int -> cexp -> ccall
@@ -120,7 +120,7 @@ sig
 
     val cexp'stdOut                   : cexp
     val cexp'stdErr                   : cexp
-										  
+
     type layout
     val layCexp         : cexp -> layout
     val layCdefs        : cdef list -> layout
@@ -133,10 +133,10 @@ INDEX: imports
 (*IMPORTSIG: PrelSig ../prelude/PREL.ML *)
 signature PrelSig_Import =
 sig
-	val fold			: ('a -> 'b -> 'a) -> 'a -> 'b list -> 'a
-	val stringOfInt		: int -> string
-	val enumerateFrom	: int -> 'a list -> ('a * int) list
-	val sofStringLit	: string -> string
+    val fold            : ('a -> 'b -> 'a) -> 'a -> 'b list -> 'a
+    val stringOfInt     : int -> string
+    val enumerateFrom   : int -> 'a list -> ('a * int) list
+    val sofStringLit    : string -> string
 end;
 (*IMPORTDONE:*)
 
@@ -163,7 +163,7 @@ INDEX: functor
 ----------------------------------------------------------------------*)
 
 functor CCODE(structure Prel : PrelSig_Import
-			  structure Misclay : MisclaySig_Import) : CcodeSig =
+              structure Misclay : MisclaySig_Import) : CcodeSig =
 struct
 
   infix // @@ ++ `` //``
@@ -177,14 +177,14 @@ INDEX: c-code types
   datatype clab = CLAB of string
   datatype ctype = CTYPE of string
 
-  datatype cexp 
+  datatype cexp
     = CEXP'Id           of cid
     | CEXP'IntLit       of int
     | CEXP'StringLit    of string
     (*| CEXP'Amp          of cexp*)
     | CEXP'FunCall      of ccall
-  and ccall 
-	= CCALL				of cid * cexp list
+  and ccall
+    = CCALL             of cid * cexp list
 
   datatype cact
     = CACT'Assign       of cid * cexp
@@ -200,11 +200,11 @@ INDEX: c-code types
     | CSTAT'Goto        of clab
     | CSTAT'Where       of cstat * clab * cstat
 
-  datatype cdef 
-	= CDEF'FuncDec of ctype * cid * (ctype * cid) list
-	| CDEF'FuncDef of ctype * cid * (ctype * cid) list * cstat
-	| CDEF'VarDec of ctype * cid
-	| CDEF'VarDef of ctype * cid * cexp
+  datatype cdef
+    = CDEF'FuncDec of ctype * cid * (ctype * cid) list
+    | CDEF'FuncDef of ctype * cid * (ctype * cid) list * cstat
+    | CDEF'VarDec of ctype * cid
+    | CDEF'VarDef of ctype * cid * cexp
 
 (*----------------------------------------------------------------------
 INDEX: prim build
@@ -227,7 +227,7 @@ INDEX: prim build
 
   val cstat'Return      = CSTAT'Return
   val cstat'StaticThen  = CSTAT'StaticThen
-  val cstat'DecListThen	= CSTAT'DecListThen
+  val cstat'DecListThen = CSTAT'DecListThen
   val cstat'DefThen     = CSTAT'DefThen
   val cstat'ActThen     = CSTAT'ActThen
   val cstat'If          = CSTAT'If
@@ -244,7 +244,7 @@ INDEX: convert names to legal C identfifiers
 ----------------------------------------------------------------------*)
 
   (*fun isAlpha c =
-	  (isUpper c) orelse (isLower c) orelse (isDigit c) orelse (isUnderscore c)*)
+      (isUpper c) orelse (isLower c) orelse (isDigit c) orelse (isUnderscore c)*)
 
   val Cname'char = fn
       #"!"  => "Bang"
@@ -282,8 +282,8 @@ INDEX: build
 
   local val U = ref 1
   in fun newCid string = let val n = !U
-						 in U := 1+n; cid's ("n" ^ stringOfInt n ^ "_" ^ Cname'string string)
-						 end
+                         in U := 1+n; cid's ("n" ^ stringOfInt n ^ "_" ^ Cname'string string)
+                         end
   end
 
   val ctype'Nword = ctype's "Nword"
@@ -298,7 +298,7 @@ INDEX: build
   val cexp'colonEq      = cexp'call "g_colonEq" []
   val cexp'ref0         = cexp'call "g_ref0" []
 
-  fun cexp'con0 {tag,arity}		= cexp'call "g_con0" [cexp'IntLit tag, cexp'IntLit arity]
+  fun cexp'con0 {tag,arity}     = cexp'call "g_con0" [cexp'IntLit tag, cexp'IntLit arity]
 
   fun cexp'closeBuiltin n e = cexp'call ("m_CloseBuiltin_"^stringOfInt n) [e]
 
@@ -311,17 +311,17 @@ INDEX: build
 
 
   fun cexp'exname0 s u =
-	  cexp'call "g_mkExname" [cexp'StringLit s, cexp'IntLit u]
+      cexp'call "g_mkExname" [cexp'StringLit s, cexp'IntLit u]
 
   fun cexp'exname1 s u e =
-	  cexp'call "g_mkExname" [cexp'StringLit s, cexp'IntLit u, e]
+      cexp'call "g_mkExname" [cexp'StringLit s, cexp'IntLit u, e]
 
 
-  fun cexp'MakeSiFn {frame_size,num_args} C	= cexp'call "m_MakeSiFn" [cexp'IntLit frame_size, 
-																	  cexp'IntLit num_args, 
-																	  C]
+  fun cexp'MakeSiFn {frame_size,num_args} C = cexp'call "m_MakeSiFn" [cexp'IntLit frame_size,
+                                                                      cexp'IntLit num_args,
+                                                                      C]
 
-  fun cexp'MakeFn si						= cexp'call "g_MakeFn" [si]
+  fun cexp'MakeFn si                        = cexp'call "g_MakeFn" [si]
 
   fun cexp'NewTup size                      = cexp'call "g_MakeTuple" [cexp'IntLit size]
   fun cexp'NewException s                   = cexp'call "g_MakeException" [cexp'StringLit s]
@@ -339,15 +339,15 @@ INDEX: build
   fun cexp'DeTuple e n                      = cexp'call "g_DeTuple" [e, cexp'IntLit n]
   fun cexp'Builtin s es                     = cexp'call ("builtin_" ^ Cname'string s) es
 
-  fun cexp'MakeSiCont frame_size c			= cexp'call "m_MakeSiCont" [cexp'IntLit frame_size, cexp'Id c]
-  fun cexp'MakeSiHandle frame_size c		= cexp'call "m_MakeSiHandle" [cexp'IntLit frame_size, cexp'Id c]
-  fun ccall'PushContinuation si				= ccall's "g_PushContinuation" [si]
-  fun ccall'PushHandler si					= ccall's "g_PushHandler" [si]
+  fun cexp'MakeSiCont frame_size c          = cexp'call "m_MakeSiCont" [cexp'IntLit frame_size, cexp'Id c]
+  fun cexp'MakeSiHandle frame_size c        = cexp'call "m_MakeSiHandle" [cexp'IntLit frame_size, cexp'Id c]
+  fun ccall'PushContinuation si             = ccall's "g_PushContinuation" [si]
+  fun ccall'PushHandler si                  = ccall's "g_PushHandler" [si]
 
-  fun ccall'SetTupleElement r1 n r2			= ccall's "g_SetTupleElement" [r1, cexp'IntLit n, r2]
-  fun ccall'SetFrameElement r1 n r2			= ccall's "g_SetFrameElement" [r1, cexp'IntLit n, r2]
-  fun ccall'SetContFrameElem n r			= ccall's "g_SetContFrameElem" [cexp'IntLit n, r]
-  fun ccall'SetXcontFrameElem n r			= ccall's "g_SetXcontFrameElem" [cexp'IntLit n, r]
+  fun ccall'SetTupleElement r1 n r2         = ccall's "g_SetTupleElement" [r1, cexp'IntLit n, r2]
+  fun ccall'SetFrameElement r1 n r2         = ccall's "g_SetFrameElement" [r1, cexp'IntLit n, r2]
+  fun ccall'SetContFrameElem n r            = ccall's "g_SetContFrameElem" [cexp'IntLit n, r]
+  fun ccall'SetXcontFrameElem n r           = ccall's "g_SetXcontFrameElem" [cexp'IntLit n, r]
 
   fun cexp'MatchNum e n         = cexp'call "g_matchNum" [e, cexp'IntLit n] (* what about big ints? *)
   fun cexp'MatchWord e w        = cexp'call "g_matchWord" [e, cexp'IntLit (Word.toInt w)]
@@ -383,7 +383,7 @@ INDEX: lay c-code
   fun layIntForC x = Word (if (x<0) then "-"^stringOfInt(~x) else stringOfInt x)
 
   fun layCexp cexp =
-	  case cexp
+      case cexp
        of CEXP'Id cid       => layCid cid
         | CEXP'IntLit n     => layIntForC n
         | CEXP'StringLit s  => Word (sofStringLit s)
@@ -391,44 +391,44 @@ INDEX: lay c-code
         | CEXP'FunCall call => layCcall call
 
   and layCcall (CCALL (x,args)) =
-	  layCid x @@ layBracket (layCommaSep (map layCexp args))
+      layCid x @@ layBracket (layCommaSep (map layCexp args))
 
 
   fun layBraced head body =
-	  (head @@ Word "{") //`` body // Word "}"
+      (head @@ Word "{") //`` body // Word "}"
 
   fun layCact act =
-	  case act
-	   of CACT'Assign (x,e) => layCid x ++ Word "=" ++ layCexp e @@ Right ";" 
-		| CACT'Call call => layCcall call @@ Right ";"
+      case act
+       of CACT'Assign (x,e) => layCid x ++ Word "=" ++ layCexp e @@ Right ";"
+        | CACT'Call call => layCcall call @@ Right ";"
 
   fun layCstat x =
-	  case x
+      case x
        of CSTAT'Return exp              => Word "return" ++ layCexp exp @@ Right ";"
         | CSTAT'StaticThen (typ,x,stat) => Word "static" ++ layCtype typ ++ layCid x @@ Right ";" // layCstat stat
         | CSTAT'DecListThen (typ,xs,stat) => layCtype typ ++ layCommaSep (map layCid xs) @@ Right ";" // layCstat stat
         | CSTAT'DefThen (typ,x,e,stat)  => layCtype typ ++ layCid x ++ Word "=" ++ layCexp e @@ Right ";" // layCstat stat
         | CSTAT'ActThen (act,stat)      => layCact act // layCstat stat
         | CSTAT'If (i,t,e)              => layBraced (layBraced (Word "if" ++ layBracket (layCexp i)) (layCstat t)
-																@@ (Word "else")) (layCstat e)
-		| CSTAT'Goto lab				=> Word "goto" ++ layClab lab @@ Right ";"
-		| CSTAT'Where (s1,lab,s2)		=> layCstat s1 // (layClab lab @@ Right ":") // (layCstat s2)
+                                                                @@ (Word "else")) (layCstat e)
+        | CSTAT'Goto lab                => Word "goto" ++ layClab lab @@ Right ";"
+        | CSTAT'Where (s1,lab,s2)       => layCstat s1 // (layClab lab @@ Right ":") // (layCstat s2)
 
   fun layCdef (CDEF'FuncDec (typ,name,formals)) =
-	  (layCtype typ)
-	  ++ layCid name
-	  ++ layBracket (layCommaSep (map (fn (typ,x) => layCtype typ ++ layCid x) formals)) @@ Right ";//forward"
-	| layCdef (CDEF'FuncDef (typ,name,formals,body)) =
-	  layBraced ((layCtype typ)
-				 ++ layCid name
-				 ++ layBracket (layCommaSep (map (fn (typ,x) => layCtype typ ++ layCid x) formals)))
-				(layCstat body)
-	| layCdef (CDEF'VarDec (typ,name)) =
-	  Word "extern" ++ (layCtype typ) ++ layCid name @@ Right ";"
-	| layCdef (CDEF'VarDef (typ,name,exp)) =
-	  (layCtype typ) ++ layCid name ++ Word "=" ++ (layCexp exp) @@ Right ";"
+      (layCtype typ)
+      ++ layCid name
+      ++ layBracket (layCommaSep (map (fn (typ,x) => layCtype typ ++ layCid x) formals)) @@ Right ";//forward"
+    | layCdef (CDEF'FuncDef (typ,name,formals,body)) =
+      layBraced ((layCtype typ)
+                 ++ layCid name
+                 ++ layBracket (layCommaSep (map (fn (typ,x) => layCtype typ ++ layCid x) formals)))
+                (layCstat body)
+    | layCdef (CDEF'VarDec (typ,name)) =
+      Word "extern" ++ (layCtype typ) ++ layCid name @@ Right ";"
+    | layCdef (CDEF'VarDef (typ,name,exp)) =
+      (layCtype typ) ++ layCid name ++ Word "=" ++ (layCexp exp) @@ Right ";"
 
-	  
+
   fun layCdefs defs = layVert (map layCdef defs)
 
 
