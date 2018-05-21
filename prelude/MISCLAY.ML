@@ -25,9 +25,9 @@ signature QLayoutSig_Import = sig
   val Right         : string -> layout
   val Sep           : string -> layout
   val Blank         : layout
-  val Then	    : int -> layout -> layout -> layout
-  val Glue	    : layout -> layout -> layout
-  val Above 	    : layout -> layout -> layout
+  val Then      : int -> layout -> layout -> layout
+  val Glue      : layout -> layout -> layout
+  val Above         : layout -> layout -> layout
   val AboveTab      : int -> layout -> layout -> layout
   val squash_to     : int -> layout -> layout
   val show_layout   : layout -> string
@@ -90,8 +90,8 @@ INDEX: functor
 ----------------------------------------------------------------------*)
 
 functor MISCLAY(structure Prel : PrelSig_Import
-		structure QLayout : QLayoutSig_Import
-				    ) : MisclaySig =
+        structure QLayout : QLayoutSig_Import
+                    ) : MisclaySig =
 struct
 
   infix // @@ ++ `` //``
@@ -102,7 +102,7 @@ struct
   fun (lay1 ++ lay2)  = Then 0 lay1 lay2
   fun (lay1 `` lay2)  = Then 2 lay1 lay2
   fun (lay1 //`` lay2)  = Above lay1 (Glue (Sep"  ") lay2)
-      
+
   fun layWord w   = Word ("0wx"^Word.toString w)
   fun layInt int   = Word (stringOfInt int)
   fun layBracket x = Left "(" @@ x ++ Right ")"
@@ -113,22 +113,22 @@ struct
   fun layListSep sep [] = Blank
     | layListSep sep [x] = x
     | layListSep sep (x::xs) =
-	  let fun loop acc [] = acc (* never matches *)
-			| loop acc [x] = acc ++ x
-			| loop acc (x::xs) = loop (acc ++ (x @@ sep)) xs
-	  in loop (x @@ sep) xs
-	  end
+      let fun loop acc [] = acc (* never matches *)
+            | loop acc [x] = acc ++ x
+            | loop acc (x::xs) = loop (acc ++ (x @@ sep)) xs
+      in loop (x @@ sep) xs
+      end
 
   val layCommaSep = layListSep (Sep ",")
 
   fun laySequence [] = Blank
     | laySequence [x] = x
     | laySequence (x::xs) =
-	  let fun loop acc [] = acc (* never matches *)
-			| loop acc [x] = acc ++ x
-			| loop acc (x::xs) = loop (acc ++ x) xs
-	  in loop x xs
-	  end
+      let fun loop acc [] = acc (* never matches *)
+            | loop acc [x] = acc ++ x
+            | loop acc (x::xs) = loop (acc ++ x) xs
+      in loop x xs
+      end
 
   fun layVert [] = Blank
     | layVert [x] = x

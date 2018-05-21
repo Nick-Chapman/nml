@@ -11,5 +11,5 @@ sig
     val length  : 'a list -> int
     val app     : ('a -> 'b) -> 'a list -> unit
     val concat  : string list -> string
-	val foldl	: ('a * 'b -> 'b) -> 'b -> 'a list -> 'b
+    val foldl   : ('a * 'b -> 'b) -> 'b -> 'a list -> 'b
 end
