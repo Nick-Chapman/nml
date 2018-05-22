@@ -243,6 +243,9 @@ Nword& GetArgVar(unsigned n) {
     if (n==2) { return TheArg2; }
     if (n==3) { return TheArg3; }
     if (n==4) { return TheArg4; }
+    if (n==5) { return TheArg5; }
+    if (n==6) { return TheArg6; }
+    if (n==7) { return TheArg7; }
     cout << "**GetArgVar(not yet supported): " << n << endl;
     NOT_YET;
 }
@@ -1457,8 +1460,11 @@ Ncode ApplyPapCode () {
 
 SiClosure SiPap_1_1("<Pap:1,1>",Ncode(ApplyPapCode),2,1); //should also use optimized code.
 SiClosure SiPap_1_2("<Pap:1,2>",Ncode(ApplyPapCode),2,2);
-SiClosure SiPap_1_3("<Pap:1,4>",Ncode(ApplyPapCode),2,3);
+SiClosure SiPap_1_3("<Pap:1,3>",Ncode(ApplyPapCode),2,3);
 SiClosure SiPap_1_4("<Pap:1,4>",Ncode(ApplyPapCode),2,4);
+SiClosure SiPap_1_5("<Pap:1,5>",Ncode(ApplyPapCode),2,5);
+SiClosure SiPap_1_6("<Pap:1,6>",Ncode(ApplyPapCode),2,6);
+SiClosure SiPap_1_7("<Pap:1,7>",Ncode(ApplyPapCode),2,7);
 SiClosure SiPap_2_1("<Pap:2,1>",Ncode(ApplyPapCode),3,1);
 SiClosure SiPap_2_2("<Pap:2,2>",Ncode(ApplyPapCode),3,2);
 SiClosure SiPap_3_1("<Pap:3,1>",Ncode(ApplyPapCode),4,1);
@@ -1470,6 +1476,9 @@ SiClosure* getSiPap(unsigned num_early_args, unsigned num_remaining_args) {
     if (num_early_args==1 && num_remaining_args==2) { return &SiPap_1_2; }
     if (num_early_args==1 && num_remaining_args==3) { return &SiPap_1_3; }
     if (num_early_args==1 && num_remaining_args==4) { return &SiPap_1_4; }
+    if (num_early_args==1 && num_remaining_args==5) { return &SiPap_1_5; }
+    if (num_early_args==1 && num_remaining_args==6) { return &SiPap_1_6; }
+    if (num_early_args==1 && num_remaining_args==7) { return &SiPap_1_7; }
     if (num_early_args==2 && num_remaining_args==1) { return &SiPap_2_1; }
     if (num_early_args==2 && num_remaining_args==2) { return &SiPap_2_2; }
     if (num_early_args==3 && num_remaining_args==1) { return &SiPap_3_1; }
