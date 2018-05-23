@@ -855,9 +855,9 @@ INDEX: export -> ccode
 
   fun cstat'code EmitDef EmitCode R code =
       case code
-       of CODE'Seq (ins,code)           => cstat'instruction EmitDef EmitCode R ins (cstat'code EmitDef EmitCode R code)
+       of CODE'Seq (ins,code)           => let val do1 = cstat'instruction EmitDef EmitCode R ins in do1 (cstat'code EmitDef EmitCode R code) end
         | CODE'Return r                 => cstat'ReturnWith (R r)
-        | CODE'TailCall (func,args)     => cstat'Tail (R func) (map R args)
+        | CODE'TailCall (func,args)     => let val Rfunc = R func in cstat'Tail Rfunc (map R args) end
         | CODE'Raise r                  => cstat'Raise (R r)
         | CODE'If (im,code1,code2)      => cstat'If (cexp'im R im,
                                                      cstat'code EmitDef EmitCode R code1,
