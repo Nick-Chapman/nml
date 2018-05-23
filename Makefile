@@ -1,5 +1,5 @@
 
-start: nfib.test 
+start: nfib.test
 
 
 CXXFLAGS = -g -pipe -Wall -Wno-write-strings -Wno-format -Iruntime 
@@ -11,15 +11,8 @@ nfib.test: nfib/nfib.exe
 nfib/nfib.exe : runtime/nml_runtime.o nfib/nfib.o
 	g++ $^ -o $@ 
 
-nfib/nfib.C: nfib/build.sh nfib/nfib.ml gen2/nux.exe
+nfib/nfib.C: nfib/build.sh nfib/nfib.ml gen1/nux.exe
 	$<
-
-
-gen2/nux.exe : runtime/nml_runtime.o gen2/nux.o
-	g++ $^ -o $@ 
-
-gen2/nux.C: scripts/nux-self-compile.sh gen1/nux.exe
-	$^ "NML-gen2" $@
 
 
 gen1/nux.exe : runtime/nml_runtime.o gen1/nux.o
