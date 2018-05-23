@@ -3,7 +3,7 @@ nml -- Nick's ML
 Resurrected from >10 years of slumber:
 - Fixed runtime system to work for 64 bits.
 - Begin cleanup/reorganization of code (move various things to: to-be-sorted)
-
+- Fixed nml compiler (C-code extractor) to be independent of ML func-arg evaluation order
 
 The nml system is not quite a REPL. But a slightly more primitive beast which is directed by command line arguments to:
 (1) load an ML file
@@ -30,16 +30,11 @@ Nml is bootstrapped using sml/nj; and can then self-compile. The Makefile define
 
 	sml/nj + ML/*.ML compiling ML/*.ML --> boot/nux.C --> boot/nux.exe
 	boot/nux.exe compiling ML/*.ML     --> gen1/nux.C --> gen1/nux.exe
-	gen1/nux.exe compiling ML/*.ML     --> gen2/nux.C --> gen2/nux.exe
 
 (boot/nux.C is provided in case sml/nj is not available)
 
 
-There are currently some differences between: {boot,gen1}/nux.C
-I plan to investigate and hopefully eliminate.
-But the next stage of self-compilation is stable; no diffs except for the prompt string:
-
-$ diff gen[12]/nux.C
-< Nword n16_scon = g_mkString ("NML-gen1: ");
+$ diff {boot,gen1}/nux.C
+< Nword n2876_scon = g_mkString ("NML-boot: ");
 ---
-> Nword n16_scon = g_mkString ("NML-gen2: ");
+> Nword n2876_scon = g_mkString ("NML-gen1: ");
