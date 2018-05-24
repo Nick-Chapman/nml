@@ -1,6 +1,7 @@
 *~
 *.exe
 *.o
-gen1
-nfib/nfib.C
 boot/nml.image.*
+gen1
+nfib/*C
+bedlam/*.C

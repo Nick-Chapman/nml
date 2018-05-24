@@ -1,11 +1,14 @@
 #!/bin/bash
-cd $(dirname $0)
-../gen2/nux.exe \
-../predefined/nml_NonPrim.ML \
+exe=$1
+ml=$2
+genC=$3
+
+$exe \
+predefined/nml_NonPrim.ML \
 -x 'open NonPrim' \
-../prelude/pervasives.ML \
-../prelude/PREL.ML \
+prelude/pervasives.ML \
+prelude/PREL.ML \
 -x 'structure Prel = PREL();' \
-nfib.ml \
+$ml \
 -x nfib_top \
---export nfib.C
+--export $genC
