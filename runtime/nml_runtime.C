@@ -1957,7 +1957,15 @@ Nword builtin_Dash(Nword w1,Nword w2) { return makeInt(getInt(w1) - getInt(w2));
 Nword builtin_Plus(Nword w1,Nword w2) { return makeInt(getInt(w1) + getInt(w2)); }
 Nword builtin_Star(Nword w1,Nword w2) { return makeInt(getInt(w1) * getInt(w2)); }
 Nword builtin_div(Nword w1,Nword w2) { return makeInt(getInt(w1) / getInt(w2)); }
-Nword builtin_mod(Nword w1,Nword w2) { return makeInt(getInt(w1) % getInt(w2)); }
+
+Nword builtin_mod(Nword w1,Nword w2) {
+  int a = getInt(w1);
+  int b = getInt(w2);
+  int res = a % b;
+  //cout << "builtin_mod(" << a << "," << b << ") --> " << res << endl;
+  return makeInt(res);
+}
+
 
 Nword builtin_Less(Nword w1,Nword w2)           { return makeBool (  lessNumTxt(w1,w2)); }
 Nword builtin_LessEqual(Nword w1,Nword w2)      { return makeBool (! lessNumTxt(w2,w1)); }
@@ -2015,6 +2023,7 @@ Nword builtin_Equal(Nword w1,Nword w2) {
 
 Nword builtin_print(Nword w) {
     cout << getString(w) ;
+	flush(cout);
     return get_unit();
 }
 
