@@ -25,8 +25,15 @@ gen1/nux.C: scripts/nux-self-compile.sh boot/nux.exe
 boot/nux.exe : runtime/nml_runtime.o boot/nux.o
 	g++ $^ -o $@
 
-boot/nux.C: boot/nux.ml
-	echo 'use "boot/nux.ml";' | sml #sml/nj
+NJ = sml -Ccm.verbose=false
+
+NJ_ARCH=x86-linux
+
+boot/nml.image.$(NJ_ARCH): boot/create_nml_image.sml
+	cat $< | $(NJ)
+
+boot/nux.C: boot/nml.image.$(NJ_ARCH) boot/nux.ml
+	cat boot/nux.ml | $(NJ) @SMLload=boot/nml.image
 
 %.exe : runtime/nml_runtime.o %.o
 	g++ $^ -o $@

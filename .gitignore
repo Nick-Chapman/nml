@@ -2,5 +2,5 @@
 *.exe
 *.o
 gen1
-gen2
 nfib/nfib.C
+boot/nml.image.*
