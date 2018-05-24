@@ -13,11 +13,11 @@ CXXFLAGS = -g -pipe -Wall -Wno-write-strings -Wno-format -I../runtime
 
 
 # compile bedlam using nml in nj
-bedlam.C: ../boot/nml.image.$(NJ_ARCH) nj-nml-load.ml bedlam.ml
-	cat nj-nml-load.ml | sml @SMLload=../boot/nml.image
+#bedlam.C: ../boot/nml.image.$(NJ_ARCH) nj-nml-load.ml bedlam.ml
+#	cat nj-nml-load.ml | sml @SMLload=../boot/nml.image
 
-# compile bedlam using nux (alternative)
-bedlam2.C: nux-build.sh ../boot/nux.exe bedlam.ml
+# compile bedlam using nux (works even with nj installed)
+bedlam.C: nux-build.sh ../boot/nux.exe bedlam.ml
 	./$< $@
 
 

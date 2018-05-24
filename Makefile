@@ -2,7 +2,6 @@
 start: nfib.run
 
 NJ = sml -Ccm.verbose=false
-NJ_ARCH=x86-linux
 
 CXXFLAGS = -g -pipe -Wall -Wno-write-strings -Wno-format -Iruntime
 
@@ -12,10 +11,8 @@ CXXFLAGS = -g -pipe -Wall -Wno-write-strings -Wno-format -Iruntime
 
 
 # Create boot/nux using NJ in two steps
-boot/nml.image.$(NJ_ARCH): boot/create_nml_image.sml
-	cat $< | $(NJ)
-
-boot/nux.C: boot/nml.image.$(NJ_ARCH) boot/nux.ml
+boot/nux.C: boot/create_nml_image.sml boot/nux.ml
+	cat boot/create_nml_image.sml | $(NJ)
 	cat boot/nux.ml | $(NJ) @SMLload=boot/nml.image
 
 
@@ -25,7 +22,7 @@ gen1/nux.C: scripts/nux-self-compile.sh boot/nux.exe
 
 
 # nfib example: build using gen1/nux
-nfib/nfib.C: nfib/build.sh gen1/nux.exe nfib/nfib.ml 
+nfib/nfib.C: nfib/build.sh boot/nux.exe nfib/nfib.ml 
 	$^ $@
 
 nfib.run: nfib/nfib.exe
