@@ -294,8 +294,8 @@ INDEX: test parser
                         (VID (ID "<="), PA {prec=0, assoc=LR'Left}),
                         (VID (ID ">="), PA {prec=0, assoc=LR'Left}),
                         (VID (ID "o"), PA {prec=0, assoc=LR'Left}),
-                        (VID (ID "div"), PA {prec=0, assoc=LR'Left}),
-                        (VID (ID "mod"), PA {prec=0, assoc=LR'Left}),
+                        (VID (ID "div"), PA {prec=7, assoc=LR'Left}),
+                        (VID (ID "mod"), PA {prec=7, assoc=LR'Left}),
                         (VID (ID "@"), PA {prec=0, assoc=LR'Right})
                         ]
 
