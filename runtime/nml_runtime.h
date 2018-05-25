@@ -55,7 +55,8 @@ Nword FRAME(unsigned);
 bool g_matchNum             (Nword,int);
 bool g_matchChar            (Nword,char);
 bool g_matchString          (Nword,char*);
-bool g_matchC               (Nword,unsigned);
+bool g_matchC0              (Nword,unsigned);
+bool g_matchC1              (Nword,unsigned);
 bool g_matchE               (Nword,unsigned);
 bool g_matchG               (Nword,Nword);
 

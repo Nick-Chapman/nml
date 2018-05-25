@@ -105,7 +105,8 @@ sig
     val cexp'MatchWord              : cexp -> word -> cexp
     val cexp'MatchChar              : cexp -> char -> cexp
     val cexp'MatchString            : cexp -> string -> cexp
-    val cexp'MatchC                 : cexp -> int -> cexp
+    val cexp'MatchC0                : cexp -> int -> cexp
+    val cexp'MatchC1                : cexp -> int -> cexp
     val cexp'MatchE                 : cexp -> int -> cexp
     val cexp'MatchG                 : cexp -> cexp -> cexp
 
@@ -353,7 +354,8 @@ INDEX: build
   fun cexp'MatchWord e w        = cexp'call "g_matchWord" [e, cexp'IntLit (Word.toInt w)]
   fun cexp'MatchChar e c        = cexp'call "g_matchChar" [e, cexp'IntLit (ord c)]
   fun cexp'MatchString e s      = cexp'call "g_matchString" [e, cexp'StringLit s]
-  fun cexp'MatchC e n           = cexp'call "g_matchC" [e, cexp'IntLit n]
+  fun cexp'MatchC0 e n          = cexp'call "g_matchC0" [e, cexp'IntLit n]
+  fun cexp'MatchC1 e n          = cexp'call "g_matchC1" [e, cexp'IntLit n]
   fun cexp'MatchE e n           = cexp'call "g_matchE" [e, cexp'IntLit n]
   fun cexp'MatchG e e2          = cexp'call "g_matchG" [e, e2]
 

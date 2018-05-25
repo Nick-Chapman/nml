@@ -69,7 +69,8 @@ sig
 
   datatype im
     = IM'MatchScon          of r * scon
-    | IM'MatchC             of r * con
+    | IM'MatchC0            of r * con
+    | IM'MatchC1            of r * con
     | IM'MatchE             of r * exname
     | IM'MatchG             of r * r
 
@@ -355,7 +356,8 @@ sig
     val cexp'MatchWord              : cexp -> word -> cexp
     val cexp'MatchChar              : cexp -> char -> cexp
     val cexp'MatchString            : cexp -> string -> cexp
-    val cexp'MatchC                 : cexp -> int -> cexp
+    val cexp'MatchC0                : cexp -> int -> cexp
+    val cexp'MatchC1                : cexp -> int -> cexp
     val cexp'MatchE                 : cexp -> int -> cexp
     val cexp'MatchG                 : cexp -> cexp -> cexp
     val cstat'ReturnWith            : cexp -> cstat
@@ -487,7 +489,8 @@ INDEX: code
 (* match existing object, for use in CODE'If *)
   datatype im
     = IM'MatchScon          of r * scon
-    | IM'MatchC             of r * con
+    | IM'MatchC0            of r * con
+    | IM'MatchC1            of r * con
     | IM'MatchE             of r * exname  (*nesc? - special case of MatchG, when r isLOC'Value ? *)
     | IM'MatchG             of r * r
 
@@ -573,7 +576,8 @@ INDEX: execution counts
   fun count'im
       (Icounts {NT,NX,NF,NR,NC,CP,BI,DC,DE,DR,DT,PC,PCX,PH,ST,SF,SC,SX,MS,MC,ME,MG,IF,CW,GO,RET,RAISE,SKIP,TAIL,PAP,REAPP}) =
       fn IM'MatchScon (r,scon)                      => inc MS
-       | IM'MatchC (r,con)                          => inc MC
+       | IM'MatchC0 (r,con)                         => inc MC
+       | IM'MatchC1 (r,con)                         => inc MC
        | IM'MatchE (r,exname)                       => inc ME
        | IM'MatchG (r1,r2)                          => inc MG
 
@@ -733,7 +737,8 @@ INDEX: pp
   fun lay'im im =
       case im
        of IM'MatchScon (r,scon)                         => Word "MatchScon:" @@ lay'match r (lay'scon scon)
-        | IM'MatchC (r,con)                             => Word "MatchC:" @@ lay'match r (lay'con con)
+        | IM'MatchC0 (r,con)                            => Word "MatchC0:" @@ lay'match r (lay'con con)
+        | IM'MatchC1 (r,con)                            => Word "MatchC1:" @@ lay'match r (lay'con con)
         | IM'MatchE (r,exname)                          => Word "MatchE:" @@ lay'match r (lay'exname exname)
         | IM'MatchG (r1,r2)                             => Word "MatchG:" @@ lay'match r1 (lay'r r2)
 
@@ -797,7 +802,8 @@ INDEX: export -> ccode
   fun cexp'im R im =
       case im
        of IM'MatchScon (r,scon)         => cexp'matchScon (R r) scon
-        | IM'MatchC (r,con)             => cexp'MatchC (R r) (n'con con)
+        | IM'MatchC0 (r,con)            => cexp'MatchC0 (R r) (n'con con)
+        | IM'MatchC1 (r,con)            => cexp'MatchC1 (R r) (n'con con)
         | IM'MatchE (r,exname)          => cexp'MatchE (R r) (n'exname exname)
         | IM'MatchG (r1,r2)             => cexp'MatchG (R r1) (R r2)
 
@@ -1266,7 +1272,8 @@ INDEX: execute
       fn (icounts,env,im) => (count'im icounts im;
          case im
           of IM'MatchScon (r,scon)                      => MatchScon (scon,            GetLoc (env,r))
-           | IM'MatchC (r,con)                          => MatchC    (con,             GetLoc (env,r))
+           | IM'MatchC0 (r,con)                         => MatchC    (con,             GetLoc (env,r))
+           | IM'MatchC1 (r,con)                         => MatchC    (con,             GetLoc (env,r))
            | IM'MatchE (r,exname)                       => MatchE    (exname,          GetLoc (env,r))
            | IM'MatchG (r1,r2)                          => MatchG    (GetLoc (env,r1), GetLoc (env,r2)))
 

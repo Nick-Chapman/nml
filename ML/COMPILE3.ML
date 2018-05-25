@@ -227,7 +227,8 @@ sig
     | LOC'Value             of value
   datatype im
     = IM'MatchScon          of r * scon
-    | IM'MatchC             of r * con
+    | IM'MatchC0            of r * con
+    | IM'MatchC1            of r * con
     | IM'MatchE             of r * exname
     | IM'MatchG             of r * r
   datatype label = LABEL of int
@@ -594,7 +595,7 @@ INDEX: obi - matchers
             | _ => false
       else false
 
-  fun obi'MatchC con : matcher =
+  fun obi'MatchC0 con : matcher =
       fn obi =>
          case obi
           of OBI'C (_,x,_)      => if (eq'con con x)
@@ -604,12 +605,32 @@ INDEX: obi - matchers
                                    then SMA'No
                                    else (if (isLastConstr con xs)
                                          then SMA'Yes (OBI'C (r,con,None)) (* neg->pos *)
-                                         else SMA'Maybe (IM'MatchC (r,con),
+                                         else SMA'Maybe (IM'MatchC0 (r,con),
                                                          OBI'C (r,con,None),
                                                          OBI'NotC (r,con::xs)))
            | OBI'Location r     => if (isLastConstr con [])
                                    then SMA'Yes (OBI'C (r,con,None)) (* neg->pos *)
-                                   else SMA'Maybe (IM'MatchC (r,con),
+                                   else SMA'Maybe (IM'MatchC0 (r,con),
+                                                   OBI'C (r,con,None),
+                                                   OBI'NotC (r,[con]))
+           | _                  => abort "obi'MatchC"
+
+  fun obi'MatchC1 con : matcher =
+      fn obi =>
+         case obi
+          of OBI'C (_,x,_)      => if (eq'con con x)
+                                   then SMA'Yes obi
+                                   else SMA'No
+           | OBI'NotC (r,xs)    => if (exists (eq'con con) xs)
+                                   then SMA'No
+                                   else (if (isLastConstr con xs)
+                                         then SMA'Yes (OBI'C (r,con,None)) (* neg->pos *)
+                                         else SMA'Maybe (IM'MatchC1 (r,con),
+                                                         OBI'C (r,con,None),
+                                                         OBI'NotC (r,con::xs)))
+           | OBI'Location r     => if (isLastConstr con [])
+                                   then SMA'Yes (OBI'C (r,con,None)) (* neg->pos *)
+                                   else SMA'Maybe (IM'MatchC1 (r,con),
                                                    OBI'C (r,con,None),
                                                    OBI'NotC (r,[con]))
            | _                  => abort "obi'MatchC"
@@ -907,7 +928,8 @@ INDEX: compilation schemes : Cps(+Fv) -> Code
 INDEX: specialized b_code matchers/deconstructors
 ----------------------------------------------------------------------*)
 
-  fun b'MatchC x        = b'Match (obi'MatchC x)
+  fun b'MatchC0 x       = b'Match (obi'MatchC0 x)
+  fun b'MatchC1 x       = b'Match (obi'MatchC1 x)
   fun b'MatchE x        = b'Match (obi'MatchE x)
   fun b'MatchG x        = b'Match (obi'MatchG x)
   fun b'MatchScon x     = b'Match (obi'MatchScon x)
@@ -928,9 +950,9 @@ INDEX: NEW pat compilation
            | PAT'V x                        => b'Bind x
            | PAT'Layered (x,pat)            => b'Bind x && Pd (env,pat)
            | PAT'Ref pat                    => b'DeRef pat (Pd (env,pat))
-           | PAT'C (x,None)                 => b'MatchC x
-           | PAT'C (x,Some PAT'Wild)        => b'MatchC x
-           | PAT'C (x,Some pat)             => b'MatchC x && b'DeCon pat (Pd (env,pat))
+           | PAT'C (x,None)                 => b'MatchC0 x
+           | PAT'C (x,Some PAT'Wild)        => b'MatchC1 x
+           | PAT'C (x,Some pat)             => b'MatchC1 x && b'DeCon pat (Pd (env,pat))
            | PAT'E (exname,None)            => b'MatchE exname
            | PAT'E (exname,Some PAT'Wild)   => b'MatchE exname
            | PAT'E (exname,Some pat)        => b'MatchE exname && b'DeExcon pat (Pd (env,pat))

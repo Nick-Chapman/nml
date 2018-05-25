@@ -75,6 +75,8 @@
 #include <iostream>
 #include <cstdlib>
 
+//#define assert(x) {}
+
 using namespace std;
 
 bool debug = false;
@@ -409,7 +411,8 @@ xint TagChar(char c) {
     return static_cast<xint>(c); //unchanged
 }
 
-Hob* UnTagPointer(xint raw) { return reinterpret_cast<Hob*>(raw); }
+inline Hob* UnTagPointer(xint raw) { return reinterpret_cast<Hob*>(raw); }
+
 int UnTagInt(xint raw) { return raw >> 1; }
 unsigned UnTagUnsigned(xint raw) { return raw >> 1; }
 char UnTagChar(xint raw) { assert(raw<=255); return static_cast<char>(raw); }
@@ -422,7 +425,7 @@ Nword::Nword(Hob* hob) : _raw(TagPointer(hob)) {}
 
 bool isPointer(Nword w) { return isTaggedPointer(w._raw); }
 
-Hob* getPointer(Nword w) {
+inline Hob* getPointer(Nword w) {
     assert(isPointer(w));
     Hob* hob = UnTagPointer(w._raw);
     assert(hob);
@@ -964,16 +967,16 @@ Nword the_stdOut = new (io_data_allocation) Value_outstream(cout);
 unsigned getTag(Nword); //forward
 Nword getCon(Nword w); //forward
 
-class Value_Con0 : public Hob {
-public:
-    unsigned tag;
-    Value_Con0(unsigned tag_) : tag(tag_) {}
-    std::string what() { return "Con0"; }
-    bool equalTo(Nword v) { return tag == getTag(v); }
-    unsigned bytes() { return HobBytes(0); }
-    Hob* evacuate() { return new (EvacuationAllocation) Value_Con0(tag); }
-    void scavenge() {}
-};
+// class Value_Con0 : public Hob {
+// public:
+//     unsigned tag;
+//     Value_Con0(unsigned tag_) : tag(tag_) {}
+//     std::string what() { return "Con0"; }
+//     bool equalTo(Nword v) { return tag == getTag(v); }
+//     unsigned bytes() { return HobBytes(0); }
+//     Hob* evacuate() { return new (EvacuationAllocation) Value_Con0(tag); }
+//     void scavenge() {}
+// };
 
 class Value_Con1 : public Hob {
 public:
@@ -997,7 +1000,7 @@ public:
 
 unsigned getTag(Nword w) {
     if (!isPointer(w)) { return Nword::getUnsigned(w); }
-    if (Value_Con0* x = dynamic_cast<Value_Con0*>(getPointer(w))) { return x->tag; }
+    //if (Value_Con0* x = dynamic_cast<Value_Con0*>(getPointer(w))) { return x->tag; }
     if (Value_Con1* x = dynamic_cast<Value_Con1*>(getPointer(w))) { return x->tag(); }
     cout << "ERROR/getTag: " << what(w) << endl;
     TYPE_ERROR;
@@ -1756,7 +1759,11 @@ bool g_matchString(Nword w,char* cp) {
     return res;
 }
 
-bool g_matchC(Nword w,unsigned n) {
+bool g_matchC0(Nword w,unsigned n) {
+    return (getTag(w) == n);
+}
+
+bool g_matchC1(Nword w,unsigned n) {
     return (getTag(w) == n);
 }
 

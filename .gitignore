@@ -1,6 +1,8 @@
 *~
 *.exe
 *.o
+*gmon.out
+*gprof.out
 boot/nml.image.*
 gen1
 nfib/*C
