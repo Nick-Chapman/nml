@@ -73,3 +73,9 @@ Interestingly it seems to speed up compilation of the C code.
 It is odd that -O3 is not always better than -O2.
 
 Profile shows that the next thing to attack is the use of dynamic_cast!
+
+
+Round #2...
+
+    19.8    current state
+     6.2    dynamic_cast --> reinterpret_cast (when TYPE_ERROR otherwise)

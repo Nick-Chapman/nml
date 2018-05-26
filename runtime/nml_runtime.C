@@ -77,6 +77,9 @@
 
 #define assert(x) {}
 
+//#define CAST dynamic_cast
+#define CAST reinterpret_cast
+
 using namespace std;
 
 bool debug = false;
@@ -572,7 +575,7 @@ Closure* makeClosure(Counter& counter, SiClosure* si) {
 
 Closure* getClosure(Nword w) {
     //assert(w);
-    if (Closure* x = dynamic_cast<Closure*>(getPointer(w))) { return x; }
+    if (Closure* x = CAST<Closure*>(getPointer(w))) { return x; }
     cout << "ERROR/getClosure: " << what(w) << " -- " << getPointer(w) << endl;
     TYPE_ERROR;
 }
@@ -811,7 +814,7 @@ public:
 };
 
 unsigned getWord(Nword w) {
-    if (Value_Word* x = dynamic_cast<Value_Word*>(getPointer(w))) { return x->_n; }
+    if (Value_Word* x = CAST<Value_Word*>(getPointer(w))) { return x->_n; }
     cout << "ERROR/getWord: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -875,7 +878,7 @@ public:
 };
 
 std::string getString(Nword w) {
-    if (Value_String* x = dynamic_cast<Value_String*>(getPointer(w))) { return x->_s; }
+    if (Value_String* x = CAST<Value_String*>(getPointer(w))) { return x->_s; }
     cout << "ERROR/getString: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -932,7 +935,7 @@ public:
 };
 
 std::istream& getInstream(Nword w) {
-    if (Value_instream* x = dynamic_cast<Value_instream*>(getPointer(w))) { return x->_is; }
+    if (Value_instream* x = CAST<Value_instream*>(getPointer(w))) { return x->_is; }
     cout << "ERROR/getInstream: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -953,7 +956,7 @@ public:
 };
 
 std::ostream& getOutstream(Nword w) {
-    if (Value_outstream* x = dynamic_cast<Value_outstream*>(getPointer(w))) { return x->_os; }
+    if (Value_outstream* x = CAST<Value_outstream*>(getPointer(w))) { return x->_os; }
     cout << "ERROR/getOutstream: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1001,13 +1004,13 @@ public:
 unsigned getTag(Nword w) {
     if (!isPointer(w)) { return Nword::getUnsigned(w); }
     //if (Value_Con0* x = dynamic_cast<Value_Con0*>(getPointer(w))) { return x->tag; }
-    if (Value_Con1* x = dynamic_cast<Value_Con1*>(getPointer(w))) { return x->tag(); }
+    if (Value_Con1* x = CAST<Value_Con1*>(getPointer(w))) { return x->tag(); }
     cout << "ERROR/getTag: " << what(w) << endl;
     TYPE_ERROR;
 }
 
 Nword getCon(Nword w) {
-    if (Value_Con1* x = dynamic_cast<Value_Con1*>(getPointer(w))) { return x->word; }
+    if (Value_Con1* x = CAST<Value_Con1*>(getPointer(w))) { return x->word; }
     cout << "ERROR/getCon: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1086,7 +1089,7 @@ unsigned getExTag(Nword w) {
 }
 
 Nword getExCon(Nword w) {
-    if (Value_ExCon1* x = dynamic_cast<Value_ExCon1*>(getPointer(w))) { return x->word; }
+    if (Value_ExCon1* x = CAST<Value_ExCon1*>(getPointer(w))) { return x->word; }
     cout << "ERROR/getExCon: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1191,7 +1194,7 @@ Nword makeTuple(unsigned n) {
 }
 
 Value_Tuple* getTuple(Nword w) {
-    if (Value_Tuple* x = dynamic_cast<Value_Tuple*>(getPointer(w))) { return x; }
+    if (Value_Tuple* x = CAST<Value_Tuple*>(getPointer(w))) { return x; }
     cout << "ERROR/getTuple: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1232,7 +1235,7 @@ public:
 };
 
 Value_Vector* getVector(Nword w) {
-    if (Value_Vector* x = dynamic_cast<Value_Vector*>(getPointer(w))) { return x; }
+    if (Value_Vector* x = CAST<Value_Vector*>(getPointer(w))) { return x; }
     cout << "ERROR/getVector: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1260,7 +1263,7 @@ public:
 };
 
 Nword& getRef(Nword w) {
-    if (Value_Ref* x = dynamic_cast<Value_Ref*>(getPointer(w))) { return x->_w; }
+    if (Value_Ref* x = CAST<Value_Ref*>(getPointer(w))) { return x->_w; }
     cout << "ERROR/getRef: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1293,7 +1296,7 @@ public:
 };
 
 Value_Array* getArray(Nword w) {
-    if (Value_Array* x = dynamic_cast<Value_Array*>(getPointer(w))) { return x; }
+    if (Value_Array* x = CAST<Value_Array*>(getPointer(w))) { return x; }
     cout << "ERROR/getArray: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1522,7 +1525,7 @@ public:
 };
 
 NwordOp1 getOp1(Nword w) {
-    if (Value_Op1* x = dynamic_cast<Value_Op1*>(getPointer(w))) { return x->_op; }
+    if (Value_Op1* x = CAST<Value_Op1*>(getPointer(w))) { return x->_op; }
     cout << "ERROR/getOp1: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1560,7 +1563,7 @@ public:
 };
 
 NwordOp2 getOp2(Nword w) {
-    if (Value_Op2* x = dynamic_cast<Value_Op2*>(getPointer(w))) { return x->_op; }
+    if (Value_Op2* x = CAST<Value_Op2*>(getPointer(w))) { return x->_op; }
     cout << "ERROR/getOp2: " << what(w) << endl;
     TYPE_ERROR;
 }
@@ -1599,7 +1602,7 @@ public:
 };
 
 NwordOp3 getOp3(Nword w) {
-    if (Value_Op3* x = dynamic_cast<Value_Op3*>(getPointer(w))) { return x->_op; }
+    if (Value_Op3* x = CAST<Value_Op3*>(getPointer(w))) { return x->_op; }
     cout << "ERROR/getOp3: " << what(w) << endl;
     TYPE_ERROR;
 }
