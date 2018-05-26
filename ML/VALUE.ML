@@ -1522,7 +1522,7 @@ end
           val prog = cdef'VarDef (ctype'Nword,makeCid "TheProgram",e)
           val defs = prog :: defs
           val layout =
-              Word "#include \"nml_runtime.h\""
+              Word "#include \"nml_runtime.C\""
               // (layCdefs (rev defs))
               (*// Word "SetProg" ++ layBracket (layCexp e)*)
               // BlankLine

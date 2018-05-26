@@ -1,4 +1,4 @@
-#include "nml_runtime.h"
+#include "nml_runtime.C"
 Ncode n3_cont () {
   return g_call_1 (FRAME (0),FRAME (1));
 }
@@ -74960,7 +74960,7 @@ Ncode n17562_cont () {
   return g_call_1 (n151_closure_rev,FRAME (0));
 }
 SiCont* n17836_si_cont = m_MakeSiCont (1,n17562_cont);
-Nword n17837_scon = g_mkString ("#include \"nml_runtime.h\"");
+Nword n17837_scon = g_mkString ("#include \"nml_runtime.C\"");
 Ncode n17542_cont () {
   Nword q2318,q2317;
   q2318 = g_MakeTuple (2);

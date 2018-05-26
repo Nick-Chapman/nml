@@ -5,12 +5,12 @@ NJ = sml -Ccm.verbose=false
 
 RUN = runtime
 
-OPT = -O2
+OPT = # Too slow!
 
 CXXFLAGS = $(OPT) -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
 # Link all executables with the nml runtime
-%.exe : $(RUN)/nml_runtime.o %.o
+%.exe : %.o
 	g++ $^ -o $@
 
 
