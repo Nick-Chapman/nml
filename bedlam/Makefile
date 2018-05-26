@@ -12,7 +12,7 @@ RUN = ../runtime
 
 CXXFLAGS = -Wall -Wno-write-strings -Wno-format
 
-OPT = -O2
+OPT = -O3
 
 # Generate bedlam.C
 
@@ -31,7 +31,7 @@ bedlam.C: nux-build.sh ../boot/nux.exe bedlam.ml
 %.o : %.C
 	g++ $(OPT) -c $(CXXFLAGS) -I$(RUN) $< -o $@
 
-%.exe : $(RUN)/nml_runtime.o %.o
+%.exe : %.o
 	g++ $^ -o $@
 
 # run bedlam with nml (~67sec) -- time to profile!
@@ -45,7 +45,7 @@ nml.run: bedlam.exe
 %.pg.o : %.C
 	g++ -pg $(OPT) -c $(CXXFLAGS) -I$(RUN) $< -o $@
 
-%.pg.exe : $(RUN)/nml_runtime.pg.o %.pg.o
+%.pg.exe : %.pg.o
 	g++ -pg -static $^ -o $@
 
 bedlam.gmon.out: bedlam.pg.exe
