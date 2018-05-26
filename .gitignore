@@ -1,9 +1,9 @@
 *~
 *.exe
 *.o
-*gmon.out
-*gprof.out
+gmon.out
+gprof.out
 boot/nml.image.*
-gen1
+gen1/*C
 nfib/*C
 bedlam/*.C

@@ -1,10 +1,7 @@
 #!/bin/bash
-exe=$1
-prefix=$2
-generatedC=$3
-mkdir -p $(dirname $generatedC)
+generatedC=$1
 
-$exe \
+boot/nux.exe \
 predefined/nml_NonPrim.ML \
 -x 'open NonPrim' \
 prelude/pervasives.ML \
@@ -36,7 +33,8 @@ prelude/ASSOC.ML \
 prelude/QLAYOUT.ML \
 prelude/MISCLAY.ML \
 prelude/IMP_HASH.ML \
--x 'val prefixNML = "'$prefix': ";' \
+-x 'val prefixNML = "NML-gen1: ";' \
 bind.ML \
+-x 'quiet := true' \
 -x Run.nux \
 --export $generatedC
