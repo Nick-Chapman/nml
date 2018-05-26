@@ -18,6 +18,8 @@ NML = bind.ML ML/ATOM.ML ML/BASIS.ML ML/BUILTIN.ML ML/CCODE.ML ML/COMPILE3.ML ML
 
 PREDEF = predefined/nml_NonPrim.ML
 
+RUNTIME = runtime/nml_runtime.C runtime/nml_runtime.h
+
 NJ = sml -Ccm.verbose=false
 ARCH = x86-linux
 
@@ -25,13 +27,13 @@ RUN = runtime
 CXXFLAGS = $(OPT) -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
 
-%.o : %.C
+%.o : %.C $(RUNTIME)
 	g++ $(CXXFLAGS) -c $< -o $@
 
 %.exe : %.o
 	g++ $^ -o $@
 
-%.pg.o : %.C
+%.pg.o : %.C $(RUNTIME)
 	g++ -pg $(CXXFLAGS) -c $< -o $@
 
 %.pg.exe : %.pg.o
