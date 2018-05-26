@@ -28,8 +28,8 @@ $ g++ runtime/nml_runtime.o hello.o -o hello.exe
 The nml system in written in ML; the code is in ML/*.ML
 Nml is bootstrapped using sml/nj; and can then self-compile. The Makefile defines the phases:
 
-	sml/nj + ML/*.ML compiling ML/*.ML --> boot/nux.C --> boot/nux.exe
-	boot/nux.exe compiling ML/*.ML     --> gen1/nux.C --> gen1/nux.exe
+    sml/nj + ML/*.ML compiling ML/*.ML --> boot/nux.C --> boot/nux.exe
+    boot/nux.exe compiling ML/*.ML     --> gen1/nux.C --> gen1/nux.exe
 
 (boot/nux.C is provided in case sml/nj is not available)
 
@@ -38,3 +38,38 @@ $ diff {boot,gen1}/nux.C
 < Nword n2876_scon = g_mkString ("NML-boot: ");
 ---
 > Nword n2876_scon = g_mkString ("NML-gen1: ");
+
+
+Profiling and Optimization
+------------------------------
+The C code extacted by Nml is not yet very quick. (In the following "C" means "C++")
+
+I've decided to use my bedlam solver as the driving example to improve performance. The algorithm is a backtracking search algorithm which finds solutions to the bedlam cube. It just happens that the first solution is found rather quickly - after just 6025 positions are tried -- whereas the 2nd are 3rd solution come much later: 749663, 780903. I've setup the code to stop when the first solution is found. This takes ~1s when running with nj, but 66s for nml :(
+
+It seems with such shocking performance, there is probably some low hanging fruit to discover. I have lots of ideas where the low hanging fruit might be, but I'm very keen to drive the optimization by measurement. initially I will use gprof to collect profiling data from the bedlam run, and see where it points!
+
+I expect some performace gains can be achieved simply by optimizing the runtime system. Others may require changes to the compiler; possibly in conjuction with changes to the runtime system.  I will record here what I changed & the effect on the running time of the bedlam example:
+
+I probably should be a little more rigorous with my measurement; making multiple runs etc. But I find the timings so far as pretty consistent, and if I see a variation I just record the shortest time witnessed.
+
+
+    66s     initial
+    37s     -O
+    28.5    -O2
+    29.8    -O3 -- worse!
+    27.5    -O2, runtime & generated code compiled as a single program unit; (again -O3 is worse)
+    24.8    disable asserts
+    21.1    remove dynamic_cast for Value_Con0 (boxed arity-0 constructor) in "getTag", which is never constructed
+    19.8    -03 (why does -O3 help now but not before?)
+
+
+Discussion:
+
+Initially some very obvious things had big wins. i.e. gcc compilation optimization - who'd have thought it :)
+
+Compiling as a single program unit was not so dramatic, but it does ensure no inlining opportunities are missed.
+Interestingly it seems to speed up compilation of the C code.
+
+It is odd that -O3 is not always better than -O2.
+
+Profile shows that the next thing to attack is the use of dynamic_cast!
