@@ -71,11 +71,11 @@
 
 #include "nml_runtime.h"
 #include <fstream>
-#include <cassert>
+//#include <cassert>
 #include <iostream>
 #include <cstdlib>
 
-//#define assert(x) {}
+#define assert(x) {}
 
 using namespace std;
 
