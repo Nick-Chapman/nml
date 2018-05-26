@@ -1,4 +1,4 @@
-Control.Print.out := {say = fn _ => (), flush = fn () => ()};
+(*Control.Print.out := {say = fn _ => (), flush = fn () => ()};*)
 val preludeDir = "prelude/"
 fun prefixPrelude s = preludeDir^s
 val pervasives = map prefixPrelude ["pervasives.ML"]

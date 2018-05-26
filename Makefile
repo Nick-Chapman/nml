@@ -25,6 +25,9 @@ RUN = runtime
 CXXFLAGS = $(OPT) -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
 
+%.o : %.C
+	g++ $(CXXFLAGS) -c $< -o $@
+
 %.exe : %.o
 	g++ $^ -o $@
 
