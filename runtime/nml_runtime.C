@@ -71,14 +71,23 @@
 
 #include "nml_runtime.h"
 #include <fstream>
-//#include <cassert>
 #include <iostream>
 #include <cstdlib>
+#include <cassert>
 
-#define assert(x) {}
+#define checked_down_cast(T,E) ({ \
+	  T _res = dynamic_cast<T>(E);										\
+	  if (!_res) cout << "TypeError: down_cast<" << #T << ">(" << what(w) << ")" << endl; \
+	  assert(_res);														\
+	  _res; })
 
-//#define CAST dynamic_cast
-#define CAST reinterpret_cast
+#ifdef NDEBUG
+#	define down_cast(T,E) reinterpret_cast<T>(E)
+#	define INLINE inline //request inlines (ensured by "gcc -Winline")
+#else // Not NDEBUG
+#	define down_cast checked_down_cast
+#	define INLINE
+#endif
 
 using namespace std;
 
@@ -414,7 +423,7 @@ xint TagChar(char c) {
     return static_cast<xint>(c); //unchanged
 }
 
-inline Hob* UnTagPointer(xint raw) { return reinterpret_cast<Hob*>(raw); }
+INLINE Hob* UnTagPointer(xint raw) { return reinterpret_cast<Hob*>(raw); }
 
 int UnTagInt(xint raw) { return raw >> 1; }
 unsigned UnTagUnsigned(xint raw) { return raw >> 1; }
@@ -428,7 +437,7 @@ Nword::Nword(Hob* hob) : _raw(TagPointer(hob)) {}
 
 bool isPointer(Nword w) { return isTaggedPointer(w._raw); }
 
-inline Hob* getPointer(Nword w) {
+INLINE Hob* getPointer(Nword w) {
     assert(isPointer(w));
     Hob* hob = UnTagPointer(w._raw);
     assert(hob);
@@ -573,11 +582,8 @@ Closure* makeClosure(Counter& counter, SiClosure* si) {
     return new (counter,si->frame_size) Closure(si);
 }
 
-Closure* getClosure(Nword w) {
-    //assert(w);
-    if (Closure* x = CAST<Closure*>(getPointer(w))) { return x; }
-    cout << "ERROR/getClosure: " << what(w) << " -- " << getPointer(w) << endl;
-    TYPE_ERROR;
+INLINE Closure* getClosure(Nword w) {
+  return down_cast(Closure*,getPointer(w));
 }
 
 void SetClosureFrameElem(Nword func, unsigned n, Nword v) {
@@ -814,9 +820,7 @@ public:
 };
 
 unsigned getWord(Nword w) {
-    if (Value_Word* x = CAST<Value_Word*>(getPointer(w))) { return x->_n; }
-    cout << "ERROR/getWord: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Word*,getPointer(w))->_n;
 }
 
 Nword makeWord(unsigned n) {
@@ -878,9 +882,7 @@ public:
 };
 
 std::string getString(Nword w) {
-    if (Value_String* x = CAST<Value_String*>(getPointer(w))) { return x->_s; }
-    cout << "ERROR/getString: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_String*,getPointer(w))->_s;
 }
 
 Nword makeString(std::string s) {
@@ -935,9 +937,7 @@ public:
 };
 
 std::istream& getInstream(Nword w) {
-    if (Value_instream* x = CAST<Value_instream*>(getPointer(w))) { return x->_is; }
-    cout << "ERROR/getInstream: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_instream*,getPointer(w))->_is;
 }
 
 //----------------------------------------------------------------------
@@ -956,9 +956,7 @@ public:
 };
 
 std::ostream& getOutstream(Nword w) {
-    if (Value_outstream* x = CAST<Value_outstream*>(getPointer(w))) { return x->_os; }
-    cout << "ERROR/getOutstream: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_outstream*,getPointer(w))->_os;
 }
 
 Nword the_stdOut = new (io_data_allocation) Value_outstream(cout);
@@ -1002,17 +1000,13 @@ public:
 };
 
 unsigned getTag(Nword w) {
-    if (!isPointer(w)) { return Nword::getUnsigned(w); }
-    //if (Value_Con0* x = dynamic_cast<Value_Con0*>(getPointer(w))) { return x->tag; }
-    if (Value_Con1* x = CAST<Value_Con1*>(getPointer(w))) { return x->tag(); }
-    cout << "ERROR/getTag: " << what(w) << endl;
-    TYPE_ERROR;
+  if (!isPointer(w)) { return Nword::getUnsigned(w); }
+  //if (Value_Con0* x = dynamic_cast<Value_Con0*>(getPointer(w))) { return x->tag; }
+  return down_cast(Value_Con1*,getPointer(w))->tag();
 }
 
 Nword getCon(Nword w) {
-    if (Value_Con1* x = CAST<Value_Con1*>(getPointer(w))) { return x->word; }
-    cout << "ERROR/getCon: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Con1*,getPointer(w))->word;
 }
 
 Nword makeCon0(unsigned tag) {
@@ -1089,9 +1083,7 @@ unsigned getExTag(Nword w) {
 }
 
 Nword getExCon(Nword w) {
-    if (Value_ExCon1* x = CAST<Value_ExCon1*>(getPointer(w))) { return x->word; }
-    cout << "ERROR/getExCon: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_ExCon1*,getPointer(w))->word;
 }
 
 Nword makeExCon0(std::string name, unsigned tag) {
@@ -1194,9 +1186,7 @@ Nword makeTuple(unsigned n) {
 }
 
 Value_Tuple* getTuple(Nword w) {
-    if (Value_Tuple* x = CAST<Value_Tuple*>(getPointer(w))) { return x; }
-    cout << "ERROR/getTuple: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Tuple*,getPointer(w));
 }
 
 Nword getTupleElem(Nword w,unsigned n) {
@@ -1235,9 +1225,7 @@ public:
 };
 
 Value_Vector* getVector(Nword w) {
-    if (Value_Vector* x = CAST<Value_Vector*>(getPointer(w))) { return x; }
-    cout << "ERROR/getVector: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Vector*,getPointer(w));
 }
 
 Value_Vector* makeVector(unsigned n) {
@@ -1263,9 +1251,7 @@ public:
 };
 
 Nword& getRef(Nword w) {
-    if (Value_Ref* x = CAST<Value_Ref*>(getPointer(w))) { return x->_w; }
-    cout << "ERROR/getRef: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Ref*,getPointer(w))->_w;
 }
 
 //----------------------------------------------------------------------
@@ -1296,9 +1282,7 @@ public:
 };
 
 Value_Array* getArray(Nword w) {
-    if (Value_Array* x = CAST<Value_Array*>(getPointer(w))) { return x; }
-    cout << "ERROR/getArray: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Array*,getPointer(w));
 }
 
 Value_Array* makeArray(unsigned n) {
@@ -1525,9 +1509,7 @@ public:
 };
 
 NwordOp1 getOp1(Nword w) {
-    if (Value_Op1* x = CAST<Value_Op1*>(getPointer(w))) { return x->_op; }
-    cout << "ERROR/getOp1: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Op1*,getPointer(w))->_op;
 }
 
 Ncode ApplyBuiltin1 () {
@@ -1563,9 +1545,7 @@ public:
 };
 
 NwordOp2 getOp2(Nword w) {
-    if (Value_Op2* x = CAST<Value_Op2*>(getPointer(w))) { return x->_op; }
-    cout << "ERROR/getOp2: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Op2*,getPointer(w))-> _op;
 }
 
 Ncode ApplyBuiltin2 () {
@@ -1602,9 +1582,7 @@ public:
 };
 
 NwordOp3 getOp3(Nword w) {
-    if (Value_Op3* x = CAST<Value_Op3*>(getPointer(w))) { return x->_op; }
-    cout << "ERROR/getOp3: " << what(w) << endl;
-    TYPE_ERROR;
+  return down_cast(Value_Op3*,getPointer(w))->_op;
 }
 
 Ncode ApplyBuiltin3 () {
