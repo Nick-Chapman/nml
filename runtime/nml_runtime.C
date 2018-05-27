@@ -34,7 +34,7 @@ bool show_alloc_progress = false;
 const unsigned OneK = 1000;
 const unsigned OneMeg = 1000000;
 
-Ncode ReturnWith(Nword res); // forward
+INLINE Ncode ReturnWith(Nword res); // forward
 
 //----------------------------------------------------------------------
 //INDEX: Counter
@@ -204,6 +204,7 @@ unsigned maxRequiredStaticFrameSize = 0;
 
 Counter CopiedFrameWords("CopiedFrameWords");
 
+//TOOD: This is terrible I think. What can be done?
 void CopyTheFrame(unsigned size, Nword* words) {
   if (size>maxRequiredStaticFrameSize) { maxRequiredStaticFrameSize = size; }
   CopiedFrameWords.inc(size);
@@ -621,16 +622,14 @@ void  maybe_gc() {
   if (need2gc) { gc(); }
 }
 
-Ncode Jump(SiCont* si, Nword* words) {
-  if (show_progress) {
-    cout << "**Jump: " << si->name << endl;
-  }
+INLINE Ncode Jump(SiCont* si, Nword* words) {
+  //if (show_progress) { cout << "**Jump: " << si->name << endl; }
   CopyTheFrame (si->frame_size, words);
   maybe_gc();
   return si->code;
 }
 
-Ncode Enter(Closure* closure) {
+INLINE Ncode Enter(Closure* closure) {
   if (show_progress) {
     char* name = closure->si->name;
     cout << "**Enter: " << name << endl;
@@ -1185,13 +1184,13 @@ void SetContFrameElem(unsigned n,Nword v) {
   CC->frameElem(n) = v;
 }
 
-void SetXcontFrameElem(unsigned n,Nword v) {
+INLINE  void SetXcontFrameElem(unsigned n,Nword v) {
   TheCurrentHandler->frameElem(n) = v;
 }
 
-Ncode ReturnWith(Nword res) {
+INLINE Ncode ReturnWith(Nword res) {
   Continuation* CC = reinterpret_cast<Continuation*>(StackPointer);
-  if (show_progress) { cout << "**Return: " << CC->si->name << endl; }
+  //if (show_progress) { cout << "**Return: " << CC->si->name << endl; }
   CRET = res; XRET = Nword::fromRawUnboxed(0);
   unsigned size = CC->bytes();
   StackPointer += size;
@@ -1212,8 +1211,8 @@ Ncode RaiseWith(Nword res) {
   return Jump(CH->si, CH->words);
 }
 
-void PushContinuation(SiCont* si) {
-  if (show_progress) { cout << "**PushContinuation: " << si->name << endl; }
+INLINE void PushContinuation(SiCont* si) {
+  //if (show_progress) { cout << "**PushContinuation: " << si->name << endl; }
   new (si->frame_size) Continuation(si);
 }
 
@@ -1533,7 +1532,7 @@ Ncode callFunc(unsigned num_actual_args, Nword func) {
   return Enter(closure);
 }
 
-Ncode ApplyOverApp () {
+INLINE Ncode ApplyOverApp () {
   unsigned frame_size = TheFrameSize;
   SetArgsFromFrame_upto(frame_size);
   return callFunc(frame_size,CRET);

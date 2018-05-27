@@ -25,7 +25,7 @@ ARCH = x86-linux
 
 RUN = runtime
 OPT =
-CXXFLAGS = $(OPT) -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
+CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
 
 %.o : %.C $(RUNTIME)
