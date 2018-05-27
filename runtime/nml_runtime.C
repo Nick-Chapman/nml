@@ -1652,6 +1652,7 @@ SiCont* g_MakeSiCont(char* name, Ncode code, unsigned frame_size) {
   return makeSiCont(name,code,frame_size);
 }
 
+//TODO: elimiate this duplicate?
 SiCont* g_MakeSiHandle(char* name, Ncode code, unsigned frame_size) {
   return makeSiCont(name,code,frame_size);
 }

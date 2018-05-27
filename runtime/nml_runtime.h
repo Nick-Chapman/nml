@@ -1,13 +1,5 @@
-/*------------------------------------------------------------------------------
- CONTENTS-START-LINE: HERE=2 SEP=1
-  114.   args
-  142.   g_call_*
-  151.   g_call_* - should be selected by compiler
-  179.   builtin
- CONTENTS-END-LINE:
- ------------------------------------------------------------------------------*/
 
-#define xint long
+#define xint long //TODO: name this better!
 
 class SiCont;
 class SiClosure;
@@ -15,7 +7,6 @@ class Hob;
 
 class Nword {
 private:
-    //unsigned _raw;
     xint _raw;
     Nword(xint raw) : _raw(raw) {}
 public:
@@ -90,20 +81,22 @@ void g_SetXcontFrameElem    (unsigned,Nword);
 Ncode g_returnWith          (Nword);
 Ncode g_raise               (Nword);
 
-Nword g_MakePap             (Nword func, unsigned num_early_args, unsigned num_remaining_args);
+Nword g_MakePap             (Nword func, unsigned num_early_args,
+                             unsigned num_remaining_args);
 
 SiCont* g_MakeSiCont        (char* name, Ncode code, unsigned frame_size);
-SiCont* g_MakeSiHandle      (char* name, Ncode code, unsigned frame_size); //identical except for allocation stats attribution
-SiClosure* g_MakeSiFn       (char* name, Ncode code, unsigned frame_size, unsigned num_args);
+SiCont* g_MakeSiHandle      (char* name, Ncode code, unsigned frame_size);
+SiClosure* g_MakeSiFn       (char* name, Ncode code, unsigned frame_size,
+                             unsigned num_args);
 
 Nword g_MakeTuple           (unsigned n);
 Nword g_MakeFn              (SiClosure* si);
 void g_PushContinuation     (SiCont* si);
 void g_PushHandler          (SiCont* si);
 
-#define m_MakeSiCont(frame_size,code)           (g_MakeSiCont(#code,Ncode(code),frame_size))
-#define m_MakeSiHandle(frame_size,code)         (g_MakeSiHandle(#code,Ncode(code),frame_size))
-#define m_MakeSiFn(frame_size,num_args,code)    (g_MakeSiFn(#code,Ncode(code),frame_size,num_args))
+#define m_MakeSiCont(frame_size,code)         (g_MakeSiCont(#code,Ncode(code),frame_size))
+#define m_MakeSiHandle(frame_size,code)       (g_MakeSiHandle(#code,Ncode(code),frame_size))
+#define m_MakeSiFn(frame_size,num_args,code)  (g_MakeSiFn(#code,Ncode(code),frame_size,num_args))
 
 typedef Nword               (*NwordOp1) (Nword);
 typedef Nword               (*NwordOp2) (Nword,Nword);
@@ -151,13 +144,16 @@ template<> inline Nword& GetArg<7>() { return TheArg7; }
 
 Ncode callFunc(unsigned num_actual_args, Nword func);
 
-//#define g_call(num_actual_args,func) (callFunc_N<num_actual_args>(func)) //would be nice
+//TODO: would be nice...
+//#define g_call(num_actual_args,func) (callFunc_N<num_actual_args>(func))
+
 #define g_call(num_actual_args,func) (callFunc(num_actual_args,func))
 
 //----------------------------------------------------------------------
 //INDEX: g_call_* - should be selected by compiler
 //----------------------------------------------------------------------
 
+// TODO: what does this old comment mean?
 // Assumes args have been moved to stack to avoid over-write probs...
 
 #define g_call_1(func,x0)               ( SetArg(0,x0),                                                         g_call(1,func) )
