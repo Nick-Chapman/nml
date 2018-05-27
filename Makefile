@@ -1,5 +1,5 @@
 
-start: boot gen1 nfib bedlam
+start: boot nfib bedlam gen1
 
 boot: boot/nux.exe
 gen1: gen1.cmp
@@ -24,17 +24,18 @@ NJ = sml -Ccm.verbose=false
 ARCH = x86-linux
 
 RUN = runtime
-CXXFLAGS = $(OPT) -Wall -Wno-write-strings -Wno-format -I$(RUN)
+OPT =
+CXXFLAGS = $(OPT) -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
 
 %.o : %.C $(RUNTIME)
-	g++ $(CXXFLAGS) -c $< -o $@
+	time g++ $(CXXFLAGS) -c $< -o $@
 
 %.exe : %.o
 	g++ $^ -o $@
 
 %.pg.o : %.C $(RUNTIME)
-	g++ -pg $(CXXFLAGS) -c $< -o $@
+	time g++ -pg $(CXXFLAGS) -c $< -o $@
 
 %.pg.exe : %.pg.o
 	g++ -pg -static $^ -o $@
@@ -43,10 +44,10 @@ CXXFLAGS = $(OPT) -Wall -Wno-write-strings -Wno-format -I$(RUN)
 # boot
 
 boot/nml.image.$(ARCH): boot/create_nml_image.sml $(PREL) $(NML) $(THIS)
-	cat $< | $(NJ)
+	cat $< | time $(NJ)
 
 boot/nux.C: boot/nux.ml boot/nml.image.$(ARCH) $(PREDEF) $(PREL) $(NML)
-	cat $< | $(NJ) @SMLload=boot/nml.image
+	cat $< | time $(NJ) @SMLload=boot/nml.image
 
 boot/nux.o: OPT =
 
@@ -74,7 +75,9 @@ nfib.run: nfib/nfib.exe
 bedlam/bedlam.C: bedlam/build.sh bedlam/bedlam.ml boot/nux.exe
 	./$< $@
 
-bedlam/bedlam.o: OPT = -O3
+bedlam/bedlam.o: OPT = -O3 -DNDEBUG
+
+bedlam/bedlam.pg.o: OPT = -O3 -DNDEBUG
 
 bedlam.run: bedlam.nj-run bedlam.nml-run
 
@@ -88,7 +91,7 @@ bedlam.nml-run: bedlam/bedlam.exe
 
 bedlam/gmon.out: bedlam/bedlam.pg.exe
 	rm -f gmon.out
-	./$^
+	time $<
 	mv gmon.out $@
 
 bedlam/gprof.out: bedlam/bedlam.pg.exe bedlam/gmon.out
