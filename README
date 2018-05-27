@@ -79,3 +79,4 @@ Round #2...
 
     19.8    current state
      6.2    dynamic_cast --> reinterpret_cast (when TYPE_ERROR otherwise)
+     4.1    remove if-test when using reinterpret_cast for down_cast
