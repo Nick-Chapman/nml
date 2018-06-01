@@ -11,8 +11,6 @@ clean:
 	git clean -Xf
 	rm -f boot/nux.C
 
-THIS = #Makefile #Make the build be sensitive to the Makefile
-
 PREL = prelude/ASSOC.ML prelude/IMP_HASH.ML prelude/MISCLAY.ML prelude/PAR1.ML prelude/PAR2.ML prelude/PAR3.ML prelude/pervasives.ML prelude/PREL.ML prelude/QLAYOUT.ML prelude/SORT.ML
 
 NML = bind.ML ML/ATOM.ML ML/BASIS.ML ML/BUILTIN.ML ML/CCODE.ML ML/COMPILE3.ML ML/CPS.ML ML/EMBED.ML ML/EVAL3.ML ML/INTERPRETER.ML ML/LANG.ML ML/LEX.ML ML/MACHINE.ML ML/PARSER.ML ML/POS.ML ML/PRETTY.ML ML/PROGRAM.ML ML/RUN.ML ML/tc.ML ML/TOK.ML ML/VALUE.ML
@@ -43,7 +41,6 @@ CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strin
 %.pg.exe : %.pg.o
 	g++ -pg -static $^ -o $@
 
-
 %.gmon.out: %.pg.exe
 	rm -f gmon.out
 	time $<
@@ -53,10 +50,9 @@ CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strin
 	rm -f $@
 	gprof $^ > $@
 
-
 # boot
 
-boot/nml.image.$(ARCH): boot/create_nml_image.sml $(PREL) $(NML) $(THIS)
+boot/nml.image.$(ARCH): boot/create_nml_image.sml $(PREL) $(NML)
 	cat $< | time $(NJ)
 
 boot/nux.C: boot/nux.ml boot/nml.image.$(ARCH) $(PREDEF) $(PREL) $(NML)
@@ -64,20 +60,21 @@ boot/nux.C: boot/nux.ml boot/nml.image.$(ARCH) $(PREDEF) $(PREL) $(NML)
 
 boot/nux.o: OPT =
 
-
 # gen1
 
 gen1.cmp: boot/nux.C gen1/nux.nml.C
 	sed s/NML-boot/NML-gen1/ boot/nux.C | cmp - gen1/nux.nml.C
 
-
 # nfib
+
+nfib/nfib.nml.C : nfib/nfib.ml
 
 nfib.run: nfib/nfib.exe
 	nfib/nfib.exe 25
 
-
 # bedlam
+
+bedlam/bedlam.nml.C : bedlam/bedlam.ml
 
 bedlam/bedlam.o: OPT = -O3 -DNDEBUG
 
@@ -94,6 +91,10 @@ bedlam.nml-run: bedlam/bedlam.exe
 	time $<
 
 # life
+
+life/life.nml.C : life/life.ml
+
+life/life.o: OPT = -O3 -DNDEBUG
 
 life/life.out : life/life.exe
 	time ./$< | tee $@
