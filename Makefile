@@ -1,10 +1,11 @@
 
-start: boot nfib bedlam gen1
+start: boot nfib bedlam gen1 life
 
 boot: boot/nux.exe
 gen1: gen1.cmp
 nfib: nfib.run
 bedlam: bedlam.run bedlam/gprof.out
+life: life.cmp
 
 clean:
 	git clean -Xf
@@ -27,6 +28,8 @@ RUN = runtime
 OPT =
 CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
+%.C: %.build.sh
+	./$< $@
 
 %.o : %.C $(RUNTIME)
 	time g++ $(CXXFLAGS) -c $< -o $@
@@ -39,6 +42,7 @@ CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strin
 
 %.pg.exe : %.pg.o
 	g++ -pg -static $^ -o $@
+
 
 
 # boot
@@ -97,3 +101,13 @@ bedlam/gmon.out: bedlam/bedlam.pg.exe
 bedlam/gprof.out: bedlam/bedlam.pg.exe bedlam/gmon.out
 	rm -f $@
 	gprof $^ > $@
+
+# life
+
+life/life.C : life/life.ml
+
+life/life.out : life/life.exe
+	time ./$< | tee $@
+
+life.cmp: life/life.out.expected life/life.out
+	cmp $^
