@@ -245,7 +245,7 @@ public:
   virtual void scavenge() =0;
 };
 
-#define HobBytes(N) (sizeof(*this) + N * sizeof(Nword))
+#define HobBytes(N) (sizeof(*this) + (N) * sizeof(Nword))
 
 //----------------------------------------------------------------------
 //INDEX: BrokenHeart
@@ -981,9 +981,11 @@ class Value_Tuple;
 
 Value_Tuple* getTuple(Nword);
 
+#define MinTupleSize (1) //either 1 or 2 is good here
+
 class Value_Tuple : public Hob {
 protected:
-  Nword _words[];
+  Nword _words[MinTupleSize];
 public:
   std::string what() { return "Tuple"; }
   bool equalTo(Nword v) {
@@ -1010,10 +1012,10 @@ public:
   }
   unsigned size() { return N; }
   unsigned bytes() {
-    return HobBytes(N);
+    return HobBytes(N-MinTupleSize);
   }
   Hob* evacuate() {
-    Value_Tuple_N<N>* res = new (EvacuationAllocation,N) Value_Tuple_N<N>();
+    Value_Tuple_N<N>* res = new (EvacuationAllocation,N-MinTupleSize) Value_Tuple_N<N>();
     CopyWords(N,_words,res->_words);
     return res;
   }
@@ -1023,7 +1025,8 @@ public:
 };
 
 Nword makeTuple(unsigned n) {
-#define SIZE(n) case n: { return new (tuple_allocation,n) Value_Tuple_N<n>(); }
+  assert(n>=MinTupleSize);
+#define SIZE(n) case n: { return new (tuple_allocation,n-MinTupleSize) Value_Tuple_N<n>(); }
   switch(n) {
     SIZE(2) SIZE(3) SIZE(4) SIZE(5) SIZE(6) SIZE(7) SIZE(8) SIZE(9) SIZE(31)
       }
@@ -2198,9 +2201,7 @@ int main(int argc, char* argv[]) {
   AssertWords(H,Value_unit);
   AssertWords(1+H,Value_Word);
   AssertWords(1+H,Value_Ref);
-  AssertWords(H,Value_Tuple);
-  AssertWords(H,Value_Tuple);
-  AssertWords(H,Value_Tuple_N<2>); //+ var elems
+  AssertWords(MinTupleSize+H,Value_Tuple);
   AssertWords(1+H,Value_Con1);
   AssertWords(3,SiCont);
   AssertWords(3,SiClosure);
