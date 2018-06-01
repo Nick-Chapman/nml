@@ -1115,7 +1115,7 @@ public:
   std::string what() { return "array"; }
   bool equalTo(Nword w) { NOT_YET; } // is array an eqtype?
   unsigned size() { return _n; }
-  Nword& elem(unsigned i) {
+  Nword& arrayElem(unsigned i) {
     assert(i<_n);
     return _words[i];
   }
@@ -1136,6 +1136,10 @@ Value_Array* getArray(Nword w) {
 
 Value_Array* makeArray(unsigned n) {
   return new (array_data_allocation) Value_Array(n);
+}
+
+void setArrayElem(Nword w,unsigned n,Nword v) {
+  getArray(w)->arrayElem(n) = v;
 }
 
 //----------------------------------------------------------------------
@@ -1729,6 +1733,16 @@ void g_FixupRef (Nword w1, Nword w2) {
   getRef(w1) = w2;
 }
 
+
+Nword g_MakeArray(unsigned n) {
+  return makeArray(n);
+}
+
+void g_SetArrayElement(Nword w,unsigned n,Nword v) {
+  setArrayElem(w,n,v);
+}
+
+
 //----------------------------------------------------------------------
 //INDEX: util builders
 //----------------------------------------------------------------------
@@ -1878,13 +1892,13 @@ Nword builtin_Array_array(Nword w1,Nword w2) {
   unsigned n = getInt(w1);
   Value_Array* array = makeArray(n);
   for (unsigned i = 0; i<n; ++i) {
-    array->elem(i) = w2;
+    array->arrayElem(i) = w2;
   }
   return array;
 }
 
 Nword builtin_Array_sub(Nword w1,Nword w2) {
-  return getArray(w1)->elem(getInt(w2));
+  return getArray(w1)->arrayElem(getInt(w2));
 }
 
 Nword builtin_Array_length(Nword w) {
@@ -1892,7 +1906,7 @@ Nword builtin_Array_length(Nword w) {
 }
 
 Nword builtin_Array_update(Nword w1,Nword w2,Nword w3) {
-  getArray(w1)->elem(getInt(w2)) = w3;
+  getArray(w1)->arrayElem(getInt(w2)) = w3;
   return get_unit();
 }
 
