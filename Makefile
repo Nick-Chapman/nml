@@ -1,10 +1,10 @@
 
-start: boot nfib bedlam gen1 life
+start: boot gen1 nfib bedlam life
 
 boot: boot/nux.exe
 gen1: gen1.cmp
 nfib: nfib.run
-bedlam: bedlam.run bedlam/gprof.out
+bedlam: bedlam.run bedlam/bedlam.gprof.out
 life: life.cmp
 
 clean:
@@ -28,21 +28,30 @@ RUN = runtime
 OPT =
 CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
-%.C: %.build.sh
-	./$< $@
+%.nml.C: %.nml.sh
+	time ./$< $@
 
-%.o : %.C $(RUNTIME)
+%.o : %.nml.C $(RUNTIME)
 	time g++ $(CXXFLAGS) -c $< -o $@
 
 %.exe : %.o
 	g++ $^ -o $@
 
-%.pg.o : %.C $(RUNTIME)
+%.pg.o : %.nml.C $(RUNTIME)
 	time g++ -pg $(CXXFLAGS) -c $< -o $@
 
 %.pg.exe : %.pg.o
 	g++ -pg -static $^ -o $@
 
+
+%.gmon.out: %.pg.exe
+	rm -f gmon.out
+	time $<
+	mv gmon.out $@
+
+%.gprof.out: %.pg.exe %.gmon.out
+	rm -f $@
+	gprof $^ > $@
 
 
 # boot
@@ -58,26 +67,17 @@ boot/nux.o: OPT =
 
 # gen1
 
-gen1/nux.C: gen1/build.sh boot/nux.exe
-	time $< $@
-
-gen1.cmp: boot/nux.C gen1/nux.C
-	sed s/NML-boot/NML-gen1/ boot/nux.C | cmp - gen1/nux.C
+gen1.cmp: boot/nux.C gen1/nux.nml.C
+	sed s/NML-boot/NML-gen1/ boot/nux.C | cmp - gen1/nux.nml.C
 
 
 # nfib
-
-nfib/nfib.C: nfib/build.sh nfib/nfib.ml boot/nux.exe
-	$< $@
 
 nfib.run: nfib/nfib.exe
 	nfib/nfib.exe 25
 
 
 # bedlam
-
-bedlam/bedlam.C: bedlam/build.sh bedlam/bedlam.ml boot/nux.exe
-	./$< $@
 
 bedlam/bedlam.o: OPT = -O3 -DNDEBUG
 
@@ -93,18 +93,7 @@ bedlam.nml-run: bedlam/bedlam.exe
 	@echo '==================================================[nml]'
 	time $<
 
-bedlam/gmon.out: bedlam/bedlam.pg.exe
-	rm -f gmon.out
-	time $<
-	mv gmon.out $@
-
-bedlam/gprof.out: bedlam/bedlam.pg.exe bedlam/gmon.out
-	rm -f $@
-	gprof $^ > $@
-
 # life
-
-life/life.C : life/life.ml
 
 life/life.out : life/life.exe
 	time ./$< | tee $@

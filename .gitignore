@@ -1,11 +1,6 @@
 *~
 *.exe
 *.o
-gmon.out
-gprof.out
+*.out
+*.nml.C
 boot/nml.image.*
-gen1/*C
-nfib/*C
-bedlam/*.C
-life/*.C
-life/*.out

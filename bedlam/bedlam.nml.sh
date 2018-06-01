@@ -1,4 +1,4 @@
-#create bedlam.C using nux
+#!/bin/bash
 boot/nux.exe\
 	predefined/nml_NonPrim.ML\
 	-x 'open NonPrim' \
