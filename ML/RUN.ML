@@ -451,8 +451,8 @@ INDEX: eval
         end
 
     fun nux [] = ()
-      | nux ("-x"::x::xs)           = (NMLecho "nux/exec\n"         ; Nexec x      ; nux xs)
-      | nux ("--export"::x::xs)     = (NMLecho "nux/export\n"       ; Nexport_it x ; nux xs)
-      | nux (x::xs)                 = (NMLecho ("nux/use:"^x^"\n")  ; Nuse x       ; nux xs)
+      | nux ("-x"::x::xs)           = (NMLecho "nux/exec"      ; Nexec x      ; nux xs)
+      | nux ("--export"::x::xs)     = (NMLecho "nux/export"    ; Nexport_it x ; nux xs)
+      | nux (x::xs)                 = (NMLecho ("nux/use:"^x)  ; Nuse x       ; nux xs)
 
 end

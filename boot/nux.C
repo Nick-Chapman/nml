@@ -73762,7 +73762,7 @@ Ncode n5_cont () {
   return g_call_1 (n6_pap_G_Nexec,FRAME (0));
 }
 SiCont* n17493_si_cont = m_MakeSiCont (1,n5_cont);
-Nword n17494_scon = g_mkString ("nux/exec\n");
+Nword n17494_scon = g_mkString ("nux/exec");
 Ncode n17495_cont () {
   return g_call_1 (FRAME (0),FRAME (1));
 }
@@ -73853,34 +73853,33 @@ Ncode n17497_cont () {
 }
 SiCont* n17524_si_cont = m_MakeSiCont (1,n17497_cont);
 Nword n17525_scon = g_mkString ("nux/use:");
-Nword n17526_scon = g_mkString ("\n");
-Ncode n17527_cont () {
+Ncode n17526_cont () {
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17528_si_cont = m_MakeSiCont (2,n17527_cont);
-Ncode n17535_cont () {
+SiCont* n17527_si_cont = m_MakeSiCont (2,n17526_cont);
+Ncode n17534_cont () {
   return g_returnWith (g_unit ());
 }
-SiCont* n17536_si_cont = m_MakeSiCont (0,n17535_cont);
-Ncode n17534_cont () {
+SiCont* n17535_si_cont = m_MakeSiCont (0,n17534_cont);
+Ncode n17533_cont () {
   Nword q12428;
-  g_PushContinuation (n17536_si_cont);
+  g_PushContinuation (n17535_si_cont);
   q12428 = builtin_TextIO_closeOut (FRAME (0));
   return g_returnWith (q12428);
 }
-SiCont* n17537_si_cont = m_MakeSiCont (1,n17534_cont);
-Ncode n17544_cont () {
+SiCont* n17536_si_cont = m_MakeSiCont (1,n17533_cont);
+Ncode n17543_cont () {
   return g_returnWith (g_unit ());
 }
-SiCont* n17545_si_cont = m_MakeSiCont (0,n17544_cont);
-Nword n17547_scon = g_mkString ("");
-Ncode n17550_EMIT () {
+SiCont* n17544_si_cont = m_MakeSiCont (0,n17543_cont);
+Nword n17546_scon = g_mkString ("");
+Ncode n17549_EMIT () {
   Nword q665;
   q665 = builtin_TextIO_output (FRAME (0),ARG (0));
   return g_returnWith (q665);
 }
-SiClosure* n17551_si_closure = m_MakeSiFn (1,1,n17550_EMIT);
-Ncode n17552_cont () {
+SiClosure* n17550_si_closure = m_MakeSiFn (1,1,n17549_EMIT);
+Ncode n17551_cont () {
   Nword q667,tt_q668,juxL_q669,juxR_q670,q671;
   if (g_matchC0 (FRAME (0),1)) {
     return g_returnWith (g_unit ());
@@ -73895,303 +73894,303 @@ Ncode n17552_cont () {
     return g_call_2 (n160_closure_emitTT,q671,tt_q668);
   }
 }
-SiCont* n17553_si_cont = m_MakeSiCont (3,n17552_cont);
-Ncode n17549_prefixed_stream_layout () {
+SiCont* n17552_si_cont = m_MakeSiCont (3,n17551_cont);
+Ncode n17548_prefixed_stream_layout () {
   Nword q663,EMIT_q664,q666;
   q663 = builtin_Hat (n3242_scon,ARG (0));
-  EMIT_q664 = g_MakeFn (n17551_si_closure);
+  EMIT_q664 = g_MakeFn (n17550_si_closure);
   g_SetFrameElement (EMIT_q664,0,ARG (1));
-  g_PushContinuation (n17553_si_cont);
+  g_PushContinuation (n17552_si_cont);
   g_SetContFrameElem (0,ARG (2));
   g_SetContFrameElem (1,EMIT_q664);
   g_SetContFrameElem (2,q663);
   q666 = g_Copy (ARG (0));
   return g_call_1 (EMIT_q664,q666);
 }
-SiClosure* n17554_si_closure = m_MakeSiFn (0,3,n17549_prefixed_stream_layout);
-Nword n17548_paps_closure_prefixed_stream_layout = g_MakeFn (n17554_si_closure);
-Nword n17546_pap_prefixed_stream_layout = g_MakePap (n17548_paps_closure_prefixed_stream_layout,1,2);
-Ncode n17543_cont () {
-  g_PushContinuation (n17545_si_cont);
-  return g_call_2 (n17546_pap_prefixed_stream_layout,FRAME (0),CRET);
+SiClosure* n17553_si_closure = m_MakeSiFn (0,3,n17548_prefixed_stream_layout);
+Nword n17547_paps_closure_prefixed_stream_layout = g_MakeFn (n17553_si_closure);
+Nword n17545_pap_prefixed_stream_layout = g_MakePap (n17547_paps_closure_prefixed_stream_layout,1,2);
+Ncode n17542_cont () {
+  g_PushContinuation (n17544_si_cont);
+  return g_call_2 (n17545_pap_prefixed_stream_layout,FRAME (0),CRET);
 }
-SiCont* n17555_si_cont = m_MakeSiCont (1,n17543_cont);
-Nword n17560_scon = g_mkString ("");
-Nword n17559_constructed = g_MakeCon (0,n17560_scon);
-Nword n17558_tuple = g_MakeTuple (3);
-Nword n17557_constructed = g_MakeCon (0,n17558_tuple);
-Ncode n17556_cont () {
+SiCont* n17554_si_cont = m_MakeSiCont (1,n17542_cont);
+Nword n17559_scon = g_mkString ("");
+Nword n17558_constructed = g_MakeCon (0,n17559_scon);
+Nword n17557_tuple = g_MakeTuple (3);
+Nword n17556_constructed = g_MakeCon (0,n17557_tuple);
+Ncode n17555_cont () {
   Nword q2320;
   q2320 = g_MakeTuple (2);
   g_SetTupleElement (q2320,0,CRET);
-  g_SetTupleElement (q2320,1,n17557_constructed);
+  g_SetTupleElement (q2320,1,n17556_constructed);
   return g_call_1 (n681_closure_SlashSlash,q2320);
 }
-SiCont* n17561_si_cont = m_MakeSiCont (0,n17556_cont);
-Ncode n17563_cont () {
+SiCont* n17560_si_cont = m_MakeSiCont (0,n17555_cont);
+Ncode n17562_cont () {
   Nword q2319;
   q2319 = g_MakeTuple (2);
   g_SetTupleElement (q2319,0,FRAME (0));
   g_SetTupleElement (q2319,1,CRET);
   return g_call_1 (n681_closure_SlashSlash,q2319);
 }
-SiCont* n17564_si_cont = m_MakeSiCont (1,n17563_cont);
-Ncode n17568_cont () {
+SiCont* n17563_si_cont = m_MakeSiCont (1,n17562_cont);
+Ncode n17567_cont () {
   return g_call_1 (n637_closure_layVert,CRET);
 }
-SiCont* n17569_si_cont = m_MakeSiCont (0,n17568_cont);
-Ncode n17573_cont () {
+SiCont* n17568_si_cont = m_MakeSiCont (0,n17567_cont);
+Ncode n17572_cont () {
   Nword q1518;
   q1518 = g_MakeTuple (2);
   g_SetTupleElement (q1518,0,FRAME (0));
   g_SetTupleElement (q1518,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1518);
 }
-SiCont* n17574_si_cont = m_MakeSiCont (1,n17573_cont);
-Nword n17575_scon = g_mkString (";//forward");
-Ncode n17572_cont () {
-  g_PushContinuation (n17574_si_cont);
+SiCont* n17573_si_cont = m_MakeSiCont (1,n17572_cont);
+Nword n17574_scon = g_mkString (";//forward");
+Ncode n17571_cont () {
+  g_PushContinuation (n17573_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17575_scon);
+  return g_call_1 (n252_closure_Right,n17574_scon);
 }
-SiCont* n17576_si_cont = m_MakeSiCont (0,n17572_cont);
-Ncode n17578_cont () {
+SiCont* n17575_si_cont = m_MakeSiCont (0,n17571_cont);
+Ncode n17577_cont () {
   Nword q1517;
   q1517 = g_MakeTuple (2);
   g_SetTupleElement (q1517,0,FRAME (0));
   g_SetTupleElement (q1517,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1517);
 }
-SiCont* n17579_si_cont = m_MakeSiCont (1,n17578_cont);
-Ncode n17580_cont () {
+SiCont* n17578_si_cont = m_MakeSiCont (1,n17577_cont);
+Ncode n17579_cont () {
   return g_call_1 (n228_closure_layBracket,CRET);
 }
-SiCont* n17581_si_cont = m_MakeSiCont (0,n17580_cont);
-Ncode n17582_cont () {
+SiCont* n17580_si_cont = m_MakeSiCont (0,n17579_cont);
+Ncode n17581_cont () {
   return g_call_1 (n285_pap_layListSep,CRET);
 }
-SiCont* n17583_si_cont = m_MakeSiCont (0,n17582_cont);
-Ncode n17586_cont () {
+SiCont* n17582_si_cont = m_MakeSiCont (0,n17581_cont);
+Ncode n17585_cont () {
   Nword q1516;
   q1516 = g_MakeTuple (2);
   g_SetTupleElement (q1516,0,FRAME (0));
   g_SetTupleElement (q1516,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1516);
 }
-SiCont* n17587_si_cont = m_MakeSiCont (1,n17586_cont);
-Ncode n17589_layCid () {
+SiCont* n17586_si_cont = m_MakeSiCont (1,n17585_cont);
+Ncode n17588_layCid () {
   Nword x_q1399;
   x_q1399 = g_DeCon (ARG (0));
   return g_call_1 (n211_closure_Word,x_q1399);
 }
-SiClosure* n17590_si_closure = m_MakeSiFn (0,1,n17589_layCid);
-Nword n17588_closure_layCid = g_MakeFn (n17590_si_closure);
-Ncode n17585_cont () {
-  g_PushContinuation (n17587_si_cont);
+SiClosure* n17589_si_closure = m_MakeSiFn (0,1,n17588_layCid);
+Nword n17587_closure_layCid = g_MakeFn (n17589_si_closure);
+Ncode n17584_cont () {
+  g_PushContinuation (n17586_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17588_closure_layCid,FRAME (0));
+  return g_call_1 (n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17591_si_cont = m_MakeSiCont (1,n17585_cont);
-Ncode n17593_layCtype () {
+SiCont* n17590_si_cont = m_MakeSiCont (1,n17584_cont);
+Ncode n17592_layCtype () {
   Nword x_q1403;
   x_q1403 = g_DeCon (ARG (0));
   return g_call_1 (n211_closure_Word,x_q1403);
 }
-SiClosure* n17594_si_closure = m_MakeSiFn (0,1,n17593_layCtype);
-Nword n17592_closure_layCtype = g_MakeFn (n17594_si_closure);
-Ncode n17584_anon () {
+SiClosure* n17593_si_closure = m_MakeSiFn (0,1,n17592_layCtype);
+Nword n17591_closure_layCtype = g_MakeFn (n17593_si_closure);
+Ncode n17583_anon () {
   Nword typ_q1514,x_q1515;
   typ_q1514 = g_DeTuple (ARG (0),0);
   x_q1515 = g_DeTuple (ARG (0),1);
-  g_PushContinuation (n17591_si_cont);
+  g_PushContinuation (n17590_si_cont);
   g_SetContFrameElem (0,x_q1515);
-  return g_call_1 (n17592_closure_layCtype,typ_q1514);
+  return g_call_1 (n17591_closure_layCtype,typ_q1514);
 }
-SiClosure* n17595_si_closure = m_MakeSiFn (0,1,n17584_anon);
-Ncode n17577_cont () {
+SiClosure* n17594_si_closure = m_MakeSiFn (0,1,n17583_anon);
+Ncode n17576_cont () {
   Nword q1513;
-  g_PushContinuation (n17579_si_cont);
+  g_PushContinuation (n17578_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17581_si_cont);
-  g_PushContinuation (n17583_si_cont);
-  q1513 = g_MakeFn (n17595_si_closure);
+  g_PushContinuation (n17580_si_cont);
+  g_PushContinuation (n17582_si_cont);
+  q1513 = g_MakeFn (n17594_si_closure);
   return g_call_2 (n82_closure_map,q1513,FRAME (0));
 }
-SiCont* n17596_si_cont = m_MakeSiCont (1,n17577_cont);
-Ncode n17598_cont () {
+SiCont* n17595_si_cont = m_MakeSiCont (1,n17576_cont);
+Ncode n17597_cont () {
   Nword q1512;
   q1512 = g_MakeTuple (2);
   g_SetTupleElement (q1512,0,FRAME (0));
   g_SetTupleElement (q1512,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1512);
 }
-SiCont* n17599_si_cont = m_MakeSiCont (1,n17598_cont);
-Ncode n17597_cont () {
-  g_PushContinuation (n17599_si_cont);
+SiCont* n17598_si_cont = m_MakeSiCont (1,n17597_cont);
+Ncode n17596_cont () {
+  g_PushContinuation (n17598_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17588_closure_layCid,FRAME (0));
+  return g_call_1 (n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17600_si_cont = m_MakeSiCont (1,n17597_cont);
-Ncode n17606_cont () {
+SiCont* n17599_si_cont = m_MakeSiCont (1,n17596_cont);
+Ncode n17605_cont () {
   Nword q1423;
   q1423 = g_MakeTuple (2);
   g_SetTupleElement (q1423,0,FRAME (0));
   g_SetTupleElement (q1423,1,CRET);
   return g_call_1 (n681_closure_SlashSlash,q1423);
 }
-SiCont* n17607_si_cont = m_MakeSiCont (1,n17606_cont);
-Nword n17608_scon = g_mkString ("}");
-Ncode n17605_cont () {
-  g_PushContinuation (n17607_si_cont);
+SiCont* n17606_si_cont = m_MakeSiCont (1,n17605_cont);
+Nword n17607_scon = g_mkString ("}");
+Ncode n17604_cont () {
+  g_PushContinuation (n17606_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n211_closure_Word,n17608_scon);
+  return g_call_1 (n211_closure_Word,n17607_scon);
 }
-SiCont* n17609_si_cont = m_MakeSiCont (0,n17605_cont);
-Ncode n17610_cont () {
+SiCont* n17608_si_cont = m_MakeSiCont (0,n17604_cont);
+Ncode n17609_cont () {
   Nword q1422;
   q1422 = g_MakeTuple (2);
   g_SetTupleElement (q1422,0,CRET);
   g_SetTupleElement (q1422,1,FRAME (0));
   return g_call_1 (n665_closure_SlashSlashBackTickBackTick,q1422);
 }
-SiCont* n17611_si_cont = m_MakeSiCont (1,n17610_cont);
-Ncode n17612_cont () {
+SiCont* n17610_si_cont = m_MakeSiCont (1,n17609_cont);
+Ncode n17611_cont () {
   Nword q1421;
   q1421 = g_MakeTuple (2);
   g_SetTupleElement (q1421,0,FRAME (0));
   g_SetTupleElement (q1421,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1421);
 }
-SiCont* n17613_si_cont = m_MakeSiCont (1,n17612_cont);
-Nword n17614_scon = g_mkString ("{");
-Ncode n17604_layBraced () {
-  g_PushContinuation (n17609_si_cont);
-  g_PushContinuation (n17611_si_cont);
+SiCont* n17612_si_cont = m_MakeSiCont (1,n17611_cont);
+Nword n17613_scon = g_mkString ("{");
+Ncode n17603_layBraced () {
+  g_PushContinuation (n17608_si_cont);
+  g_PushContinuation (n17610_si_cont);
   g_SetContFrameElem (0,ARG (1));
-  g_PushContinuation (n17613_si_cont);
+  g_PushContinuation (n17612_si_cont);
   g_SetContFrameElem (0,ARG (0));
-  return g_call_1 (n211_closure_Word,n17614_scon);
+  return g_call_1 (n211_closure_Word,n17613_scon);
 }
-SiClosure* n17615_si_closure = m_MakeSiFn (0,2,n17604_layBraced);
-Nword n17603_closure_layBraced = g_MakeFn (n17615_si_closure);
-Ncode n17602_cont () {
-  return g_call_2 (n17603_closure_layBraced,CRET,FRAME (0));
+SiClosure* n17614_si_closure = m_MakeSiFn (0,2,n17603_layBraced);
+Nword n17602_closure_layBraced = g_MakeFn (n17614_si_closure);
+Ncode n17601_cont () {
+  return g_call_2 (n17602_closure_layBraced,CRET,FRAME (0));
 }
-SiCont* n17616_si_cont = m_MakeSiCont (1,n17602_cont);
-Ncode n17618_cont () {
+SiCont* n17615_si_cont = m_MakeSiCont (1,n17601_cont);
+Ncode n17617_cont () {
   Nword q1507;
   q1507 = g_MakeTuple (2);
   g_SetTupleElement (q1507,0,FRAME (0));
   g_SetTupleElement (q1507,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1507);
 }
-SiCont* n17619_si_cont = m_MakeSiCont (1,n17618_cont);
-Ncode n17620_cont () {
+SiCont* n17618_si_cont = m_MakeSiCont (1,n17617_cont);
+Ncode n17619_cont () {
   return g_call_1 (n228_closure_layBracket,CRET);
 }
-SiCont* n17621_si_cont = m_MakeSiCont (0,n17620_cont);
-Ncode n17622_cont () {
+SiCont* n17620_si_cont = m_MakeSiCont (0,n17619_cont);
+Ncode n17621_cont () {
   return g_call_1 (n285_pap_layListSep,CRET);
 }
-SiCont* n17623_si_cont = m_MakeSiCont (0,n17622_cont);
-Ncode n17626_cont () {
+SiCont* n17622_si_cont = m_MakeSiCont (0,n17621_cont);
+Ncode n17625_cont () {
   Nword q1506;
   q1506 = g_MakeTuple (2);
   g_SetTupleElement (q1506,0,FRAME (0));
   g_SetTupleElement (q1506,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1506);
 }
-SiCont* n17627_si_cont = m_MakeSiCont (1,n17626_cont);
-Ncode n17625_cont () {
-  g_PushContinuation (n17627_si_cont);
+SiCont* n17626_si_cont = m_MakeSiCont (1,n17625_cont);
+Ncode n17624_cont () {
+  g_PushContinuation (n17626_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17588_closure_layCid,FRAME (0));
+  return g_call_1 (n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17628_si_cont = m_MakeSiCont (1,n17625_cont);
-Ncode n17624_anon () {
+SiCont* n17627_si_cont = m_MakeSiCont (1,n17624_cont);
+Ncode n17623_anon () {
   Nword typ_q1504,x_q1505;
   typ_q1504 = g_DeTuple (ARG (0),0);
   x_q1505 = g_DeTuple (ARG (0),1);
-  g_PushContinuation (n17628_si_cont);
+  g_PushContinuation (n17627_si_cont);
   g_SetContFrameElem (0,x_q1505);
-  return g_call_1 (n17592_closure_layCtype,typ_q1504);
+  return g_call_1 (n17591_closure_layCtype,typ_q1504);
 }
-SiClosure* n17629_si_closure = m_MakeSiFn (0,1,n17624_anon);
-Ncode n17617_cont () {
+SiClosure* n17628_si_closure = m_MakeSiFn (0,1,n17623_anon);
+Ncode n17616_cont () {
   Nword q1503;
-  g_PushContinuation (n17619_si_cont);
+  g_PushContinuation (n17618_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17621_si_cont);
-  g_PushContinuation (n17623_si_cont);
-  q1503 = g_MakeFn (n17629_si_closure);
+  g_PushContinuation (n17620_si_cont);
+  g_PushContinuation (n17622_si_cont);
+  q1503 = g_MakeFn (n17628_si_closure);
   return g_call_2 (n82_closure_map,q1503,FRAME (0));
 }
-SiCont* n17630_si_cont = m_MakeSiCont (1,n17617_cont);
-Ncode n17632_cont () {
+SiCont* n17629_si_cont = m_MakeSiCont (1,n17616_cont);
+Ncode n17631_cont () {
   Nword q1502;
   q1502 = g_MakeTuple (2);
   g_SetTupleElement (q1502,0,FRAME (0));
   g_SetTupleElement (q1502,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1502);
 }
-SiCont* n17633_si_cont = m_MakeSiCont (1,n17632_cont);
-Ncode n17631_cont () {
-  g_PushContinuation (n17633_si_cont);
+SiCont* n17632_si_cont = m_MakeSiCont (1,n17631_cont);
+Ncode n17630_cont () {
+  g_PushContinuation (n17632_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17588_closure_layCid,FRAME (0));
+  return g_call_1 (n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17634_si_cont = m_MakeSiCont (1,n17631_cont);
-Ncode n17601_cont () {
-  g_PushContinuation (n17616_si_cont);
+SiCont* n17633_si_cont = m_MakeSiCont (1,n17630_cont);
+Ncode n17600_cont () {
+  g_PushContinuation (n17615_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17630_si_cont);
+  g_PushContinuation (n17629_si_cont);
   g_SetContFrameElem (0,FRAME (2));
-  g_PushContinuation (n17634_si_cont);
+  g_PushContinuation (n17633_si_cont);
   g_SetContFrameElem (0,FRAME (1));
-  return g_call_1 (n17592_closure_layCtype,FRAME (0));
+  return g_call_1 (n17591_closure_layCtype,FRAME (0));
 }
-SiCont* n17635_si_cont = m_MakeSiCont (3,n17601_cont);
-Ncode n17639_cont () {
+SiCont* n17634_si_cont = m_MakeSiCont (3,n17600_cont);
+Ncode n17638_cont () {
   Nword q1481;
   q1481 = g_MakeTuple (2);
   g_SetTupleElement (q1481,0,FRAME (0));
   g_SetTupleElement (q1481,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1481);
 }
-SiCont* n17640_si_cont = m_MakeSiCont (1,n17639_cont);
-Nword n17641_scon = g_mkString (";");
-Ncode n17638_cont () {
-  g_PushContinuation (n17640_si_cont);
+SiCont* n17639_si_cont = m_MakeSiCont (1,n17638_cont);
+Nword n17640_scon = g_mkString (";");
+Ncode n17637_cont () {
+  g_PushContinuation (n17639_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17641_scon);
+  return g_call_1 (n252_closure_Right,n17640_scon);
 }
-SiCont* n17642_si_cont = m_MakeSiCont (0,n17638_cont);
-Ncode n17644_cont () {
+SiCont* n17641_si_cont = m_MakeSiCont (0,n17637_cont);
+Ncode n17643_cont () {
   Nword q1480;
   q1480 = g_MakeTuple (2);
   g_SetTupleElement (q1480,0,FRAME (0));
   g_SetTupleElement (q1480,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1480);
 }
-SiCont* n17645_si_cont = m_MakeSiCont (1,n17644_cont);
-Ncode n17650_cont () {
+SiCont* n17644_si_cont = m_MakeSiCont (1,n17643_cont);
+Ncode n17649_cont () {
   return g_call_1 (n211_closure_Word,CRET);
 }
-SiCont* n17651_si_cont = m_MakeSiCont (0,n17650_cont);
-Nword n17652_scon = g_mkNum (0);
-Nword n17654_scon = g_mkString ("-");
-Ncode n17653_cont () {
+SiCont* n17650_si_cont = m_MakeSiCont (0,n17649_cont);
+Nword n17651_scon = g_mkNum (0);
+Nword n17653_scon = g_mkString ("-");
+Ncode n17652_cont () {
   Nword q1408;
-  q1408 = builtin_Hat (n17654_scon,CRET);
+  q1408 = builtin_Hat (n17653_scon,CRET);
   return g_returnWith (q1408);
 }
-SiCont* n17655_si_cont = m_MakeSiCont (0,n17653_cont);
-Ncode n17649_layIntForC () {
+SiCont* n17654_si_cont = m_MakeSiCont (0,n17652_cont);
+Ncode n17648_layIntForC () {
   Nword q1405,q1407,q1406;
-  g_PushContinuation (n17651_si_cont);
-  q1405 = builtin_Less (ARG (0),n17652_scon);
+  g_PushContinuation (n17650_si_cont);
+  q1405 = builtin_Less (ARG (0),n17651_scon);
   if (g_matchC0 (q1405,0)) {
-    g_PushContinuation (n17655_si_cont);
+    g_PushContinuation (n17654_si_cont);
     q1407 = builtin_Tilda (ARG (0));
     return g_call_1 (n327_closure_stringOfInt,q1407);
   } else {
@@ -74199,25 +74198,25 @@ Ncode n17649_layIntForC () {
     return g_call_1 (n327_closure_stringOfInt,q1406);
   }
 }
-SiClosure* n17656_si_closure = m_MakeSiFn (0,1,n17649_layIntForC);
-Nword n17648_closure_layIntForC = g_MakeFn (n17656_si_closure);
-Ncode n17657_cont () {
+SiClosure* n17655_si_closure = m_MakeSiFn (0,1,n17648_layIntForC);
+Nword n17647_closure_layIntForC = g_MakeFn (n17655_si_closure);
+Ncode n17656_cont () {
   return g_call_1 (n211_closure_Word,CRET);
 }
-SiCont* n17658_si_cont = m_MakeSiCont (0,n17657_cont);
-Ncode n17647_layCexp () {
+SiCont* n17657_si_cont = m_MakeSiCont (0,n17656_cont);
+Ncode n17646_layCexp () {
   Nword cid_q1418,n_q1417,s_q1416,call_q1415;
   if (g_matchC1 (ARG (0),0)) {
     cid_q1418 = g_DeCon (ARG (0));
-    return g_call_1 (n17588_closure_layCid,cid_q1418);
+    return g_call_1 (n17587_closure_layCid,cid_q1418);
   } else {
     if (g_matchC1 (ARG (0),1)) {
       n_q1417 = g_DeCon (ARG (0));
-      return g_call_1 (n17648_closure_layIntForC,n_q1417);
+      return g_call_1 (n17647_closure_layIntForC,n_q1417);
     } else {
       if (g_matchC1 (ARG (0),2)) {
         s_q1416 = g_DeCon (ARG (0));
-        g_PushContinuation (n17658_si_cont);
+        g_PushContinuation (n17657_si_cont);
         return g_call_1 (n376_closure_sofStringLit,s_q1416);
       } else {
         call_q1415 = g_DeCon (ARG (0));
@@ -74226,499 +74225,499 @@ Ncode n17647_layCexp () {
     }
   }
 }
-Ncode n17662_cont () {
+Ncode n17661_cont () {
   Nword q1414;
   q1414 = g_MakeTuple (2);
   g_SetTupleElement (q1414,0,FRAME (0));
   g_SetTupleElement (q1414,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1414);
 }
-SiCont* n17663_si_cont = m_MakeSiCont (1,n17662_cont);
-Ncode n17664_cont () {
+SiCont* n17662_si_cont = m_MakeSiCont (1,n17661_cont);
+Ncode n17663_cont () {
   return g_call_1 (n228_closure_layBracket,CRET);
 }
-SiCont* n17665_si_cont = m_MakeSiCont (0,n17664_cont);
-Ncode n17666_cont () {
+SiCont* n17664_si_cont = m_MakeSiCont (0,n17663_cont);
+Ncode n17665_cont () {
   return g_call_1 (n285_pap_layListSep,CRET);
 }
-SiCont* n17667_si_cont = m_MakeSiCont (0,n17666_cont);
-Ncode n17661_cont () {
-  g_PushContinuation (n17663_si_cont);
+SiCont* n17666_si_cont = m_MakeSiCont (0,n17665_cont);
+Ncode n17660_cont () {
+  g_PushContinuation (n17662_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17665_si_cont);
-  g_PushContinuation (n17667_si_cont);
+  g_PushContinuation (n17664_si_cont);
+  g_PushContinuation (n17666_si_cont);
   return g_call_2 (n82_closure_map,FRAME (0),FRAME (1));
 }
-SiCont* n17668_si_cont = m_MakeSiCont (2,n17661_cont);
-Ncode n17660_layCcall () {
+SiCont* n17667_si_cont = m_MakeSiCont (2,n17660_cont);
+Ncode n17659_layCcall () {
   Nword q1411,x_q1412,args_q1413;
   q1411 = g_DeCon (ARG (0));
   x_q1412 = g_DeTuple (q1411,0);
   args_q1413 = g_DeTuple (q1411,1);
-  g_PushContinuation (n17668_si_cont);
+  g_PushContinuation (n17667_si_cont);
   g_SetContFrameElem (0,FRAME (0));
   g_SetContFrameElem (1,args_q1413);
-  return g_call_1 (n17588_closure_layCid,x_q1412);
+  return g_call_1 (n17587_closure_layCid,x_q1412);
 }
-extern Nword n17646_closure_layCexp;
-SiClosure* n17669_si_closure = m_MakeSiFn (1,1,n17660_layCcall);
-Nword n17659_closure_layCcall = g_MakeFn (n17669_si_closure);
-SiClosure* n17670_si_closure = m_MakeSiFn (1,1,n17647_layCexp);
-Nword n17646_closure_layCexp = g_MakeFn (n17670_si_closure);
-Ncode n17643_cont () {
-  g_PushContinuation (n17645_si_cont);
+extern Nword n17645_closure_layCexp;
+SiClosure* n17668_si_closure = m_MakeSiFn (1,1,n17659_layCcall);
+Nword n17658_closure_layCcall = g_MakeFn (n17668_si_closure);
+SiClosure* n17669_si_closure = m_MakeSiFn (1,1,n17646_layCexp);
+Nword n17645_closure_layCexp = g_MakeFn (n17669_si_closure);
+Ncode n17642_cont () {
+  g_PushContinuation (n17644_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17646_closure_layCexp,FRAME (0));
+  return g_call_1 (n17645_closure_layCexp,FRAME (0));
 }
-SiCont* n17671_si_cont = m_MakeSiCont (1,n17643_cont);
-Nword n17672_scon = g_mkString ("return");
-Ncode n17674_cont () {
+SiCont* n17670_si_cont = m_MakeSiCont (1,n17642_cont);
+Nword n17671_scon = g_mkString ("return");
+Ncode n17673_cont () {
   Nword q1478;
   q1478 = g_MakeTuple (2);
   g_SetTupleElement (q1478,0,FRAME (0));
   g_SetTupleElement (q1478,1,CRET);
   return g_call_1 (n681_closure_SlashSlash,q1478);
 }
-SiCont* n17675_si_cont = m_MakeSiCont (1,n17674_cont);
-Ncode n17673_cont () {
-  g_PushContinuation (n17675_si_cont);
+SiCont* n17674_si_cont = m_MakeSiCont (1,n17673_cont);
+Ncode n17672_cont () {
+  g_PushContinuation (n17674_si_cont);
   g_SetContFrameElem (0,CRET);
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17676_si_cont = m_MakeSiCont (2,n17673_cont);
-Ncode n17678_cont () {
+SiCont* n17675_si_cont = m_MakeSiCont (2,n17672_cont);
+Ncode n17677_cont () {
   Nword q1477;
   q1477 = g_MakeTuple (2);
   g_SetTupleElement (q1477,0,FRAME (0));
   g_SetTupleElement (q1477,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1477);
 }
-SiCont* n17679_si_cont = m_MakeSiCont (1,n17678_cont);
-Nword n17680_scon = g_mkString (";");
-Ncode n17677_cont () {
-  g_PushContinuation (n17679_si_cont);
+SiCont* n17678_si_cont = m_MakeSiCont (1,n17677_cont);
+Nword n17679_scon = g_mkString (";");
+Ncode n17676_cont () {
+  g_PushContinuation (n17678_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17680_scon);
+  return g_call_1 (n252_closure_Right,n17679_scon);
 }
-SiCont* n17681_si_cont = m_MakeSiCont (0,n17677_cont);
-Ncode n17683_cont () {
+SiCont* n17680_si_cont = m_MakeSiCont (0,n17676_cont);
+Ncode n17682_cont () {
   Nword q1476;
   q1476 = g_MakeTuple (2);
   g_SetTupleElement (q1476,0,FRAME (0));
   g_SetTupleElement (q1476,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1476);
 }
-SiCont* n17684_si_cont = m_MakeSiCont (1,n17683_cont);
-Ncode n17682_cont () {
-  g_PushContinuation (n17684_si_cont);
+SiCont* n17683_si_cont = m_MakeSiCont (1,n17682_cont);
+Ncode n17681_cont () {
+  g_PushContinuation (n17683_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17588_closure_layCid,FRAME (0));
+  return g_call_1 (n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17685_si_cont = m_MakeSiCont (1,n17682_cont);
-Ncode n17687_cont () {
+SiCont* n17684_si_cont = m_MakeSiCont (1,n17681_cont);
+Ncode n17686_cont () {
   Nword q1475;
   q1475 = g_MakeTuple (2);
   g_SetTupleElement (q1475,0,FRAME (0));
   g_SetTupleElement (q1475,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1475);
 }
-SiCont* n17688_si_cont = m_MakeSiCont (1,n17687_cont);
-Ncode n17686_cont () {
-  g_PushContinuation (n17688_si_cont);
+SiCont* n17687_si_cont = m_MakeSiCont (1,n17686_cont);
+Ncode n17685_cont () {
+  g_PushContinuation (n17687_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17592_closure_layCtype,FRAME (0));
+  return g_call_1 (n17591_closure_layCtype,FRAME (0));
 }
-SiCont* n17689_si_cont = m_MakeSiCont (1,n17686_cont);
-Nword n17690_scon = g_mkString ("static");
-Ncode n17692_cont () {
+SiCont* n17688_si_cont = m_MakeSiCont (1,n17685_cont);
+Nword n17689_scon = g_mkString ("static");
+Ncode n17691_cont () {
   Nword q1470;
   q1470 = g_MakeTuple (2);
   g_SetTupleElement (q1470,0,FRAME (0));
   g_SetTupleElement (q1470,1,CRET);
   return g_call_1 (n681_closure_SlashSlash,q1470);
 }
-SiCont* n17693_si_cont = m_MakeSiCont (1,n17692_cont);
-Ncode n17691_cont () {
-  g_PushContinuation (n17693_si_cont);
+SiCont* n17692_si_cont = m_MakeSiCont (1,n17691_cont);
+Ncode n17690_cont () {
+  g_PushContinuation (n17692_si_cont);
   g_SetContFrameElem (0,CRET);
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17694_si_cont = m_MakeSiCont (2,n17691_cont);
-Ncode n17696_cont () {
+SiCont* n17693_si_cont = m_MakeSiCont (2,n17690_cont);
+Ncode n17695_cont () {
   Nword q1469;
   q1469 = g_MakeTuple (2);
   g_SetTupleElement (q1469,0,FRAME (0));
   g_SetTupleElement (q1469,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1469);
 }
-SiCont* n17697_si_cont = m_MakeSiCont (1,n17696_cont);
-Nword n17698_scon = g_mkString (";");
-Ncode n17695_cont () {
-  g_PushContinuation (n17697_si_cont);
+SiCont* n17696_si_cont = m_MakeSiCont (1,n17695_cont);
+Nword n17697_scon = g_mkString (";");
+Ncode n17694_cont () {
+  g_PushContinuation (n17696_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17698_scon);
+  return g_call_1 (n252_closure_Right,n17697_scon);
 }
-SiCont* n17699_si_cont = m_MakeSiCont (0,n17695_cont);
-Ncode n17701_cont () {
+SiCont* n17698_si_cont = m_MakeSiCont (0,n17694_cont);
+Ncode n17700_cont () {
   Nword q1468;
   q1468 = g_MakeTuple (2);
   g_SetTupleElement (q1468,0,FRAME (0));
   g_SetTupleElement (q1468,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1468);
 }
-SiCont* n17702_si_cont = m_MakeSiCont (1,n17701_cont);
-Ncode n17703_cont () {
+SiCont* n17701_si_cont = m_MakeSiCont (1,n17700_cont);
+Ncode n17702_cont () {
   return g_call_1 (n285_pap_layListSep,CRET);
 }
-SiCont* n17704_si_cont = m_MakeSiCont (0,n17703_cont);
-Ncode n17700_cont () {
-  g_PushContinuation (n17702_si_cont);
+SiCont* n17703_si_cont = m_MakeSiCont (0,n17702_cont);
+Ncode n17699_cont () {
+  g_PushContinuation (n17701_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17704_si_cont);
-  return g_call_2 (n82_closure_map,n17588_closure_layCid,FRAME (0));
+  g_PushContinuation (n17703_si_cont);
+  return g_call_2 (n82_closure_map,n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17705_si_cont = m_MakeSiCont (1,n17700_cont);
-Ncode n17707_cont () {
+SiCont* n17704_si_cont = m_MakeSiCont (1,n17699_cont);
+Ncode n17706_cont () {
   Nword q1463;
   q1463 = g_MakeTuple (2);
   g_SetTupleElement (q1463,0,FRAME (0));
   g_SetTupleElement (q1463,1,CRET);
   return g_call_1 (n681_closure_SlashSlash,q1463);
 }
-SiCont* n17708_si_cont = m_MakeSiCont (1,n17707_cont);
-Ncode n17706_cont () {
-  g_PushContinuation (n17708_si_cont);
+SiCont* n17707_si_cont = m_MakeSiCont (1,n17706_cont);
+Ncode n17705_cont () {
+  g_PushContinuation (n17707_si_cont);
   g_SetContFrameElem (0,CRET);
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17709_si_cont = m_MakeSiCont (2,n17706_cont);
-Ncode n17711_cont () {
+SiCont* n17708_si_cont = m_MakeSiCont (2,n17705_cont);
+Ncode n17710_cont () {
   Nword q1462;
   q1462 = g_MakeTuple (2);
   g_SetTupleElement (q1462,0,FRAME (0));
   g_SetTupleElement (q1462,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1462);
 }
-SiCont* n17712_si_cont = m_MakeSiCont (1,n17711_cont);
-Nword n17713_scon = g_mkString (";");
-Ncode n17710_cont () {
-  g_PushContinuation (n17712_si_cont);
+SiCont* n17711_si_cont = m_MakeSiCont (1,n17710_cont);
+Nword n17712_scon = g_mkString (";");
+Ncode n17709_cont () {
+  g_PushContinuation (n17711_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17713_scon);
+  return g_call_1 (n252_closure_Right,n17712_scon);
 }
-SiCont* n17714_si_cont = m_MakeSiCont (0,n17710_cont);
-Ncode n17716_cont () {
+SiCont* n17713_si_cont = m_MakeSiCont (0,n17709_cont);
+Ncode n17715_cont () {
   Nword q1461;
   q1461 = g_MakeTuple (2);
   g_SetTupleElement (q1461,0,FRAME (0));
   g_SetTupleElement (q1461,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1461);
 }
-SiCont* n17717_si_cont = m_MakeSiCont (1,n17716_cont);
-Ncode n17715_cont () {
-  g_PushContinuation (n17717_si_cont);
+SiCont* n17716_si_cont = m_MakeSiCont (1,n17715_cont);
+Ncode n17714_cont () {
+  g_PushContinuation (n17716_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17646_closure_layCexp,FRAME (0));
+  return g_call_1 (n17645_closure_layCexp,FRAME (0));
 }
-SiCont* n17718_si_cont = m_MakeSiCont (1,n17715_cont);
-Ncode n17720_cont () {
+SiCont* n17717_si_cont = m_MakeSiCont (1,n17714_cont);
+Ncode n17719_cont () {
   Nword q1460;
   q1460 = g_MakeTuple (2);
   g_SetTupleElement (q1460,0,FRAME (0));
   g_SetTupleElement (q1460,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1460);
 }
-SiCont* n17721_si_cont = m_MakeSiCont (1,n17720_cont);
-Nword n17722_scon = g_mkString ("=");
-Ncode n17719_cont () {
-  g_PushContinuation (n17721_si_cont);
+SiCont* n17720_si_cont = m_MakeSiCont (1,n17719_cont);
+Nword n17721_scon = g_mkString ("=");
+Ncode n17718_cont () {
+  g_PushContinuation (n17720_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n211_closure_Word,n17722_scon);
+  return g_call_1 (n211_closure_Word,n17721_scon);
 }
-SiCont* n17723_si_cont = m_MakeSiCont (0,n17719_cont);
-Ncode n17725_cont () {
+SiCont* n17722_si_cont = m_MakeSiCont (0,n17718_cont);
+Ncode n17724_cont () {
   Nword q1459;
   q1459 = g_MakeTuple (2);
   g_SetTupleElement (q1459,0,FRAME (0));
   g_SetTupleElement (q1459,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1459);
 }
-SiCont* n17726_si_cont = m_MakeSiCont (1,n17725_cont);
-Ncode n17724_cont () {
-  g_PushContinuation (n17726_si_cont);
+SiCont* n17725_si_cont = m_MakeSiCont (1,n17724_cont);
+Ncode n17723_cont () {
+  g_PushContinuation (n17725_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17588_closure_layCid,FRAME (0));
+  return g_call_1 (n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17727_si_cont = m_MakeSiCont (1,n17724_cont);
-Ncode n17729_cont () {
+SiCont* n17726_si_cont = m_MakeSiCont (1,n17723_cont);
+Ncode n17728_cont () {
   Nword q1453;
   q1453 = g_MakeTuple (2);
   g_SetTupleElement (q1453,0,FRAME (0));
   g_SetTupleElement (q1453,1,CRET);
   return g_call_1 (n681_closure_SlashSlash,q1453);
 }
-SiCont* n17730_si_cont = m_MakeSiCont (1,n17729_cont);
-Ncode n17728_cont () {
-  g_PushContinuation (n17730_si_cont);
+SiCont* n17729_si_cont = m_MakeSiCont (1,n17728_cont);
+Ncode n17727_cont () {
+  g_PushContinuation (n17729_si_cont);
   g_SetContFrameElem (0,CRET);
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17731_si_cont = m_MakeSiCont (2,n17728_cont);
-Ncode n17735_cont () {
+SiCont* n17730_si_cont = m_MakeSiCont (2,n17727_cont);
+Ncode n17734_cont () {
   Nword q1432;
   q1432 = g_MakeTuple (2);
   g_SetTupleElement (q1432,0,FRAME (0));
   g_SetTupleElement (q1432,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1432);
 }
-SiCont* n17736_si_cont = m_MakeSiCont (1,n17735_cont);
-Nword n17737_scon = g_mkString (";");
-Ncode n17734_cont () {
-  g_PushContinuation (n17736_si_cont);
+SiCont* n17735_si_cont = m_MakeSiCont (1,n17734_cont);
+Nword n17736_scon = g_mkString (";");
+Ncode n17733_cont () {
+  g_PushContinuation (n17735_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17737_scon);
+  return g_call_1 (n252_closure_Right,n17736_scon);
 }
-SiCont* n17738_si_cont = m_MakeSiCont (0,n17734_cont);
-Ncode n17740_cont () {
+SiCont* n17737_si_cont = m_MakeSiCont (0,n17733_cont);
+Ncode n17739_cont () {
   Nword q1431;
   q1431 = g_MakeTuple (2);
   g_SetTupleElement (q1431,0,FRAME (0));
   g_SetTupleElement (q1431,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1431);
 }
-SiCont* n17741_si_cont = m_MakeSiCont (1,n17740_cont);
-Ncode n17739_cont () {
-  g_PushContinuation (n17741_si_cont);
+SiCont* n17740_si_cont = m_MakeSiCont (1,n17739_cont);
+Ncode n17738_cont () {
+  g_PushContinuation (n17740_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17646_closure_layCexp,FRAME (0));
+  return g_call_1 (n17645_closure_layCexp,FRAME (0));
 }
-SiCont* n17742_si_cont = m_MakeSiCont (1,n17739_cont);
-Ncode n17744_cont () {
+SiCont* n17741_si_cont = m_MakeSiCont (1,n17738_cont);
+Ncode n17743_cont () {
   Nword q1430;
   q1430 = g_MakeTuple (2);
   g_SetTupleElement (q1430,0,FRAME (0));
   g_SetTupleElement (q1430,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1430);
 }
-SiCont* n17745_si_cont = m_MakeSiCont (1,n17744_cont);
-Nword n17746_scon = g_mkString ("=");
-Ncode n17743_cont () {
-  g_PushContinuation (n17745_si_cont);
+SiCont* n17744_si_cont = m_MakeSiCont (1,n17743_cont);
+Nword n17745_scon = g_mkString ("=");
+Ncode n17742_cont () {
+  g_PushContinuation (n17744_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n211_closure_Word,n17746_scon);
+  return g_call_1 (n211_closure_Word,n17745_scon);
 }
-SiCont* n17747_si_cont = m_MakeSiCont (0,n17743_cont);
-Ncode n17749_cont () {
+SiCont* n17746_si_cont = m_MakeSiCont (0,n17742_cont);
+Ncode n17748_cont () {
   Nword q1426;
   q1426 = g_MakeTuple (2);
   g_SetTupleElement (q1426,0,FRAME (0));
   g_SetTupleElement (q1426,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1426);
 }
-SiCont* n17750_si_cont = m_MakeSiCont (1,n17749_cont);
-Nword n17751_scon = g_mkString (";");
-Ncode n17748_cont () {
-  g_PushContinuation (n17750_si_cont);
+SiCont* n17749_si_cont = m_MakeSiCont (1,n17748_cont);
+Nword n17750_scon = g_mkString (";");
+Ncode n17747_cont () {
+  g_PushContinuation (n17749_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17751_scon);
+  return g_call_1 (n252_closure_Right,n17750_scon);
 }
-SiCont* n17752_si_cont = m_MakeSiCont (0,n17748_cont);
-Ncode n17733_layCact () {
+SiCont* n17751_si_cont = m_MakeSiCont (0,n17747_cont);
+Ncode n17732_layCact () {
   Nword q1427,x_q1428,e_q1429,call_q1425;
   if (g_matchC1 (ARG (0),0)) {
     q1427 = g_DeCon (ARG (0));
     x_q1428 = g_DeTuple (q1427,0);
     e_q1429 = g_DeTuple (q1427,1);
-    g_PushContinuation (n17738_si_cont);
-    g_PushContinuation (n17742_si_cont);
+    g_PushContinuation (n17737_si_cont);
+    g_PushContinuation (n17741_si_cont);
     g_SetContFrameElem (0,e_q1429);
-    g_PushContinuation (n17747_si_cont);
-    return g_call_1 (n17588_closure_layCid,x_q1428);
+    g_PushContinuation (n17746_si_cont);
+    return g_call_1 (n17587_closure_layCid,x_q1428);
   } else {
     call_q1425 = g_DeCon (ARG (0));
-    g_PushContinuation (n17752_si_cont);
-    return g_call_1 (n17659_closure_layCcall,call_q1425);
+    g_PushContinuation (n17751_si_cont);
+    return g_call_1 (n17658_closure_layCcall,call_q1425);
   }
 }
-SiClosure* n17753_si_closure = m_MakeSiFn (0,1,n17733_layCact);
-Nword n17732_closure_layCact = g_MakeFn (n17753_si_closure);
-Ncode n17755_cont () {
-  return g_call_2 (n17603_closure_layBraced,CRET,FRAME (0));
+SiClosure* n17752_si_closure = m_MakeSiFn (0,1,n17732_layCact);
+Nword n17731_closure_layCact = g_MakeFn (n17752_si_closure);
+Ncode n17754_cont () {
+  return g_call_2 (n17602_closure_layBraced,CRET,FRAME (0));
 }
-SiCont* n17756_si_cont = m_MakeSiCont (1,n17755_cont);
-Ncode n17758_cont () {
+SiCont* n17755_si_cont = m_MakeSiCont (1,n17754_cont);
+Ncode n17757_cont () {
   Nword q1449;
   q1449 = g_MakeTuple (2);
   g_SetTupleElement (q1449,0,FRAME (0));
   g_SetTupleElement (q1449,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1449);
 }
-SiCont* n17759_si_cont = m_MakeSiCont (1,n17758_cont);
-Nword n17760_scon = g_mkString ("else");
-Ncode n17757_cont () {
-  g_PushContinuation (n17759_si_cont);
+SiCont* n17758_si_cont = m_MakeSiCont (1,n17757_cont);
+Nword n17759_scon = g_mkString ("else");
+Ncode n17756_cont () {
+  g_PushContinuation (n17758_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n211_closure_Word,n17760_scon);
+  return g_call_1 (n211_closure_Word,n17759_scon);
 }
-SiCont* n17761_si_cont = m_MakeSiCont (0,n17757_cont);
-Ncode n17763_cont () {
-  return g_call_2 (n17603_closure_layBraced,CRET,FRAME (0));
+SiCont* n17760_si_cont = m_MakeSiCont (0,n17756_cont);
+Ncode n17762_cont () {
+  return g_call_2 (n17602_closure_layBraced,CRET,FRAME (0));
 }
-SiCont* n17764_si_cont = m_MakeSiCont (1,n17763_cont);
-Ncode n17766_cont () {
+SiCont* n17763_si_cont = m_MakeSiCont (1,n17762_cont);
+Ncode n17765_cont () {
   Nword q1448;
   q1448 = g_MakeTuple (2);
   g_SetTupleElement (q1448,0,FRAME (0));
   g_SetTupleElement (q1448,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1448);
 }
-SiCont* n17767_si_cont = m_MakeSiCont (1,n17766_cont);
-Ncode n17768_cont () {
+SiCont* n17766_si_cont = m_MakeSiCont (1,n17765_cont);
+Ncode n17767_cont () {
   return g_call_1 (n228_closure_layBracket,CRET);
 }
-SiCont* n17769_si_cont = m_MakeSiCont (0,n17768_cont);
-Ncode n17765_cont () {
-  g_PushContinuation (n17767_si_cont);
+SiCont* n17768_si_cont = m_MakeSiCont (0,n17767_cont);
+Ncode n17764_cont () {
+  g_PushContinuation (n17766_si_cont);
+  g_SetContFrameElem (0,CRET);
+  g_PushContinuation (n17768_si_cont);
+  return g_call_1 (n17645_closure_layCexp,FRAME (0));
+}
+SiCont* n17769_si_cont = m_MakeSiCont (1,n17764_cont);
+Nword n17770_scon = g_mkString ("if");
+Ncode n17761_cont () {
+  g_PushContinuation (n17763_si_cont);
   g_SetContFrameElem (0,CRET);
   g_PushContinuation (n17769_si_cont);
-  return g_call_1 (n17646_closure_layCexp,FRAME (0));
-}
-SiCont* n17770_si_cont = m_MakeSiCont (1,n17765_cont);
-Nword n17771_scon = g_mkString ("if");
-Ncode n17762_cont () {
-  g_PushContinuation (n17764_si_cont);
-  g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17770_si_cont);
   g_SetContFrameElem (0,FRAME (0));
-  return g_call_1 (n211_closure_Word,n17771_scon);
+  return g_call_1 (n211_closure_Word,n17770_scon);
 }
-SiCont* n17772_si_cont = m_MakeSiCont (1,n17762_cont);
-Ncode n17754_cont () {
-  g_PushContinuation (n17756_si_cont);
+SiCont* n17771_si_cont = m_MakeSiCont (1,n17761_cont);
+Ncode n17753_cont () {
+  g_PushContinuation (n17755_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17761_si_cont);
-  g_PushContinuation (n17772_si_cont);
+  g_PushContinuation (n17760_si_cont);
+  g_PushContinuation (n17771_si_cont);
   g_SetContFrameElem (0,FRAME (2));
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17773_si_cont = m_MakeSiCont (3,n17754_cont);
-Ncode n17775_cont () {
+SiCont* n17772_si_cont = m_MakeSiCont (3,n17753_cont);
+Ncode n17774_cont () {
   Nword q1443;
   q1443 = g_MakeTuple (2);
   g_SetTupleElement (q1443,0,FRAME (0));
   g_SetTupleElement (q1443,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1443);
 }
-SiCont* n17776_si_cont = m_MakeSiCont (1,n17775_cont);
-Nword n17777_scon = g_mkString (";");
-Ncode n17774_cont () {
-  g_PushContinuation (n17776_si_cont);
+SiCont* n17775_si_cont = m_MakeSiCont (1,n17774_cont);
+Nword n17776_scon = g_mkString (";");
+Ncode n17773_cont () {
+  g_PushContinuation (n17775_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17777_scon);
+  return g_call_1 (n252_closure_Right,n17776_scon);
 }
-SiCont* n17778_si_cont = m_MakeSiCont (0,n17774_cont);
-Ncode n17780_cont () {
+SiCont* n17777_si_cont = m_MakeSiCont (0,n17773_cont);
+Ncode n17779_cont () {
   Nword q1442;
   q1442 = g_MakeTuple (2);
   g_SetTupleElement (q1442,0,FRAME (0));
   g_SetTupleElement (q1442,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1442);
 }
-SiCont* n17781_si_cont = m_MakeSiCont (1,n17780_cont);
-Ncode n17783_layClab () {
+SiCont* n17780_si_cont = m_MakeSiCont (1,n17779_cont);
+Ncode n17782_layClab () {
   Nword x_q1401;
   x_q1401 = g_DeCon (ARG (0));
   return g_call_1 (n211_closure_Word,x_q1401);
 }
-SiClosure* n17784_si_closure = m_MakeSiFn (0,1,n17783_layClab);
-Nword n17782_closure_layClab = g_MakeFn (n17784_si_closure);
-Ncode n17779_cont () {
-  g_PushContinuation (n17781_si_cont);
+SiClosure* n17783_si_closure = m_MakeSiFn (0,1,n17782_layClab);
+Nword n17781_closure_layClab = g_MakeFn (n17783_si_closure);
+Ncode n17778_cont () {
+  g_PushContinuation (n17780_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17782_closure_layClab,FRAME (0));
+  return g_call_1 (n17781_closure_layClab,FRAME (0));
 }
-SiCont* n17785_si_cont = m_MakeSiCont (1,n17779_cont);
-Nword n17786_scon = g_mkString ("goto");
-Ncode n17788_cont () {
+SiCont* n17784_si_cont = m_MakeSiCont (1,n17778_cont);
+Nword n17785_scon = g_mkString ("goto");
+Ncode n17787_cont () {
   Nword q1440;
   q1440 = g_MakeTuple (2);
   g_SetTupleElement (q1440,0,FRAME (0));
   g_SetTupleElement (q1440,1,CRET);
   return g_call_1 (n681_closure_SlashSlash,q1440);
 }
-SiCont* n17789_si_cont = m_MakeSiCont (1,n17788_cont);
-Ncode n17787_cont () {
-  g_PushContinuation (n17789_si_cont);
+SiCont* n17788_si_cont = m_MakeSiCont (1,n17787_cont);
+Ncode n17786_cont () {
+  g_PushContinuation (n17788_si_cont);
   g_SetContFrameElem (0,CRET);
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17790_si_cont = m_MakeSiCont (2,n17787_cont);
-Ncode n17792_cont () {
+SiCont* n17789_si_cont = m_MakeSiCont (2,n17786_cont);
+Ncode n17791_cont () {
   Nword q1439;
   q1439 = g_MakeTuple (2);
   g_SetTupleElement (q1439,0,FRAME (0));
   g_SetTupleElement (q1439,1,CRET);
   return g_call_1 (n681_closure_SlashSlash,q1439);
 }
-SiCont* n17793_si_cont = m_MakeSiCont (1,n17792_cont);
-Ncode n17795_cont () {
+SiCont* n17792_si_cont = m_MakeSiCont (1,n17791_cont);
+Ncode n17794_cont () {
   Nword q1438;
   q1438 = g_MakeTuple (2);
   g_SetTupleElement (q1438,0,FRAME (0));
   g_SetTupleElement (q1438,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1438);
 }
-SiCont* n17796_si_cont = m_MakeSiCont (1,n17795_cont);
-Nword n17797_scon = g_mkString (":");
-Ncode n17794_cont () {
-  g_PushContinuation (n17796_si_cont);
+SiCont* n17795_si_cont = m_MakeSiCont (1,n17794_cont);
+Nword n17796_scon = g_mkString (":");
+Ncode n17793_cont () {
+  g_PushContinuation (n17795_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17797_scon);
+  return g_call_1 (n252_closure_Right,n17796_scon);
 }
-SiCont* n17798_si_cont = m_MakeSiCont (0,n17794_cont);
-Ncode n17791_cont () {
-  g_PushContinuation (n17793_si_cont);
+SiCont* n17797_si_cont = m_MakeSiCont (0,n17793_cont);
+Ncode n17790_cont () {
+  g_PushContinuation (n17792_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17798_si_cont);
-  return g_call_1 (n17782_closure_layClab,FRAME (0));
+  g_PushContinuation (n17797_si_cont);
+  return g_call_1 (n17781_closure_layClab,FRAME (0));
 }
-SiCont* n17799_si_cont = m_MakeSiCont (1,n17791_cont);
-Ncode n17637_layCstat () {
+SiCont* n17798_si_cont = m_MakeSiCont (1,n17790_cont);
+Ncode n17636_layCstat () {
   Nword exp_q1479,q1471,typ_q1472,x_q1473,stat_q1474,q1464,typ_q1465,xs_q1466,stat_q1467,q1454,typ_q1455,x_q1456,e_q1457,stat_q1458,q1450,act_q1451,stat_q1452,q1444,i_q1445,t_q1446,e_q1447,lab_q1441,q1434,s1_q1435,lab_q1436,s2_q1437;
   if (g_matchC1 (ARG (0),0)) {
     exp_q1479 = g_DeCon (ARG (0));
-    g_PushContinuation (n17642_si_cont);
-    g_PushContinuation (n17671_si_cont);
+    g_PushContinuation (n17641_si_cont);
+    g_PushContinuation (n17670_si_cont);
     g_SetContFrameElem (0,exp_q1479);
-    return g_call_1 (n211_closure_Word,n17672_scon);
+    return g_call_1 (n211_closure_Word,n17671_scon);
   } else {
     if (g_matchC1 (ARG (0),1)) {
       q1471 = g_DeCon (ARG (0));
       typ_q1472 = g_DeTuple (q1471,0);
       x_q1473 = g_DeTuple (q1471,1);
       stat_q1474 = g_DeTuple (q1471,2);
-      g_PushContinuation (n17676_si_cont);
+      g_PushContinuation (n17675_si_cont);
       g_SetContFrameElem (0,FRAME (0));
       g_SetContFrameElem (1,stat_q1474);
-      g_PushContinuation (n17681_si_cont);
-      g_PushContinuation (n17685_si_cont);
+      g_PushContinuation (n17680_si_cont);
+      g_PushContinuation (n17684_si_cont);
       g_SetContFrameElem (0,x_q1473);
-      g_PushContinuation (n17689_si_cont);
+      g_PushContinuation (n17688_si_cont);
       g_SetContFrameElem (0,typ_q1472);
-      return g_call_1 (n211_closure_Word,n17690_scon);
+      return g_call_1 (n211_closure_Word,n17689_scon);
     } else {
       if (g_matchC1 (ARG (0),2)) {
         q1464 = g_DeCon (ARG (0));
         typ_q1465 = g_DeTuple (q1464,0);
         xs_q1466 = g_DeTuple (q1464,1);
         stat_q1467 = g_DeTuple (q1464,2);
-        g_PushContinuation (n17694_si_cont);
+        g_PushContinuation (n17693_si_cont);
         g_SetContFrameElem (0,FRAME (0));
         g_SetContFrameElem (1,stat_q1467);
-        g_PushContinuation (n17699_si_cont);
-        g_PushContinuation (n17705_si_cont);
+        g_PushContinuation (n17698_si_cont);
+        g_PushContinuation (n17704_si_cont);
         g_SetContFrameElem (0,xs_q1466);
-        return g_call_1 (n17592_closure_layCtype,typ_q1465);
+        return g_call_1 (n17591_closure_layCtype,typ_q1465);
       } else {
         if (g_matchC1 (ARG (0),3)) {
           q1454 = g_DeCon (ARG (0));
@@ -74726,32 +74725,32 @@ Ncode n17637_layCstat () {
           x_q1456 = g_DeTuple (q1454,1);
           e_q1457 = g_DeTuple (q1454,2);
           stat_q1458 = g_DeTuple (q1454,3);
-          g_PushContinuation (n17709_si_cont);
+          g_PushContinuation (n17708_si_cont);
           g_SetContFrameElem (0,FRAME (0));
           g_SetContFrameElem (1,stat_q1458);
-          g_PushContinuation (n17714_si_cont);
-          g_PushContinuation (n17718_si_cont);
+          g_PushContinuation (n17713_si_cont);
+          g_PushContinuation (n17717_si_cont);
           g_SetContFrameElem (0,e_q1457);
-          g_PushContinuation (n17723_si_cont);
-          g_PushContinuation (n17727_si_cont);
+          g_PushContinuation (n17722_si_cont);
+          g_PushContinuation (n17726_si_cont);
           g_SetContFrameElem (0,x_q1456);
-          return g_call_1 (n17592_closure_layCtype,typ_q1455);
+          return g_call_1 (n17591_closure_layCtype,typ_q1455);
         } else {
           if (g_matchC1 (ARG (0),4)) {
             q1450 = g_DeCon (ARG (0));
             act_q1451 = g_DeTuple (q1450,0);
             stat_q1452 = g_DeTuple (q1450,1);
-            g_PushContinuation (n17731_si_cont);
+            g_PushContinuation (n17730_si_cont);
             g_SetContFrameElem (0,FRAME (0));
             g_SetContFrameElem (1,stat_q1452);
-            return g_call_1 (n17732_closure_layCact,act_q1451);
+            return g_call_1 (n17731_closure_layCact,act_q1451);
           } else {
             if (g_matchC1 (ARG (0),5)) {
               q1444 = g_DeCon (ARG (0));
               i_q1445 = g_DeTuple (q1444,0);
               t_q1446 = g_DeTuple (q1444,1);
               e_q1447 = g_DeTuple (q1444,2);
-              g_PushContinuation (n17773_si_cont);
+              g_PushContinuation (n17772_si_cont);
               g_SetContFrameElem (0,FRAME (0));
               g_SetContFrameElem (1,t_q1446);
               g_SetContFrameElem (2,i_q1445);
@@ -74759,19 +74758,19 @@ Ncode n17637_layCstat () {
             } else {
               if (g_matchC1 (ARG (0),6)) {
                 lab_q1441 = g_DeCon (ARG (0));
-                g_PushContinuation (n17778_si_cont);
-                g_PushContinuation (n17785_si_cont);
+                g_PushContinuation (n17777_si_cont);
+                g_PushContinuation (n17784_si_cont);
                 g_SetContFrameElem (0,lab_q1441);
-                return g_call_1 (n211_closure_Word,n17786_scon);
+                return g_call_1 (n211_closure_Word,n17785_scon);
               } else {
                 q1434 = g_DeCon (ARG (0));
                 s1_q1435 = g_DeTuple (q1434,0);
                 lab_q1436 = g_DeTuple (q1434,1);
                 s2_q1437 = g_DeTuple (q1434,2);
-                g_PushContinuation (n17790_si_cont);
+                g_PushContinuation (n17789_si_cont);
                 g_SetContFrameElem (0,FRAME (0));
                 g_SetContFrameElem (1,s2_q1437);
-                g_PushContinuation (n17799_si_cont);
+                g_PushContinuation (n17798_si_cont);
                 g_SetContFrameElem (0,lab_q1436);
                 return g_call_1 (FRAME (0),s1_q1435);
               }
@@ -74782,124 +74781,124 @@ Ncode n17637_layCstat () {
     }
   }
 }
-extern Nword n17636_closure_layCstat;
-SiClosure* n17800_si_closure = m_MakeSiFn (1,1,n17637_layCstat);
-Nword n17636_closure_layCstat = g_MakeFn (n17800_si_closure);
-Ncode n17802_cont () {
+extern Nword n17635_closure_layCstat;
+SiClosure* n17799_si_closure = m_MakeSiFn (1,1,n17636_layCstat);
+Nword n17635_closure_layCstat = g_MakeFn (n17799_si_closure);
+Ncode n17801_cont () {
   Nword q1496;
   q1496 = g_MakeTuple (2);
   g_SetTupleElement (q1496,0,FRAME (0));
   g_SetTupleElement (q1496,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1496);
 }
-SiCont* n17803_si_cont = m_MakeSiCont (1,n17802_cont);
-Nword n17804_scon = g_mkString (";");
-Ncode n17801_cont () {
-  g_PushContinuation (n17803_si_cont);
+SiCont* n17802_si_cont = m_MakeSiCont (1,n17801_cont);
+Nword n17803_scon = g_mkString (";");
+Ncode n17800_cont () {
+  g_PushContinuation (n17802_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17804_scon);
+  return g_call_1 (n252_closure_Right,n17803_scon);
 }
-SiCont* n17805_si_cont = m_MakeSiCont (0,n17801_cont);
-Ncode n17807_cont () {
+SiCont* n17804_si_cont = m_MakeSiCont (0,n17800_cont);
+Ncode n17806_cont () {
   Nword q1495;
   q1495 = g_MakeTuple (2);
   g_SetTupleElement (q1495,0,FRAME (0));
   g_SetTupleElement (q1495,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1495);
 }
-SiCont* n17808_si_cont = m_MakeSiCont (1,n17807_cont);
-Ncode n17806_cont () {
-  g_PushContinuation (n17808_si_cont);
+SiCont* n17807_si_cont = m_MakeSiCont (1,n17806_cont);
+Ncode n17805_cont () {
+  g_PushContinuation (n17807_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17588_closure_layCid,FRAME (0));
+  return g_call_1 (n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17809_si_cont = m_MakeSiCont (1,n17806_cont);
-Ncode n17811_cont () {
+SiCont* n17808_si_cont = m_MakeSiCont (1,n17805_cont);
+Ncode n17810_cont () {
   Nword q1494;
   q1494 = g_MakeTuple (2);
   g_SetTupleElement (q1494,0,FRAME (0));
   g_SetTupleElement (q1494,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1494);
 }
-SiCont* n17812_si_cont = m_MakeSiCont (1,n17811_cont);
-Ncode n17810_cont () {
-  g_PushContinuation (n17812_si_cont);
+SiCont* n17811_si_cont = m_MakeSiCont (1,n17810_cont);
+Ncode n17809_cont () {
+  g_PushContinuation (n17811_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17592_closure_layCtype,FRAME (0));
+  return g_call_1 (n17591_closure_layCtype,FRAME (0));
 }
-SiCont* n17813_si_cont = m_MakeSiCont (1,n17810_cont);
-Nword n17814_scon = g_mkString ("extern");
-Ncode n17816_cont () {
+SiCont* n17812_si_cont = m_MakeSiCont (1,n17809_cont);
+Nword n17813_scon = g_mkString ("extern");
+Ncode n17815_cont () {
   Nword q1490;
   q1490 = g_MakeTuple (2);
   g_SetTupleElement (q1490,0,FRAME (0));
   g_SetTupleElement (q1490,1,CRET);
   return g_call_1 (n258_closure_AtAt,q1490);
 }
-SiCont* n17817_si_cont = m_MakeSiCont (1,n17816_cont);
-Nword n17818_scon = g_mkString (";");
-Ncode n17815_cont () {
-  g_PushContinuation (n17817_si_cont);
+SiCont* n17816_si_cont = m_MakeSiCont (1,n17815_cont);
+Nword n17817_scon = g_mkString (";");
+Ncode n17814_cont () {
+  g_PushContinuation (n17816_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n252_closure_Right,n17818_scon);
+  return g_call_1 (n252_closure_Right,n17817_scon);
 }
-SiCont* n17819_si_cont = m_MakeSiCont (0,n17815_cont);
-Ncode n17821_cont () {
+SiCont* n17818_si_cont = m_MakeSiCont (0,n17814_cont);
+Ncode n17820_cont () {
   Nword q1489;
   q1489 = g_MakeTuple (2);
   g_SetTupleElement (q1489,0,FRAME (0));
   g_SetTupleElement (q1489,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1489);
 }
-SiCont* n17822_si_cont = m_MakeSiCont (1,n17821_cont);
-Ncode n17820_cont () {
-  g_PushContinuation (n17822_si_cont);
+SiCont* n17821_si_cont = m_MakeSiCont (1,n17820_cont);
+Ncode n17819_cont () {
+  g_PushContinuation (n17821_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17646_closure_layCexp,FRAME (0));
+  return g_call_1 (n17645_closure_layCexp,FRAME (0));
 }
-SiCont* n17823_si_cont = m_MakeSiCont (1,n17820_cont);
-Ncode n17825_cont () {
+SiCont* n17822_si_cont = m_MakeSiCont (1,n17819_cont);
+Ncode n17824_cont () {
   Nword q1488;
   q1488 = g_MakeTuple (2);
   g_SetTupleElement (q1488,0,FRAME (0));
   g_SetTupleElement (q1488,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1488);
 }
-SiCont* n17826_si_cont = m_MakeSiCont (1,n17825_cont);
-Nword n17827_scon = g_mkString ("=");
-Ncode n17824_cont () {
-  g_PushContinuation (n17826_si_cont);
+SiCont* n17825_si_cont = m_MakeSiCont (1,n17824_cont);
+Nword n17826_scon = g_mkString ("=");
+Ncode n17823_cont () {
+  g_PushContinuation (n17825_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n211_closure_Word,n17827_scon);
+  return g_call_1 (n211_closure_Word,n17826_scon);
 }
-SiCont* n17828_si_cont = m_MakeSiCont (0,n17824_cont);
-Ncode n17830_cont () {
+SiCont* n17827_si_cont = m_MakeSiCont (0,n17823_cont);
+Ncode n17829_cont () {
   Nword q1487;
   q1487 = g_MakeTuple (2);
   g_SetTupleElement (q1487,0,FRAME (0));
   g_SetTupleElement (q1487,1,CRET);
   return g_call_1 (n232_closure_PlusPlus,q1487);
 }
-SiCont* n17831_si_cont = m_MakeSiCont (1,n17830_cont);
-Ncode n17829_cont () {
-  g_PushContinuation (n17831_si_cont);
+SiCont* n17830_si_cont = m_MakeSiCont (1,n17829_cont);
+Ncode n17828_cont () {
+  g_PushContinuation (n17830_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17588_closure_layCid,FRAME (0));
+  return g_call_1 (n17587_closure_layCid,FRAME (0));
 }
-SiCont* n17832_si_cont = m_MakeSiCont (1,n17829_cont);
-Ncode n17571_layCdef () {
+SiCont* n17831_si_cont = m_MakeSiCont (1,n17828_cont);
+Ncode n17570_layCdef () {
   Nword q1508,typ_q1509,name_q1510,formals_q1511,q1497,typ_q1498,name_q1499,formals_q1500,body_q1501,q1491,typ_q1492,name_q1493,q1483,typ_q1484,name_q1485,exp_q1486;
   if (g_matchC1 (ARG (0),0)) {
     q1508 = g_DeCon (ARG (0));
     typ_q1509 = g_DeTuple (q1508,0);
     name_q1510 = g_DeTuple (q1508,1);
     formals_q1511 = g_DeTuple (q1508,2);
-    g_PushContinuation (n17576_si_cont);
-    g_PushContinuation (n17596_si_cont);
+    g_PushContinuation (n17575_si_cont);
+    g_PushContinuation (n17595_si_cont);
     g_SetContFrameElem (0,formals_q1511);
-    g_PushContinuation (n17600_si_cont);
+    g_PushContinuation (n17599_si_cont);
     g_SetContFrameElem (0,name_q1510);
-    return g_call_1 (n17592_closure_layCtype,typ_q1509);
+    return g_call_1 (n17591_closure_layCtype,typ_q1509);
   } else {
     if (g_matchC1 (ARG (0),1)) {
       q1497 = g_DeCon (ARG (0));
@@ -74907,75 +74906,75 @@ Ncode n17571_layCdef () {
       name_q1499 = g_DeTuple (q1497,1);
       formals_q1500 = g_DeTuple (q1497,2);
       body_q1501 = g_DeTuple (q1497,3);
-      g_PushContinuation (n17635_si_cont);
+      g_PushContinuation (n17634_si_cont);
       g_SetContFrameElem (0,typ_q1498);
       g_SetContFrameElem (1,name_q1499);
       g_SetContFrameElem (2,formals_q1500);
-      return g_call_1 (n17636_closure_layCstat,body_q1501);
+      return g_call_1 (n17635_closure_layCstat,body_q1501);
     } else {
       if (g_matchC1 (ARG (0),2)) {
         q1491 = g_DeCon (ARG (0));
         typ_q1492 = g_DeTuple (q1491,0);
         name_q1493 = g_DeTuple (q1491,1);
-        g_PushContinuation (n17805_si_cont);
-        g_PushContinuation (n17809_si_cont);
+        g_PushContinuation (n17804_si_cont);
+        g_PushContinuation (n17808_si_cont);
         g_SetContFrameElem (0,name_q1493);
-        g_PushContinuation (n17813_si_cont);
+        g_PushContinuation (n17812_si_cont);
         g_SetContFrameElem (0,typ_q1492);
-        return g_call_1 (n211_closure_Word,n17814_scon);
+        return g_call_1 (n211_closure_Word,n17813_scon);
       } else {
         q1483 = g_DeCon (ARG (0));
         typ_q1484 = g_DeTuple (q1483,0);
         name_q1485 = g_DeTuple (q1483,1);
         exp_q1486 = g_DeTuple (q1483,2);
-        g_PushContinuation (n17819_si_cont);
-        g_PushContinuation (n17823_si_cont);
+        g_PushContinuation (n17818_si_cont);
+        g_PushContinuation (n17822_si_cont);
         g_SetContFrameElem (0,exp_q1486);
-        g_PushContinuation (n17828_si_cont);
-        g_PushContinuation (n17832_si_cont);
+        g_PushContinuation (n17827_si_cont);
+        g_PushContinuation (n17831_si_cont);
         g_SetContFrameElem (0,name_q1485);
-        return g_call_1 (n17592_closure_layCtype,typ_q1484);
+        return g_call_1 (n17591_closure_layCtype,typ_q1484);
       }
     }
   }
 }
-SiClosure* n17833_si_closure = m_MakeSiFn (0,1,n17571_layCdef);
-Nword n17570_closure_layCdef = g_MakeFn (n17833_si_closure);
-Ncode n17567_layCdefs () {
+SiClosure* n17832_si_closure = m_MakeSiFn (0,1,n17570_layCdef);
+Nword n17569_closure_layCdef = g_MakeFn (n17832_si_closure);
+Ncode n17566_layCdefs () {
   Nword q1520;
-  g_PushContinuation (n17569_si_cont);
+  g_PushContinuation (n17568_si_cont);
   q1520 = g_Copy (ARG (0));
-  return g_call_2 (n82_closure_map,n17570_closure_layCdef,q1520);
+  return g_call_2 (n82_closure_map,n17569_closure_layCdef,q1520);
 }
-SiClosure* n17834_si_closure = m_MakeSiFn (0,1,n17567_layCdefs);
-Nword n17566_closure_layCdefs = g_MakeFn (n17834_si_closure);
-Ncode n17565_cont () {
-  return g_call_1 (n17566_closure_layCdefs,CRET);
+SiClosure* n17833_si_closure = m_MakeSiFn (0,1,n17566_layCdefs);
+Nword n17565_closure_layCdefs = g_MakeFn (n17833_si_closure);
+Ncode n17564_cont () {
+  return g_call_1 (n17565_closure_layCdefs,CRET);
 }
-SiCont* n17835_si_cont = m_MakeSiCont (0,n17565_cont);
-Ncode n17562_cont () {
-  g_PushContinuation (n17564_si_cont);
+SiCont* n17834_si_cont = m_MakeSiCont (0,n17564_cont);
+Ncode n17561_cont () {
+  g_PushContinuation (n17563_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n17835_si_cont);
+  g_PushContinuation (n17834_si_cont);
   return g_call_1 (n151_closure_rev,FRAME (0));
 }
-SiCont* n17836_si_cont = m_MakeSiCont (1,n17562_cont);
-Nword n17837_scon = g_mkString ("#include \"nml_runtime.C\"");
-Ncode n17542_cont () {
+SiCont* n17835_si_cont = m_MakeSiCont (1,n17561_cont);
+Nword n17836_scon = g_mkString ("#include \"nml_runtime.C\"");
+Ncode n17541_cont () {
   Nword q2318,q2317;
   q2318 = g_MakeTuple (2);
   g_SetTupleElement (q2318,0,CRET);
   g_SetTupleElement (q2318,1,FRAME (0));
   q2317 = g_MakeCon (0,q2318);
-  g_PushContinuation (n17555_si_cont);
+  g_PushContinuation (n17554_si_cont);
   g_SetContFrameElem (0,FRAME (1));
-  g_PushContinuation (n17561_si_cont);
-  g_PushContinuation (n17836_si_cont);
+  g_PushContinuation (n17560_si_cont);
+  g_PushContinuation (n17835_si_cont);
   g_SetContFrameElem (0,q2317);
-  return g_call_1 (n211_closure_Word,n17837_scon);
+  return g_call_1 (n211_closure_Word,n17836_scon);
 }
-SiCont* n17838_si_cont = m_MakeSiCont (2,n17542_cont);
-Ncode n17839_cont () {
+SiCont* n17837_si_cont = m_MakeSiCont (2,n17541_cont);
+Ncode n17838_cont () {
   Nword q2316,q2315;
   q2316 = g_MakeTuple (3);
   g_SetTupleElement (q2316,0,n1898_constructed);
@@ -74984,21 +74983,21 @@ Ncode n17839_cont () {
   q2315 = g_MakeCon (3,q2316);
   return g_returnWith (q2315);
 }
-SiCont* n17840_si_cont = m_MakeSiCont (1,n17839_cont);
-Nword n17841_scon = g_mkString ("TheProgram");
-Ncode n17541_cont () {
+SiCont* n17839_si_cont = m_MakeSiCont (1,n17838_cont);
+Nword n17840_scon = g_mkString ("TheProgram");
+Ncode n17540_cont () {
   Nword defs_q2313,e_q2314;
   defs_q2313 = g_DeTuple (CRET,0);
   e_q2314 = g_DeTuple (CRET,1);
-  g_PushContinuation (n17838_si_cont);
+  g_PushContinuation (n17837_si_cont);
   g_SetContFrameElem (0,defs_q2313);
   g_SetContFrameElem (1,FRAME (0));
-  g_PushContinuation (n17840_si_cont);
+  g_PushContinuation (n17839_si_cont);
   g_SetContFrameElem (0,e_q2314);
-  return g_call_1 (n2045_closure_makeCid,n17841_scon);
+  return g_call_1 (n2045_closure_makeCid,n17840_scon);
 }
-SiCont* n17842_si_cont = m_MakeSiCont (1,n17541_cont);
-Ncode n17846_cont () {
+SiCont* n17841_si_cont = m_MakeSiCont (1,n17540_cont);
+Ncode n17845_cont () {
   Nword q2292,q2291,q2290;
   q2292 = g_MakeTuple (2);
   g_SetTupleElement (q2292,0,FRAME (1));
@@ -75007,15 +75006,15 @@ Ncode n17846_cont () {
   q2290 = builtin_ColonEqual (FRAME (0),q2291);
   return g_returnWith (q2290);
 }
-SiCont* n17847_si_cont = m_MakeSiCont (2,n17846_cont);
-Ncode n17845_EmitDef () {
-  g_PushContinuation (n17847_si_cont);
+SiCont* n17846_si_cont = m_MakeSiCont (2,n17845_cont);
+Ncode n17844_EmitDef () {
+  g_PushContinuation (n17846_si_cont);
   g_SetContFrameElem (0,FRAME (0));
   g_SetContFrameElem (1,ARG (0));
   return g_call_1 (n124_closure_Bang,FRAME (0));
 }
-SiClosure* n17848_si_closure = m_MakeSiFn (1,1,n17845_EmitDef);
-Ncode n17850_cont () {
+SiClosure* n17847_si_closure = m_MakeSiFn (1,1,n17844_EmitDef);
+Ncode n17849_cont () {
   Nword q2297,q2296,q2295;
   q2297 = g_MakeTuple (2);
   g_SetTupleElement (q2297,0,FRAME (1));
@@ -75024,33 +75023,33 @@ Ncode n17850_cont () {
   q2295 = builtin_ColonEqual (FRAME (0),q2296);
   return g_returnWith (q2295);
 }
-SiCont* n17851_si_cont = m_MakeSiCont (2,n17850_cont);
-Ncode n17849_EmitAct () {
-  g_PushContinuation (n17851_si_cont);
+SiCont* n17850_si_cont = m_MakeSiCont (2,n17849_cont);
+Ncode n17848_EmitAct () {
+  g_PushContinuation (n17850_si_cont);
   g_SetContFrameElem (0,FRAME (0));
   g_SetContFrameElem (1,ARG (0));
   return g_call_1 (n124_closure_Bang,FRAME (0));
 }
-SiClosure* n17852_si_closure = m_MakeSiFn (1,1,n17849_EmitAct);
-Ncode n17858_cont () {
+SiClosure* n17851_si_closure = m_MakeSiFn (1,1,n17848_EmitAct);
+Ncode n17857_cont () {
   return g_returnWith (FRAME (0));
 }
-SiCont* n17859_si_cont = m_MakeSiCont (1,n17858_cont);
-Ncode n17864_cont () {
+SiCont* n17858_si_cont = m_MakeSiCont (1,n17857_cont);
+Ncode n17863_cont () {
   return g_returnWith (FRAME (0));
 }
-SiCont* n17865_si_cont = m_MakeSiCont (1,n17864_cont);
-Ncode n17868_cont () {
+SiCont* n17864_si_cont = m_MakeSiCont (1,n17863_cont);
+Ncode n17867_cont () {
   return g_returnWith (g_unit ());
 }
-SiCont* n17869_si_cont = m_MakeSiCont (0,n17868_cont);
-Ncode n17877_cont () {
+SiCont* n17868_si_cont = m_MakeSiCont (0,n17867_cont);
+Ncode n17876_cont () {
   return g_returnWith (n245_con_true);
 }
-SiCont* n17878_si_cont = m_MakeSiCont (0,n17877_cont);
-Ncode n17876_cont () {
+SiCont* n17877_si_cont = m_MakeSiCont (0,n17876_cont);
+Ncode n17875_cont () {
   Nword q917,q916,q915;
-  g_PushContinuation (n17878_si_cont);
+  g_PushContinuation (n17877_si_cont);
   q917 = g_MakeTuple (2);
   g_SetTupleElement (q917,0,FRAME (2));
   g_SetTupleElement (q917,1,CRET);
@@ -75058,9 +75057,9 @@ Ncode n17876_cont () {
   q915 = builtin_Array_update (FRAME (0),FRAME (1),q916);
   return g_returnWith (q915);
 }
-SiCont* n17879_si_cont = m_MakeSiCont (3,n17876_cont);
-Nword n17882_scon = g_mkString ("accDel");
-Ncode n17885_revOnto () {
+SiCont* n17878_si_cont = m_MakeSiCont (3,n17875_cont);
+Nword n17881_scon = g_mkString ("accDel");
+Ncode n17884_revOnto () {
   Nword q849,x_q850,xs_q851,q853,q852;
   if (g_matchC0 (ARG (0),1)) {
     return g_returnWith (ARG (1));
@@ -75075,13 +75074,13 @@ Ncode n17885_revOnto () {
     return g_call_2 (FRAME (0),xs_q851,q852);
   }
 }
-extern Nword n17884_closure_revOnto;
-SiClosure* n17886_si_closure = m_MakeSiFn (1,2,n17885_revOnto);
-Nword n17884_closure_revOnto = g_MakeFn (n17886_si_closure);
-Ncode n17883_cont () {
+extern Nword n17883_closure_revOnto;
+SiClosure* n17885_si_closure = m_MakeSiFn (1,2,n17884_revOnto);
+Nword n17883_closure_revOnto = g_MakeFn (n17885_si_closure);
+Ncode n17882_cont () {
   Nword q861,q860;
   if (g_matchC0 (CRET,0)) {
-    return g_call_2 (n17884_closure_revOnto,FRAME (3),FRAME (4));
+    return g_call_2 (n17883_closure_revOnto,FRAME (3),FRAME (4));
   } else {
     q861 = g_MakeTuple (2);
     g_SetTupleElement (q861,0,FRAME (2));
@@ -75090,17 +75089,17 @@ Ncode n17883_cont () {
     return g_call_3 (FRAME (0),FRAME (1),q860,FRAME (4));
   }
 }
-SiCont* n17887_si_cont = m_MakeSiCont (5,n17883_cont);
-Ncode n17881_accDel () {
+SiCont* n17886_si_cont = m_MakeSiCont (5,n17882_cont);
+Ncode n17880_accDel () {
   Nword q855,kv_AS_q856,key_q857,bucket_q858,q859;
   if (g_matchC0 (ARG (2),1)) {
-    return g_call_1 (n37_closure_abort,n17882_scon);
+    return g_call_1 (n37_closure_abort,n17881_scon);
   } else {
     q855 = g_DeCon (ARG (2));
     kv_AS_q856 = g_DeTuple (q855,0);
     key_q857 = g_DeTuple (kv_AS_q856,0);
     bucket_q858 = g_DeTuple (q855,1);
-    g_PushContinuation (n17887_si_cont);
+    g_PushContinuation (n17886_si_cont);
     g_SetContFrameElem (0,FRAME (0));
     g_SetContFrameElem (1,ARG (0));
     g_SetContFrameElem (2,kv_AS_q856);
@@ -75110,41 +75109,41 @@ Ncode n17881_accDel () {
     return g_call_1 (q859,key_q857);
   }
 }
-extern Nword n17880_closure_accDel;
-SiClosure* n17888_si_closure = m_MakeSiFn (1,3,n17881_accDel);
-Nword n17880_closure_accDel = g_MakeFn (n17888_si_closure);
-Ncode n17893_cont () {
+extern Nword n17879_closure_accDel;
+SiClosure* n17887_si_closure = m_MakeSiFn (1,3,n17880_accDel);
+Nword n17879_closure_accDel = g_MakeFn (n17887_si_closure);
+Ncode n17892_cont () {
   return g_returnWith (n213_con_false);
 }
-SiCont* n17894_si_cont = m_MakeSiCont (0,n17893_cont);
-Ncode n17896_anon () {
+SiCont* n17893_si_cont = m_MakeSiCont (0,n17892_cont);
+Ncode n17895_anon () {
   return g_returnWith (g_unit ());
 }
-SiClosure* n17897_si_closure = m_MakeSiFn (0,1,n17896_anon);
-Nword n17895_closure_anon = g_MakeFn (n17897_si_closure);
-Ncode n17892_cont () {
-  g_PushContinuation (n17894_si_cont);
-  return g_call_1 (n17895_closure_anon,FRAME (0));
-}
-SiCont* n17898_si_cont = m_MakeSiCont (1,n17892_cont);
-Nword n17899_scon = g_mkNum (1);
+SiClosure* n17896_si_closure = m_MakeSiFn (0,1,n17895_anon);
+Nword n17894_closure_anon = g_MakeFn (n17896_si_closure);
 Ncode n17891_cont () {
+  g_PushContinuation (n17893_si_cont);
+  return g_call_1 (n17894_closure_anon,FRAME (0));
+}
+SiCont* n17897_si_cont = m_MakeSiCont (1,n17891_cont);
+Nword n17898_scon = g_mkNum (1);
+Ncode n17890_cont () {
   Nword q914,q913;
-  g_PushContinuation (n17898_si_cont);
+  g_PushContinuation (n17897_si_cont);
   g_SetContFrameElem (0,FRAME (2));
-  q914 = builtin_Plus (n17899_scon,FRAME (1));
+  q914 = builtin_Plus (n17898_scon,FRAME (1));
   q913 = builtin_ColonEqual (FRAME (0),q914);
   return g_returnWith (q913);
 }
-SiCont* n17900_si_cont = m_MakeSiCont (3,n17891_cont);
-Ncode n17901_cont () {
+SiCont* n17899_si_cont = m_MakeSiCont (3,n17890_cont);
+Ncode n17900_cont () {
   Nword q912;
   q912 = builtin_ColonEqual (FRAME (0),CRET);
   return g_returnWith (q912);
 }
-SiCont* n17902_si_cont = m_MakeSiCont (1,n17901_cont);
-Nword n17905_scon = g_mkNum (2);
-Ncode n17908_cont () {
+SiCont* n17901_si_cont = m_MakeSiCont (1,n17900_cont);
+Nword n17904_scon = g_mkNum (2);
+Ncode n17907_cont () {
   Nword q829,q831,q830,q832;
   q829 = builtin_Array_sub (FRAME (1),CRET);
   q831 = g_MakeTuple (2);
@@ -75154,14 +75153,14 @@ Ncode n17908_cont () {
   q832 = builtin_Array_update (FRAME (1),CRET,q830);
   return g_call_1 (FRAME (2),FRAME (3));
 }
-SiCont* n17909_si_cont = m_MakeSiCont (4,n17908_cont);
-Ncode n17910_cont () {
+SiCont* n17908_si_cont = m_MakeSiCont (4,n17907_cont);
+Ncode n17909_cont () {
   Nword q828;
   q828 = builtin_mod (CRET,FRAME (0));
   return g_returnWith (q828);
 }
-SiCont* n17911_si_cont = m_MakeSiCont (1,n17910_cont);
-Ncode n17907_copyBucket () {
+SiCont* n17910_si_cont = m_MakeSiCont (1,n17909_cont);
+Ncode n17906_copyBucket () {
   Nword q823,kv_AS_q824,key_q825,value_q826,oldBucket_q827;
   if (g_matchC0 (ARG (0),1)) {
     return g_returnWith (g_unit ());
@@ -75171,99 +75170,99 @@ Ncode n17907_copyBucket () {
     key_q825 = g_DeTuple (kv_AS_q824,0);
     value_q826 = g_DeTuple (kv_AS_q824,1);
     oldBucket_q827 = g_DeTuple (q823,1);
-    g_PushContinuation (n17909_si_cont);
+    g_PushContinuation (n17908_si_cont);
     g_SetContFrameElem (0,kv_AS_q824);
     g_SetContFrameElem (1,FRAME (2));
     g_SetContFrameElem (2,FRAME (3));
     g_SetContFrameElem (3,oldBucket_q827);
-    g_PushContinuation (n17911_si_cont);
+    g_PushContinuation (n17910_si_cont);
     g_SetContFrameElem (0,FRAME (1));
     return g_call_1 (FRAME (0),key_q825);
   }
 }
-SiClosure* n17912_si_closure = m_MakeSiFn (4,1,n17907_copyBucket);
-Nword n17915_scon = g_mkNum (0);
-Nword n17916_scon = g_mkNum (1);
-Ncode n17914_cont () {
+SiClosure* n17911_si_closure = m_MakeSiFn (4,1,n17906_copyBucket);
+Nword n17914_scon = g_mkNum (0);
+Nword n17915_scon = g_mkNum (1);
+Ncode n17913_cont () {
   Nword q835,q836;
-  q835 = builtin_Equal (FRAME (1),n17915_scon);
+  q835 = builtin_Equal (FRAME (1),n17914_scon);
   if (g_matchC0 (q835,0)) {
     return g_returnWith (g_unit ());
   } else {
-    q836 = builtin_Dash (FRAME (1),n17916_scon);
+    q836 = builtin_Dash (FRAME (1),n17915_scon);
     return g_call_1 (FRAME (0),q836);
   }
 }
-SiCont* n17917_si_cont = m_MakeSiCont (2,n17914_cont);
-Ncode n17913_copyArrayBefore () {
+SiCont* n17916_si_cont = m_MakeSiCont (2,n17913_cont);
+Ncode n17912_copyArrayBefore () {
   Nword q834;
   q834 = builtin_Array_sub (FRAME (0),ARG (0));
-  g_PushContinuation (n17917_si_cont);
+  g_PushContinuation (n17916_si_cont);
   g_SetContFrameElem (0,FRAME (2));
   g_SetContFrameElem (1,ARG (0));
   return g_call_1 (FRAME (1),q834);
 }
-SiClosure* n17918_si_closure = m_MakeSiFn (3,1,n17913_copyArrayBefore);
-Ncode n17919_cont () {
+SiClosure* n17917_si_closure = m_MakeSiFn (3,1,n17912_copyArrayBefore);
+Ncode n17918_cont () {
   return g_returnWith (FRAME (0));
 }
-SiCont* n17920_si_cont = m_MakeSiCont (1,n17919_cont);
-Nword n17921_scon = g_mkNum (1);
-Ncode n17906_cont () {
+SiCont* n17919_si_cont = m_MakeSiCont (1,n17918_cont);
+Nword n17920_scon = g_mkNum (1);
+Ncode n17905_cont () {
   Nword copyBucket_q822,copyArrayBefore_q833,q837;
-  copyBucket_q822 = g_MakeFn (n17912_si_closure);
+  copyBucket_q822 = g_MakeFn (n17911_si_closure);
   g_SetFrameElement (copyBucket_q822,0,FRAME (0));
   g_SetFrameElement (copyBucket_q822,1,FRAME (1));
   g_SetFrameElement (copyBucket_q822,2,CRET);
   g_SetFrameElement (copyBucket_q822,3,copyBucket_q822);
-  copyArrayBefore_q833 = g_MakeFn (n17918_si_closure);
+  copyArrayBefore_q833 = g_MakeFn (n17917_si_closure);
   g_SetFrameElement (copyArrayBefore_q833,0,FRAME (2));
   g_SetFrameElement (copyArrayBefore_q833,1,copyBucket_q822);
   g_SetFrameElement (copyArrayBefore_q833,2,copyArrayBefore_q833);
-  g_PushContinuation (n17920_si_cont);
+  g_PushContinuation (n17919_si_cont);
   g_SetContFrameElem (0,CRET);
-  q837 = builtin_Dash (FRAME (3),n17921_scon);
+  q837 = builtin_Dash (FRAME (3),n17920_scon);
   return g_call_1 (copyArrayBefore_q833,q837);
 }
-SiCont* n17922_si_cont = m_MakeSiCont (4,n17906_cont);
-Ncode n17923_cont () {
+SiCont* n17921_si_cont = m_MakeSiCont (4,n17905_cont);
+Ncode n17922_cont () {
   return g_returnWith (CRET);
 }
-SiCont* n17924_si_cont = m_MakeSiCont (0,n17923_cont);
-Ncode n17904_expand () {
+SiCont* n17923_si_cont = m_MakeSiCont (0,n17922_cont);
+Ncode n17903_expand () {
   Nword q819,q820,q821;
   q819 = builtin_Array_length (ARG (1));
-  q820 = builtin_Star (n17905_scon,q819);
-  g_PushContinuation (n17922_si_cont);
+  q820 = builtin_Star (n17904_scon,q819);
+  g_PushContinuation (n17921_si_cont);
   g_SetContFrameElem (0,ARG (0));
   g_SetContFrameElem (1,q820);
   g_SetContFrameElem (2,ARG (1));
   g_SetContFrameElem (3,q819);
-  g_PushContinuation (n17924_si_cont);
+  g_PushContinuation (n17923_si_cont);
   q821 = builtin_Array_array (q820,n84_con_nil);
   return g_returnWith (q821);
 }
-SiClosure* n17925_si_closure = m_MakeSiFn (0,2,n17904_expand);
-Nword n17903_closure_expand = g_MakeFn (n17925_si_closure);
-Ncode n17890_cont () {
+SiClosure* n17924_si_closure = m_MakeSiFn (0,2,n17903_expand);
+Nword n17902_closure_expand = g_MakeFn (n17924_si_closure);
+Ncode n17889_cont () {
   Nword q911;
-  g_PushContinuation (n17900_si_cont);
+  g_PushContinuation (n17899_si_cont);
   g_SetContFrameElem (0,FRAME (4));
   g_SetContFrameElem (1,FRAME (5));
   g_SetContFrameElem (2,FRAME (6));
   q911 = builtin_Equal (FRAME (5),FRAME (0));
   if (g_matchC0 (q911,0)) {
-    g_PushContinuation (n17902_si_cont);
+    g_PushContinuation (n17901_si_cont);
     g_SetContFrameElem (0,FRAME (3));
-    return g_call_2 (n17903_closure_expand,FRAME (1),FRAME (2));
+    return g_call_2 (n17902_closure_expand,FRAME (1),FRAME (2));
   } else {
     return g_returnWith (g_unit ());
   }
 }
-SiCont* n17926_si_cont = m_MakeSiCont (7,n17890_cont);
-Ncode n17889_cont () {
+SiCont* n17925_si_cont = m_MakeSiCont (7,n17889_cont);
+Ncode n17888_cont () {
   Nword q910,q909,q908;
-  g_PushContinuation (n17926_si_cont);
+  g_PushContinuation (n17925_si_cont);
   g_SetContFrameElem (0,FRAME (3));
   g_SetContFrameElem (1,FRAME (4));
   g_SetContFrameElem (2,FRAME (5));
@@ -75278,16 +75277,16 @@ Ncode n17889_cont () {
   q908 = builtin_Array_update (FRAME (5),FRAME (0),q909);
   return g_returnWith (q908);
 }
-SiCont* n17927_si_cont = m_MakeSiCont (9,n17889_cont);
-Ncode n17875_cont () {
+SiCont* n17926_si_cont = m_MakeSiCont (9,n17888_cont);
+Ncode n17874_cont () {
   if (g_matchC0 (CRET,0)) {
-    g_PushContinuation (n17879_si_cont);
+    g_PushContinuation (n17878_si_cont);
     g_SetContFrameElem (0,FRAME (6));
     g_SetContFrameElem (1,FRAME (1));
     g_SetContFrameElem (2,FRAME (2));
-    return g_call_3 (n17880_closure_accDel,FRAME (0),n84_con_nil,FRAME (3));
+    return g_call_3 (n17879_closure_accDel,FRAME (0),n84_con_nil,FRAME (3));
   } else {
-    g_PushContinuation (n17927_si_cont);
+    g_PushContinuation (n17926_si_cont);
     g_SetContFrameElem (0,FRAME (1));
     g_SetContFrameElem (1,FRAME (2));
     g_SetContFrameElem (2,FRAME (3));
@@ -75300,16 +75299,16 @@ Ncode n17875_cont () {
     return g_call_1 (n124_closure_Bang,FRAME (8));
   }
 }
-SiCont* n17928_si_cont = m_MakeSiCont (10,n17875_cont);
-Ncode n17931_cont () {
+SiCont* n17927_si_cont = m_MakeSiCont (10,n17874_cont);
+Ncode n17930_cont () {
   if (g_matchC0 (CRET,0)) {
     return g_returnWith (n245_con_true);
   } else {
     return g_call_2 (FRAME (0),FRAME (1),FRAME (2));
   }
 }
-SiCont* n17932_si_cont = m_MakeSiCont (3,n17931_cont);
-Ncode n17930_isMem () {
+SiCont* n17931_si_cont = m_MakeSiCont (3,n17930_cont);
+Ncode n17929_isMem () {
   Nword q863,kv_AS_q864,key_q865,bucket_q866,q867;
   if (g_matchC0 (ARG (1),1)) {
     return g_returnWith (n213_con_false);
@@ -75318,7 +75317,7 @@ Ncode n17930_isMem () {
     kv_AS_q864 = g_DeTuple (q863,0);
     key_q865 = g_DeTuple (kv_AS_q864,0);
     bucket_q866 = g_DeTuple (q863,1);
-    g_PushContinuation (n17932_si_cont);
+    g_PushContinuation (n17931_si_cont);
     g_SetContFrameElem (0,FRAME (0));
     g_SetContFrameElem (1,ARG (0));
     g_SetContFrameElem (2,bucket_q866);
@@ -75326,11 +75325,11 @@ Ncode n17930_isMem () {
     return g_call_1 (q867,key_q865);
   }
 }
-extern Nword n17929_closure_isMem;
-SiClosure* n17933_si_closure = m_MakeSiFn (1,2,n17930_isMem);
-Nword n17929_closure_isMem = g_MakeFn (n17933_si_closure);
-Ncode n17874_cont () {
-  g_PushContinuation (n17928_si_cont);
+extern Nword n17928_closure_isMem;
+SiClosure* n17932_si_closure = m_MakeSiFn (1,2,n17929_isMem);
+Nword n17928_closure_isMem = g_MakeFn (n17932_si_closure);
+Ncode n17873_cont () {
+  g_PushContinuation (n17927_si_cont);
   g_SetContFrameElem (0,CRET);
   g_SetContFrameElem (1,FRAME (0));
   g_SetContFrameElem (2,FRAME (1));
@@ -75341,13 +75340,13 @@ Ncode n17874_cont () {
   g_SetContFrameElem (7,FRAME (6));
   g_SetContFrameElem (8,FRAME (7));
   g_SetContFrameElem (9,FRAME (8));
-  return g_call_2 (n17929_closure_isMem,CRET,FRAME (2));
+  return g_call_2 (n17928_closure_isMem,CRET,FRAME (2));
 }
-SiCont* n17934_si_cont = m_MakeSiCont (9,n17874_cont);
-Ncode n17873_cont () {
+SiCont* n17933_si_cont = m_MakeSiCont (9,n17873_cont);
+Ncode n17872_cont () {
   Nword q907;
   q907 = builtin_Array_sub (FRAME (5),CRET);
-  g_PushContinuation (n17934_si_cont);
+  g_PushContinuation (n17933_si_cont);
   g_SetContFrameElem (0,CRET);
   g_SetContFrameElem (1,FRAME (2));
   g_SetContFrameElem (2,q907);
@@ -75359,17 +75358,17 @@ Ncode n17873_cont () {
   g_SetContFrameElem (8,FRAME (8));
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17935_si_cont = m_MakeSiCont (9,n17873_cont);
-Ncode n17936_cont () {
+SiCont* n17934_si_cont = m_MakeSiCont (9,n17872_cont);
+Ncode n17935_cont () {
   Nword q906;
   q906 = builtin_mod (CRET,FRAME (0));
   return g_returnWith (q906);
 }
-SiCont* n17937_si_cont = m_MakeSiCont (1,n17936_cont);
-Ncode n17872_cont () {
+SiCont* n17936_si_cont = m_MakeSiCont (1,n17935_cont);
+Ncode n17871_cont () {
   Nword q905;
   q905 = builtin_Array_length (CRET);
-  g_PushContinuation (n17935_si_cont);
+  g_PushContinuation (n17934_si_cont);
   g_SetContFrameElem (0,FRAME (0));
   g_SetContFrameElem (1,FRAME (1));
   g_SetContFrameElem (2,FRAME (2));
@@ -75379,12 +75378,12 @@ Ncode n17872_cont () {
   g_SetContFrameElem (6,FRAME (4));
   g_SetContFrameElem (7,FRAME (5));
   g_SetContFrameElem (8,FRAME (6));
-  g_PushContinuation (n17937_si_cont);
+  g_PushContinuation (n17936_si_cont);
   g_SetContFrameElem (0,q905);
   return g_call_1 (FRAME (3),FRAME (1));
 }
-SiCont* n17938_si_cont = m_MakeSiCont (7,n17872_cont);
-Ncode n17871_setHT () {
+SiCont* n17937_si_cont = m_MakeSiCont (7,n17871_cont);
+Ncode n17870_setHT () {
   Nword q899,arrayRef_q900,eq_q901,hash_q902,objectCountRef_q903,key_q904;
   q899 = g_DeCon (ARG (0));
   arrayRef_q900 = g_DeTuple (q899,0);
@@ -75392,7 +75391,7 @@ Ncode n17871_setHT () {
   hash_q902 = g_DeTuple (q899,2);
   objectCountRef_q903 = g_DeTuple (q899,3);
   key_q904 = g_DeTuple (ARG (1),0);
-  g_PushContinuation (n17938_si_cont);
+  g_PushContinuation (n17937_si_cont);
   g_SetContFrameElem (0,eq_q901);
   g_SetContFrameElem (1,key_q904);
   g_SetContFrameElem (2,ARG (1));
@@ -75402,94 +75401,94 @@ Ncode n17871_setHT () {
   g_SetContFrameElem (6,ARG (0));
   return g_call_1 (n124_closure_Bang,arrayRef_q900);
 }
-SiClosure* n17939_si_closure = m_MakeSiFn (0,2,n17871_setHT);
-Nword n17870_closure_setHT = g_MakeFn (n17939_si_closure);
-Ncode n17867_updateHT () {
+SiClosure* n17938_si_closure = m_MakeSiFn (0,2,n17870_setHT);
+Nword n17869_closure_setHT = g_MakeFn (n17938_si_closure);
+Ncode n17866_updateHT () {
   Nword k_q1020,v_q1021,q1022,q1023;
   k_q1020 = g_DeTuple (ARG (1),0);
   v_q1021 = g_DeTuple (ARG (1),1);
-  g_PushContinuation (n17869_si_cont);
+  g_PushContinuation (n17868_si_cont);
   q1022 = g_MakeTuple (2);
   g_SetTupleElement (q1022,0,k_q1020);
   g_SetTupleElement (q1022,1,v_q1021);
   q1023 = g_Copy (ARG (0));
-  return g_call_2 (n17870_closure_setHT,q1023,q1022);
+  return g_call_2 (n17869_closure_setHT,q1023,q1022);
 }
-SiClosure* n17940_si_closure = m_MakeSiFn (0,2,n17867_updateHT);
-Nword n17866_closure_updateHT = g_MakeFn (n17940_si_closure);
-Ncode n17863_cont () {
+SiClosure* n17939_si_closure = m_MakeSiFn (0,2,n17866_updateHT);
+Nword n17865_closure_updateHT = g_MakeFn (n17939_si_closure);
+Ncode n17862_cont () {
   Nword q2305;
-  g_PushContinuation (n17865_si_cont);
+  g_PushContinuation (n17864_si_cont);
   g_SetContFrameElem (0,FRAME (2));
   q2305 = g_MakeTuple (2);
   g_SetTupleElement (q2305,0,FRAME (1));
   g_SetTupleElement (q2305,1,FRAME (2));
-  return g_call_2 (n17866_closure_updateHT,FRAME (0),q2305);
+  return g_call_2 (n17865_closure_updateHT,FRAME (0),q2305);
 }
-SiCont* n17941_si_cont = m_MakeSiCont (3,n17863_cont);
-Ncode n17952_cont () {
+SiCont* n17940_si_cont = m_MakeSiCont (3,n17862_cont);
+Ncode n17951_cont () {
   return g_returnWith (n245_con_true);
 }
-SiCont* n17953_si_cont = m_MakeSiCont (0,n17952_cont);
-Ncode n17951_cont () {
-  g_PushContinuation (n17953_si_cont);
-  return g_call_1 (n17895_closure_anon,FRAME (0));
-}
-SiCont* n17954_si_cont = m_MakeSiCont (1,n17951_cont);
-Nword n17955_scon = g_mkNum (1);
+SiCont* n17952_si_cont = m_MakeSiCont (0,n17951_cont);
 Ncode n17950_cont () {
+  g_PushContinuation (n17952_si_cont);
+  return g_call_1 (n17894_closure_anon,FRAME (0));
+}
+SiCont* n17953_si_cont = m_MakeSiCont (1,n17950_cont);
+Nword n17954_scon = g_mkNum (1);
+Ncode n17949_cont () {
   Nword q888,q887;
-  g_PushContinuation (n17954_si_cont);
+  g_PushContinuation (n17953_si_cont);
   g_SetContFrameElem (0,FRAME (1));
-  q888 = builtin_Dash (CRET,n17955_scon);
+  q888 = builtin_Dash (CRET,n17954_scon);
   q887 = builtin_ColonEqual (FRAME (0),q888);
   return g_returnWith (q887);
 }
-SiCont* n17956_si_cont = m_MakeSiCont (2,n17950_cont);
-Ncode n17949_cont () {
-  g_PushContinuation (n17956_si_cont);
+SiCont* n17955_si_cont = m_MakeSiCont (2,n17949_cont);
+Ncode n17948_cont () {
+  g_PushContinuation (n17955_si_cont);
   g_SetContFrameElem (0,FRAME (0));
   g_SetContFrameElem (1,FRAME (1));
   return g_call_1 (n124_closure_Bang,FRAME (0));
 }
-SiCont* n17957_si_cont = m_MakeSiCont (2,n17949_cont);
-Ncode n17948_cont () {
+SiCont* n17956_si_cont = m_MakeSiCont (2,n17948_cont);
+Ncode n17947_cont () {
   Nword q886;
-  g_PushContinuation (n17957_si_cont);
+  g_PushContinuation (n17956_si_cont);
   g_SetContFrameElem (0,FRAME (2));
   g_SetContFrameElem (1,FRAME (3));
   q886 = builtin_Array_update (FRAME (0),FRAME (1),CRET);
   return g_returnWith (q886);
 }
-SiCont* n17958_si_cont = m_MakeSiCont (4,n17948_cont);
-Ncode n17947_cont () {
+SiCont* n17957_si_cont = m_MakeSiCont (4,n17947_cont);
+Ncode n17946_cont () {
   if (g_matchC0 (CRET,0)) {
-    g_PushContinuation (n17958_si_cont);
+    g_PushContinuation (n17957_si_cont);
     g_SetContFrameElem (0,FRAME (2));
     g_SetContFrameElem (1,FRAME (3));
     g_SetContFrameElem (2,FRAME (4));
     g_SetContFrameElem (3,FRAME (5));
-    return g_call_3 (n17880_closure_accDel,FRAME (0),n84_con_nil,FRAME (1));
+    return g_call_3 (n17879_closure_accDel,FRAME (0),n84_con_nil,FRAME (1));
   } else {
     return g_returnWith (n213_con_false);
   }
 }
-SiCont* n17959_si_cont = m_MakeSiCont (6,n17947_cont);
-Ncode n17946_cont () {
-  g_PushContinuation (n17959_si_cont);
+SiCont* n17958_si_cont = m_MakeSiCont (6,n17946_cont);
+Ncode n17945_cont () {
+  g_PushContinuation (n17958_si_cont);
   g_SetContFrameElem (0,CRET);
   g_SetContFrameElem (1,FRAME (0));
   g_SetContFrameElem (2,FRAME (1));
   g_SetContFrameElem (3,FRAME (2));
   g_SetContFrameElem (4,FRAME (3));
   g_SetContFrameElem (5,FRAME (4));
-  return g_call_2 (n17929_closure_isMem,CRET,FRAME (0));
+  return g_call_2 (n17928_closure_isMem,CRET,FRAME (0));
 }
-SiCont* n17960_si_cont = m_MakeSiCont (5,n17946_cont);
-Ncode n17945_cont () {
+SiCont* n17959_si_cont = m_MakeSiCont (5,n17945_cont);
+Ncode n17944_cont () {
   Nword q885;
   q885 = builtin_Array_sub (FRAME (2),CRET);
-  g_PushContinuation (n17960_si_cont);
+  g_PushContinuation (n17959_si_cont);
   g_SetContFrameElem (0,q885);
   g_SetContFrameElem (1,FRAME (2));
   g_SetContFrameElem (2,CRET);
@@ -75497,35 +75496,35 @@ Ncode n17945_cont () {
   g_SetContFrameElem (4,FRAME (4));
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n17961_si_cont = m_MakeSiCont (5,n17945_cont);
-Ncode n17962_cont () {
+SiCont* n17960_si_cont = m_MakeSiCont (5,n17944_cont);
+Ncode n17961_cont () {
   Nword q884;
   q884 = builtin_mod (CRET,FRAME (0));
   return g_returnWith (q884);
 }
-SiCont* n17963_si_cont = m_MakeSiCont (1,n17962_cont);
-Ncode n17944_cont () {
+SiCont* n17962_si_cont = m_MakeSiCont (1,n17961_cont);
+Ncode n17943_cont () {
   Nword q883;
   q883 = builtin_Array_length (CRET);
-  g_PushContinuation (n17961_si_cont);
+  g_PushContinuation (n17960_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   g_SetContFrameElem (1,FRAME (2));
   g_SetContFrameElem (2,CRET);
   g_SetContFrameElem (3,FRAME (3));
   g_SetContFrameElem (4,FRAME (4));
-  g_PushContinuation (n17963_si_cont);
+  g_PushContinuation (n17962_si_cont);
   g_SetContFrameElem (0,q883);
   return g_call_1 (FRAME (0),FRAME (2));
 }
-SiCont* n17964_si_cont = m_MakeSiCont (5,n17944_cont);
-Ncode n17943_delHT () {
+SiCont* n17963_si_cont = m_MakeSiCont (5,n17943_cont);
+Ncode n17942_delHT () {
   Nword q878,arrayRef_q879,eq_q880,hash_q881,objectCountRef_q882;
   q878 = g_DeCon (ARG (0));
   arrayRef_q879 = g_DeTuple (q878,0);
   eq_q880 = g_DeTuple (q878,1);
   hash_q881 = g_DeTuple (q878,2);
   objectCountRef_q882 = g_DeTuple (q878,3);
-  g_PushContinuation (n17964_si_cont);
+  g_PushContinuation (n17963_si_cont);
   g_SetContFrameElem (0,hash_q881);
   g_SetContFrameElem (1,eq_q880);
   g_SetContFrameElem (2,ARG (1));
@@ -75533,19 +75532,19 @@ Ncode n17943_delHT () {
   g_SetContFrameElem (4,ARG (0));
   return g_call_1 (n124_closure_Bang,arrayRef_q879);
 }
-SiClosure* n17965_si_closure = m_MakeSiFn (0,2,n17943_delHT);
-Nword n17942_closure_delHT = g_MakeFn (n17965_si_closure);
-Ncode n17862_cont () {
-  g_PushContinuation (n17941_si_cont);
+SiClosure* n17964_si_closure = m_MakeSiFn (0,2,n17942_delHT);
+Nword n17941_closure_delHT = g_MakeFn (n17964_si_closure);
+Ncode n17861_cont () {
+  g_PushContinuation (n17940_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   g_SetContFrameElem (1,FRAME (2));
   g_SetContFrameElem (2,CRET);
-  return g_call_2 (n17942_closure_delHT,FRAME (0),FRAME (2));
+  return g_call_2 (n17941_closure_delHT,FRAME (0),FRAME (2));
 }
-SiCont* n17966_si_cont = m_MakeSiCont (3,n17862_cont);
-Ncode n17861_cont () {
+SiCont* n17965_si_cont = m_MakeSiCont (3,n17861_cont);
+Ncode n17860_cont () {
   Nword q2304;
-  g_PushContinuation (n17966_si_cont);
+  g_PushContinuation (n17965_si_cont);
   g_SetContFrameElem (0,FRAME (4));
   g_SetContFrameElem (1,FRAME (5));
   g_SetContFrameElem (2,FRAME (6));
@@ -75555,12 +75554,12 @@ Ncode n17861_cont () {
   g_SetTupleElement (q2304,2,FRAME (3));
   return g_call_1 (FRAME (0),q2304);
 }
-SiCont* n17967_si_cont = m_MakeSiCont (7,n17861_cont);
-Ncode n17860_cont () {
+SiCont* n17966_si_cont = m_MakeSiCont (7,n17860_cont);
+Ncode n17859_cont () {
   Nword fbo_q2300,Stage2_q2301,fb_q2302,q2303;
   fbo_q2300 = g_DeTuple (CRET,0);
   Stage2_q2301 = g_DeTuple (CRET,1);
-  g_PushContinuation (n17967_si_cont);
+  g_PushContinuation (n17966_si_cont);
   g_SetContFrameElem (0,Stage2_q2301);
   g_SetContFrameElem (1,FRAME (0));
   g_SetContFrameElem (2,FRAME (1));
@@ -75575,17 +75574,17 @@ Ncode n17860_cont () {
     q2303 = g_MakeTuple (2);
     g_SetTupleElement (q2303,0,FRAME (5));
     g_SetTupleElement (q2303,1,fb_q2302);
-    return g_call_2 (n17866_closure_updateHT,FRAME (3),q2303);
+    return g_call_2 (n17865_closure_updateHT,FRAME (3),q2303);
   }
 }
-SiCont* n17968_si_cont = m_MakeSiCont (6,n17860_cont);
-Ncode n17976_cont () {
+SiCont* n17967_si_cont = m_MakeSiCont (6,n17859_cont);
+Ncode n17975_cont () {
   Nword q2182;
   q2182 = g_MakeCon (0,FRAME (0));
   return g_returnWith (q2182);
 }
-SiCont* n17977_si_cont = m_MakeSiCont (1,n17976_cont);
-Ncode n17975_Stage2 () {
+SiCont* n17976_si_cont = m_MakeSiCont (1,n17975_cont);
+Ncode n17974_Stage2 () {
   Nword EmitDef_q2178,EmitAct_q2179,q2181,q2180;
   EmitDef_q2178 = g_DeTuple (ARG (0),1);
   EmitAct_q2179 = g_DeTuple (ARG (0),2);
@@ -75594,14 +75593,14 @@ Ncode n17975_Stage2 () {
   g_SetTupleElement (q2181,1,FRAME (1));
   g_SetTupleElement (q2181,2,FRAME (0));
   q2180 = g_MakeCon (3,q2181);
-  g_PushContinuation (n17977_si_cont);
+  g_PushContinuation (n17976_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   return g_call_1 (EmitDef_q2178,q2180);
 }
-SiClosure* n17978_si_closure = m_MakeSiFn (2,1,n17975_Stage2);
-Ncode n17974_nameExp () {
+SiClosure* n17977_si_closure = m_MakeSiFn (2,1,n17974_Stage2);
+Ncode n17973_nameExp () {
   Nword Stage2_q2177,q2183;
-  Stage2_q2177 = g_MakeFn (n17978_si_closure);
+  Stage2_q2177 = g_MakeFn (n17977_si_closure);
   g_SetFrameElement (Stage2_q2177,0,ARG (1));
   g_SetFrameElement (Stage2_q2177,1,ARG (0));
   q2183 = g_MakeTuple (2);
@@ -75609,138 +75608,138 @@ Ncode n17974_nameExp () {
   g_SetTupleElement (q2183,1,Stage2_q2177);
   return g_returnWith (q2183);
 }
-SiClosure* n17979_si_closure = m_MakeSiFn (0,2,n17974_nameExp);
-Nword n17973_closure_nameExp = g_MakeFn (n17979_si_closure);
-Nword n17984_scon = g_mkString ("g_null");
-Nword n17983_constructed = g_MakeCon (0,n17984_scon);
-Nword n17982_tuple = g_MakeTuple (2);
-Nword n17981_constructed = g_MakeCon (0,n17982_tuple);
-Nword n17980_constructed = g_MakeCon (3,n17981_constructed);
-Ncode n17972_cont () {
-  return g_call_2 (n17973_closure_nameExp,CRET,n17980_constructed);
+SiClosure* n17978_si_closure = m_MakeSiFn (0,2,n17973_nameExp);
+Nword n17972_closure_nameExp = g_MakeFn (n17978_si_closure);
+Nword n17983_scon = g_mkString ("g_null");
+Nword n17982_constructed = g_MakeCon (0,n17983_scon);
+Nword n17981_tuple = g_MakeTuple (2);
+Nword n17980_constructed = g_MakeCon (0,n17981_tuple);
+Nword n17979_constructed = g_MakeCon (3,n17980_constructed);
+Ncode n17971_cont () {
+  return g_call_2 (n17972_closure_nameExp,CRET,n17979_constructed);
 }
-SiCont* n17985_si_cont = m_MakeSiCont (0,n17972_cont);
-Nword n17986_scon = g_mkString ("null");
-Ncode n17989_anon () {
+SiCont* n17984_si_cont = m_MakeSiCont (0,n17971_cont);
+Nword n17985_scon = g_mkString ("null");
+Ncode n17988_anon () {
   return g_returnWith (FRAME (0));
 }
-SiClosure* n17990_si_closure = m_MakeSiFn (1,1,n17989_anon);
-Ncode n17988_stageExp () {
+SiClosure* n17989_si_closure = m_MakeSiFn (1,1,n17988_anon);
+Ncode n17987_stageExp () {
   Nword q2175,q2174;
-  q2175 = g_MakeFn (n17990_si_closure);
+  q2175 = g_MakeFn (n17989_si_closure);
   g_SetFrameElement (q2175,0,ARG (0));
   q2174 = g_MakeTuple (2);
   g_SetTupleElement (q2174,0,n62_con_None);
   g_SetTupleElement (q2174,1,q2175);
   return g_returnWith (q2174);
 }
-SiClosure* n17991_si_closure = m_MakeSiFn (0,1,n17988_stageExp);
-Nword n17987_closure_stageExp = g_MakeFn (n17991_si_closure);
-Nword n17996_scon = g_mkString ("g_unit");
-Nword n17995_constructed = g_MakeCon (0,n17996_scon);
-Nword n17994_tuple = g_MakeTuple (2);
-Nword n17993_constructed = g_MakeCon (0,n17994_tuple);
-Nword n17992_constructed = g_MakeCon (3,n17993_constructed);
-Ncode n18005_cont () {
+SiClosure* n17990_si_closure = m_MakeSiFn (0,1,n17987_stageExp);
+Nword n17986_closure_stageExp = g_MakeFn (n17990_si_closure);
+Nword n17995_scon = g_mkString ("g_unit");
+Nword n17994_constructed = g_MakeCon (0,n17995_scon);
+Nword n17993_tuple = g_MakeTuple (2);
+Nword n17992_constructed = g_MakeCon (0,n17993_tuple);
+Nword n17991_constructed = g_MakeCon (3,n17992_constructed);
+Ncode n18004_cont () {
   Nword q2224;
   q2224 = g_MakeCon (0,FRAME (0));
   return g_returnWith (q2224);
 }
-SiCont* n18006_si_cont = m_MakeSiCont (1,n18005_cont);
-Ncode n18004_cont () {
+SiCont* n18005_si_cont = m_MakeSiCont (1,n18004_cont);
+Ncode n18003_cont () {
   Nword q2223,q2222;
   q2223 = g_MakeTuple (3);
   g_SetTupleElement (q2223,0,n1898_constructed);
   g_SetTupleElement (q2223,1,FRAME (1));
   g_SetTupleElement (q2223,2,CRET);
   q2222 = g_MakeCon (3,q2223);
-  g_PushContinuation (n18006_si_cont);
+  g_PushContinuation (n18005_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   return g_call_1 (FRAME (0),q2222);
 }
-SiCont* n18007_si_cont = m_MakeSiCont (2,n18004_cont);
-Ncode n18008_cont () {
+SiCont* n18006_si_cont = m_MakeSiCont (2,n18003_cont);
+Ncode n18007_cont () {
   return g_call_1 (n2069_closure_cexpTickNewTup,CRET);
 }
-SiCont* n18009_si_cont = m_MakeSiCont (0,n18008_cont);
-Ncode n18003_cont () {
-  g_PushContinuation (n18007_si_cont);
+SiCont* n18008_si_cont = m_MakeSiCont (0,n18007_cont);
+Ncode n18002_cont () {
+  g_PushContinuation (n18006_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   g_SetContFrameElem (1,FRAME (2));
-  g_PushContinuation (n18009_si_cont);
+  g_PushContinuation (n18008_si_cont);
   return g_call_1 (n2261_closure_length,FRAME (0));
 }
-SiCont* n18010_si_cont = m_MakeSiCont (3,n18003_cont);
-Ncode n18002_cont () {
-  g_PushContinuation (n18010_si_cont);
+SiCont* n18009_si_cont = m_MakeSiCont (3,n18002_cont);
+Ncode n18001_cont () {
+  g_PushContinuation (n18009_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   g_SetContFrameElem (1,FRAME (2));
   g_SetContFrameElem (2,FRAME (3));
   return g_call_2 (n82_closure_map,FRAME (0),CRET);
 }
-SiCont* n18011_si_cont = m_MakeSiCont (4,n18002_cont);
-Ncode n18014_cont () {
+SiCont* n18010_si_cont = m_MakeSiCont (4,n18001_cont);
+Ncode n18013_cont () {
   Nword q2221;
   q2221 = g_MakeCon (1,CRET);
   return g_returnWith (q2221);
 }
-SiCont* n18015_si_cont = m_MakeSiCont (0,n18014_cont);
-Ncode n18013_anon () {
+SiCont* n18014_si_cont = m_MakeSiCont (0,n18013_cont);
+Ncode n18012_anon () {
   Nword e_q2218,n_q2219,q2220;
   e_q2218 = g_DeTuple (ARG (0),0);
   n_q2219 = g_DeTuple (ARG (0),1);
-  g_PushContinuation (n18015_si_cont);
+  g_PushContinuation (n18014_si_cont);
   q2220 = g_MakeCon (0,FRAME (0));
   return g_call_3 (n2213_closure_ccallTickSetTupleElement,q2220,n_q2219,e_q2218);
 }
-SiClosure* n18016_si_closure = m_MakeSiFn (1,1,n18013_anon);
-Ncode n18012_cont () {
+SiClosure* n18015_si_closure = m_MakeSiFn (1,1,n18012_anon);
+Ncode n18011_cont () {
   Nword q2217;
-  q2217 = g_MakeFn (n18016_si_closure);
+  q2217 = g_MakeFn (n18015_si_closure);
   g_SetFrameElement (q2217,0,FRAME (0));
   return g_call_2 (n82_closure_map,q2217,CRET);
 }
-SiCont* n18017_si_cont = m_MakeSiCont (1,n18012_cont);
-Nword n18018_scon = g_mkNum (0);
-Ncode n18001_cexpTicktuple () {
+SiCont* n18016_si_cont = m_MakeSiCont (1,n18011_cont);
+Nword n18017_scon = g_mkNum (0);
+Ncode n18000_cexpTicktuple () {
   Nword q2216;
-  g_PushContinuation (n18011_si_cont);
+  g_PushContinuation (n18010_si_cont);
   g_SetContFrameElem (0,ARG (1));
   g_SetContFrameElem (1,ARG (3));
   g_SetContFrameElem (2,ARG (0));
   g_SetContFrameElem (3,ARG (2));
-  g_PushContinuation (n18017_si_cont);
+  g_PushContinuation (n18016_si_cont);
   g_SetContFrameElem (0,ARG (2));
   q2216 = g_Copy (ARG (3));
-  return g_call_2 (n530_closure_enumerateFrom,n18018_scon,q2216);
+  return g_call_2 (n530_closure_enumerateFrom,n18017_scon,q2216);
 }
-SiClosure* n18019_si_closure = m_MakeSiFn (0,4,n18001_cexpTicktuple);
-Nword n18000_closure_cexpTicktuple = g_MakeFn (n18019_si_closure);
-Ncode n17999_cont () {
-  return g_call_4 (n18000_closure_cexpTicktuple,FRAME (0),FRAME (1),FRAME (2),CRET);
+SiClosure* n18018_si_closure = m_MakeSiFn (0,4,n18000_cexpTicktuple);
+Nword n17999_closure_cexpTicktuple = g_MakeFn (n18018_si_closure);
+Ncode n17998_cont () {
+  return g_call_4 (n17999_closure_cexpTicktuple,FRAME (0),FRAME (1),FRAME (2),CRET);
 }
-SiCont* n18020_si_cont = m_MakeSiCont (3,n17999_cont);
-Ncode n18021_cont () {
+SiCont* n18019_si_cont = m_MakeSiCont (3,n17998_cont);
+Ncode n18020_cont () {
   return g_call_2 (n82_closure_map,FRAME (0),CRET);
 }
-SiCont* n18022_si_cont = m_MakeSiCont (1,n18021_cont);
-Ncode n17998_Stage2 () {
+SiCont* n18021_si_cont = m_MakeSiCont (1,n18020_cont);
+Ncode n17997_Stage2 () {
   Nword V_q2270,EmitDef_q2271,EmitAct_q2272;
   V_q2270 = g_DeTuple (ARG (0),0);
   EmitDef_q2271 = g_DeTuple (ARG (0),1);
   EmitAct_q2272 = g_DeTuple (ARG (0),2);
-  g_PushContinuation (n18020_si_cont);
+  g_PushContinuation (n18019_si_cont);
   g_SetContFrameElem (0,EmitDef_q2271);
   g_SetContFrameElem (1,EmitAct_q2272);
   g_SetContFrameElem (2,FRAME (1));
-  g_PushContinuation (n18022_si_cont);
+  g_PushContinuation (n18021_si_cont);
   g_SetContFrameElem (0,V_q2270);
   return g_call_1 (n304_closure_listTickarray,FRAME (0));
 }
-SiClosure* n18023_si_closure = m_MakeSiFn (2,1,n17998_Stage2);
-Ncode n17997_cont () {
+SiClosure* n18022_si_closure = m_MakeSiFn (2,1,n17997_Stage2);
+Ncode n17996_cont () {
   Nword Stage2_q2269,q2274,q2273,q2275,q2278,q2277,q2276;
-  Stage2_q2269 = g_MakeFn (n18023_si_closure);
+  Stage2_q2269 = g_MakeFn (n18022_si_closure);
   g_SetFrameElement (Stage2_q2269,0,FRAME (0));
   g_SetFrameElement (Stage2_q2269,1,CRET);
   q2274 = g_MakeTuple (2);
@@ -75757,9 +75756,9 @@ Ncode n17997_cont () {
   g_SetTupleElement (q2276,1,Stage2_q2269);
   return g_returnWith (q2276);
 }
-SiCont* n18024_si_cont = m_MakeSiCont (1,n17997_cont);
-Nword n18025_scon = g_mkString ("tuple");
-Ncode n18026_cont () {
+SiCont* n18023_si_cont = m_MakeSiCont (1,n17996_cont);
+Nword n18024_scon = g_mkString ("tuple");
+Ncode n18025_cont () {
   Nword name_q2260,Stage2_q2261,q2263,q2262,q2264,q2267,q2266,q2265;
   name_q2260 = g_DeTuple (CRET,0);
   Stage2_q2261 = g_DeTuple (CRET,1);
@@ -75777,37 +75776,37 @@ Ncode n18026_cont () {
   g_SetTupleElement (q2265,1,Stage2_q2261);
   return g_returnWith (q2265);
 }
-SiCont* n18027_si_cont = m_MakeSiCont (0,n18026_cont);
-Nword n18032_scon = g_mkString ("g_colonEq");
-Nword n18031_constructed = g_MakeCon (0,n18032_scon);
-Nword n18030_tuple = g_MakeTuple (2);
-Nword n18029_constructed = g_MakeCon (0,n18030_tuple);
-Nword n18028_constructed = g_MakeCon (3,n18029_constructed);
-Ncode n18034_cont () {
-  return g_call_2 (n17973_closure_nameExp,CRET,FRAME (0));
-}
-SiCont* n18035_si_cont = m_MakeSiCont (1,n18034_cont);
-Nword n18036_scon = g_mkString ("scon");
+SiCont* n18026_si_cont = m_MakeSiCont (0,n18025_cont);
+Nword n18031_scon = g_mkString ("g_colonEq");
+Nword n18030_constructed = g_MakeCon (0,n18031_scon);
+Nword n18029_tuple = g_MakeTuple (2);
+Nword n18028_constructed = g_MakeCon (0,n18029_tuple);
+Nword n18027_constructed = g_MakeCon (3,n18028_constructed);
 Ncode n18033_cont () {
-  g_PushContinuation (n18035_si_cont);
-  g_SetContFrameElem (0,CRET);
-  return g_call_1 (n1928_closure_newCid,n18036_scon);
+  return g_call_2 (n17972_closure_nameExp,CRET,FRAME (0));
 }
-SiCont* n18037_si_cont = m_MakeSiCont (0,n18033_cont);
-Nword n18042_scon = g_mkString ("g_mkNum");
-Ncode n18041_cexpTicknum () {
+SiCont* n18034_si_cont = m_MakeSiCont (1,n18033_cont);
+Nword n18035_scon = g_mkString ("scon");
+Ncode n18032_cont () {
+  g_PushContinuation (n18034_si_cont);
+  g_SetContFrameElem (0,CRET);
+  return g_call_1 (n1928_closure_newCid,n18035_scon);
+}
+SiCont* n18036_si_cont = m_MakeSiCont (0,n18032_cont);
+Nword n18041_scon = g_mkString ("g_mkNum");
+Ncode n18040_cexpTicknum () {
   Nword q1176,q1175,q1174;
   q1176 = g_MakeCon (1,ARG (0));
   q1175 = g_MakeTuple (2);
   g_SetTupleElement (q1175,0,q1176);
   g_SetTupleElement (q1175,1,n84_con_nil);
   q1174 = g_MakeCon (0,q1175);
-  return g_call_2 (n1908_closure_cexpTickcall,n18042_scon,q1174);
+  return g_call_2 (n1908_closure_cexpTickcall,n18041_scon,q1174);
 }
-SiClosure* n18043_si_closure = m_MakeSiFn (0,1,n18041_cexpTicknum);
-Nword n18040_closure_cexpTicknum = g_MakeFn (n18043_si_closure);
-Nword n18046_scon = g_mkString ("g_mkWord");
-Ncode n18045_cexpTickword () {
+SiClosure* n18042_si_closure = m_MakeSiFn (0,1,n18040_cexpTicknum);
+Nword n18039_closure_cexpTicknum = g_MakeFn (n18042_si_closure);
+Nword n18045_scon = g_mkString ("g_mkWord");
+Ncode n18044_cexpTickword () {
   Nword q1181,q1180,q1179,q1178;
   q1181 = builtin_Word_toInt (ARG (0));
   q1180 = g_MakeCon (1,q1181);
@@ -75815,13 +75814,13 @@ Ncode n18045_cexpTickword () {
   g_SetTupleElement (q1179,0,q1180);
   g_SetTupleElement (q1179,1,n84_con_nil);
   q1178 = g_MakeCon (0,q1179);
-  return g_call_2 (n1908_closure_cexpTickcall,n18046_scon,q1178);
+  return g_call_2 (n1908_closure_cexpTickcall,n18045_scon,q1178);
 }
-SiClosure* n18047_si_closure = m_MakeSiFn (0,1,n18045_cexpTickword);
-Nword n18044_closure_cexpTickword = g_MakeFn (n18047_si_closure);
-Nword n18048_scon = g_mkString ("cexp'scon/real");
-Nword n18051_scon = g_mkString ("g_mkChar");
-Ncode n18050_cexpTickchar () {
+SiClosure* n18046_si_closure = m_MakeSiFn (0,1,n18044_cexpTickword);
+Nword n18043_closure_cexpTickword = g_MakeFn (n18046_si_closure);
+Nword n18047_scon = g_mkString ("cexp'scon/real");
+Nword n18050_scon = g_mkString ("g_mkChar");
+Ncode n18049_cexpTickchar () {
   Nword q1186,q1185,q1184,q1183;
   q1186 = builtin_ord (ARG (0));
   q1185 = g_MakeCon (1,q1186);
@@ -75829,131 +75828,131 @@ Ncode n18050_cexpTickchar () {
   g_SetTupleElement (q1184,0,q1185);
   g_SetTupleElement (q1184,1,n84_con_nil);
   q1183 = g_MakeCon (0,q1184);
-  return g_call_2 (n1908_closure_cexpTickcall,n18051_scon,q1183);
+  return g_call_2 (n1908_closure_cexpTickcall,n18050_scon,q1183);
 }
-SiClosure* n18052_si_closure = m_MakeSiFn (0,1,n18050_cexpTickchar);
-Nword n18049_closure_cexpTickchar = g_MakeFn (n18052_si_closure);
-Nword n18055_scon = g_mkString ("g_mkString");
-Ncode n18054_cexpTickstring () {
+SiClosure* n18051_si_closure = m_MakeSiFn (0,1,n18049_cexpTickchar);
+Nword n18048_closure_cexpTickchar = g_MakeFn (n18051_si_closure);
+Nword n18054_scon = g_mkString ("g_mkString");
+Ncode n18053_cexpTickstring () {
   Nword q1190,q1189,q1188;
   q1190 = g_MakeCon (2,ARG (0));
   q1189 = g_MakeTuple (2);
   g_SetTupleElement (q1189,0,q1190);
   g_SetTupleElement (q1189,1,n84_con_nil);
   q1188 = g_MakeCon (0,q1189);
-  return g_call_2 (n1908_closure_cexpTickcall,n18055_scon,q1188);
+  return g_call_2 (n1908_closure_cexpTickcall,n18054_scon,q1188);
 }
-SiClosure* n18056_si_closure = m_MakeSiFn (0,1,n18054_cexpTickstring);
-Nword n18053_closure_cexpTickstring = g_MakeFn (n18056_si_closure);
-Ncode n18039_cexpTickscon () {
+SiClosure* n18055_si_closure = m_MakeSiFn (0,1,n18053_cexpTickstring);
+Nword n18052_closure_cexpTickstring = g_MakeFn (n18055_si_closure);
+Ncode n18038_cexpTickscon () {
   Nword n_q2160,w_q2159,r_q2158,c_q2157,s_q2156;
   if (g_matchC1 (ARG (0),0)) {
     n_q2160 = g_DeCon (ARG (0));
-    return g_call_1 (n18040_closure_cexpTicknum,n_q2160);
+    return g_call_1 (n18039_closure_cexpTicknum,n_q2160);
   } else {
     if (g_matchC1 (ARG (0),1)) {
       w_q2159 = g_DeCon (ARG (0));
-      return g_call_1 (n18044_closure_cexpTickword,w_q2159);
+      return g_call_1 (n18043_closure_cexpTickword,w_q2159);
     } else {
       if (g_matchC1 (ARG (0),2)) {
         r_q2158 = g_DeCon (ARG (0));
-        return g_call_1 (n37_closure_abort,n18048_scon);
+        return g_call_1 (n37_closure_abort,n18047_scon);
       } else {
         if (g_matchC1 (ARG (0),3)) {
           c_q2157 = g_DeCon (ARG (0));
-          return g_call_1 (n18049_closure_cexpTickchar,c_q2157);
+          return g_call_1 (n18048_closure_cexpTickchar,c_q2157);
         } else {
           s_q2156 = g_DeCon (ARG (0));
-          return g_call_1 (n18053_closure_cexpTickstring,s_q2156);
+          return g_call_1 (n18052_closure_cexpTickstring,s_q2156);
         }
       }
     }
   }
 }
-SiClosure* n18057_si_closure = m_MakeSiFn (0,1,n18039_cexpTickscon);
-Nword n18038_closure_cexpTickscon = g_MakeFn (n18057_si_closure);
-Ncode n18058_cont () {
-  return g_call_1 (n17987_closure_stageExp,CRET);
+SiClosure* n18056_si_closure = m_MakeSiFn (0,1,n18038_cexpTickscon);
+Nword n18037_closure_cexpTickscon = g_MakeFn (n18056_si_closure);
+Ncode n18057_cont () {
+  return g_call_1 (n17986_closure_stageExp,CRET);
 }
-SiCont* n18059_si_cont = m_MakeSiCont (0,n18058_cont);
-Nword n18065_scon = g_mkString ("builtin_");
-Nword n18069_scon = g_mkString ("m_CloseBuiltin_");
-Ncode n18068_cont () {
+SiCont* n18058_si_cont = m_MakeSiCont (0,n18057_cont);
+Nword n18064_scon = g_mkString ("builtin_");
+Nword n18068_scon = g_mkString ("m_CloseBuiltin_");
+Ncode n18067_cont () {
   Nword q1165,q1164,q1166;
   q1165 = g_MakeTuple (2);
   g_SetTupleElement (q1165,0,FRAME (0));
   g_SetTupleElement (q1165,1,n84_con_nil);
   q1164 = g_MakeCon (0,q1165);
-  q1166 = builtin_Hat (n18069_scon,CRET);
+  q1166 = builtin_Hat (n18068_scon,CRET);
   return g_call_2 (n1908_closure_cexpTickcall,q1166,q1164);
 }
-SiCont* n18070_si_cont = m_MakeSiCont (1,n18068_cont);
-Ncode n18067_cexpTickcloseBuiltin () {
+SiCont* n18069_si_cont = m_MakeSiCont (1,n18067_cont);
+Ncode n18066_cexpTickcloseBuiltin () {
   Nword q1163;
-  g_PushContinuation (n18070_si_cont);
+  g_PushContinuation (n18069_si_cont);
   g_SetContFrameElem (0,ARG (1));
   q1163 = g_Copy (ARG (0));
   return g_call_1 (n327_closure_stringOfInt,q1163);
 }
-SiClosure* n18071_si_closure = m_MakeSiFn (0,2,n18067_cexpTickcloseBuiltin);
-Nword n18066_closure_cexpTickcloseBuiltin = g_MakeFn (n18071_si_closure);
-Ncode n18064_cont () {
+SiClosure* n18070_si_closure = m_MakeSiFn (0,2,n18066_cexpTickcloseBuiltin);
+Nword n18065_closure_cexpTickcloseBuiltin = g_MakeFn (n18070_si_closure);
+Ncode n18063_cont () {
   Nword q1172,q1171,q1170;
-  q1172 = builtin_Hat (n18065_scon,CRET);
+  q1172 = builtin_Hat (n18064_scon,CRET);
   q1171 = g_MakeCon (0,q1172);
   q1170 = g_MakeCon (0,q1171);
-  return g_call_2 (n18066_closure_cexpTickcloseBuiltin,FRAME (0),q1170);
+  return g_call_2 (n18065_closure_cexpTickcloseBuiltin,FRAME (0),q1170);
 }
-SiCont* n18072_si_cont = m_MakeSiCont (1,n18064_cont);
-Ncode n18063_cexpTickUnappliedBuiltin () {
+SiCont* n18071_si_cont = m_MakeSiCont (1,n18063_cont);
+Ncode n18062_cexpTickUnappliedBuiltin () {
   Nword n_q1168,s_q1169;
   n_q1168 = g_DeTuple (ARG (0),0);
   s_q1169 = g_DeTuple (ARG (0),1);
-  g_PushContinuation (n18072_si_cont);
+  g_PushContinuation (n18071_si_cont);
   g_SetContFrameElem (0,n_q1168);
   return g_call_1 (n1939_closure_CnameTickstring,s_q1169);
 }
-SiClosure* n18073_si_closure = m_MakeSiFn (0,1,n18063_cexpTickUnappliedBuiltin);
-Nword n18062_closure_cexpTickUnappliedBuiltin = g_MakeFn (n18073_si_closure);
-Ncode n18061_cont () {
+SiClosure* n18072_si_closure = m_MakeSiFn (0,1,n18062_cexpTickUnappliedBuiltin);
+Nword n18061_closure_cexpTickUnappliedBuiltin = g_MakeFn (n18072_si_closure);
+Ncode n18060_cont () {
   Nword q2256;
   q2256 = g_MakeTuple (2);
   g_SetTupleElement (q2256,0,FRAME (0));
   g_SetTupleElement (q2256,1,CRET);
-  return g_call_1 (n18062_closure_cexpTickUnappliedBuiltin,q2256);
+  return g_call_1 (n18061_closure_cexpTickUnappliedBuiltin,q2256);
 }
-SiCont* n18074_si_cont = m_MakeSiCont (1,n18061_cont);
-Ncode n18060_cont () {
-  g_PushContinuation (n18074_si_cont);
+SiCont* n18073_si_cont = m_MakeSiCont (1,n18060_cont);
+Ncode n18059_cont () {
+  g_PushContinuation (n18073_si_cont);
   g_SetContFrameElem (0,CRET);
   return g_call_1 (n439_closure_nameTickbuiltin,FRAME (0));
 }
-SiCont* n18075_si_cont = m_MakeSiCont (1,n18060_cont);
-Nword n18080_scon = g_mkString ("g_ref0");
-Nword n18079_constructed = g_MakeCon (0,n18080_scon);
-Nword n18078_tuple = g_MakeTuple (2);
-Nword n18077_constructed = g_MakeCon (0,n18078_tuple);
-Nword n18076_constructed = g_MakeCon (3,n18077_constructed);
-Ncode n18082_cont () {
-  return g_call_2 (n17973_closure_nameExp,CRET,FRAME (0));
+SiCont* n18074_si_cont = m_MakeSiCont (1,n18059_cont);
+Nword n18079_scon = g_mkString ("g_ref0");
+Nword n18078_constructed = g_MakeCon (0,n18079_scon);
+Nword n18077_tuple = g_MakeTuple (2);
+Nword n18076_constructed = g_MakeCon (0,n18077_tuple);
+Nword n18075_constructed = g_MakeCon (3,n18076_constructed);
+Ncode n18081_cont () {
+  return g_call_2 (n17972_closure_nameExp,CRET,FRAME (0));
 }
-SiCont* n18083_si_cont = m_MakeSiCont (1,n18082_cont);
-Nword n18085_scon = g_mkString ("con_");
-Ncode n18084_cont () {
+SiCont* n18082_si_cont = m_MakeSiCont (1,n18081_cont);
+Nword n18084_scon = g_mkString ("con_");
+Ncode n18083_cont () {
   Nword q2254;
-  q2254 = builtin_Hat (n18085_scon,CRET);
+  q2254 = builtin_Hat (n18084_scon,CRET);
   return g_call_1 (n1928_closure_newCid,q2254);
 }
-SiCont* n18086_si_cont = m_MakeSiCont (0,n18084_cont);
-Ncode n18081_cont () {
-  g_PushContinuation (n18083_si_cont);
+SiCont* n18085_si_cont = m_MakeSiCont (0,n18083_cont);
+Ncode n18080_cont () {
+  g_PushContinuation (n18082_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n18086_si_cont);
+  g_PushContinuation (n18085_si_cont);
   return g_call_1 (n447_closure_sofTickcon,FRAME (0));
 }
-SiCont* n18087_si_cont = m_MakeSiCont (1,n18081_cont);
-Nword n18092_scon = g_mkString ("g_con0");
-Ncode n18091_cexpTickcon0 () {
+SiCont* n18086_si_cont = m_MakeSiCont (1,n18080_cont);
+Nword n18091_scon = g_mkString ("g_con0");
+Ncode n18090_cexpTickcon0 () {
   Nword arity_q1154,tag_q1155,q1158,q1161,q1160,q1159,q1157,q1156;
   arity_q1154 = g_DeTuple (ARG (0),0);
   tag_q1155 = g_DeTuple (ARG (0),1);
@@ -75967,82 +75966,82 @@ Ncode n18091_cexpTickcon0 () {
   g_SetTupleElement (q1157,0,q1158);
   g_SetTupleElement (q1157,1,q1159);
   q1156 = g_MakeCon (0,q1157);
-  return g_call_2 (n1908_closure_cexpTickcall,n18092_scon,q1156);
+  return g_call_2 (n1908_closure_cexpTickcall,n18091_scon,q1156);
 }
-SiClosure* n18093_si_closure = m_MakeSiFn (0,1,n18091_cexpTickcon0);
-Nword n18090_closure_cexpTickcon0 = g_MakeFn (n18093_si_closure);
-Ncode n18089_cont () {
+SiClosure* n18092_si_closure = m_MakeSiFn (0,1,n18090_cexpTickcon0);
+Nword n18089_closure_cexpTickcon0 = g_MakeFn (n18092_si_closure);
+Ncode n18088_cont () {
   Nword q2253;
   q2253 = g_MakeTuple (2);
   g_SetTupleElement (q2253,0,FRAME (0));
   g_SetTupleElement (q2253,1,CRET);
-  return g_call_1 (n18090_closure_cexpTickcon0,q2253);
+  return g_call_1 (n18089_closure_cexpTickcon0,q2253);
 }
-SiCont* n18094_si_cont = m_MakeSiCont (1,n18089_cont);
-Ncode n18088_cont () {
-  g_PushContinuation (n18094_si_cont);
+SiCont* n18093_si_cont = m_MakeSiCont (1,n18088_cont);
+Ncode n18087_cont () {
+  g_PushContinuation (n18093_si_cont);
   g_SetContFrameElem (0,CRET);
   return g_call_1 (n2102_closure_nTickcon,FRAME (0));
 }
-SiCont* n18095_si_cont = m_MakeSiCont (1,n18088_cont);
-Ncode n18097_arityTickcon () {
+SiCont* n18094_si_cont = m_MakeSiCont (1,n18087_cont);
+Ncode n18096_arityTickcon () {
   Nword q1560,arity_q1561;
   q1560 = g_DeCon (ARG (0));
   arity_q1561 = g_DeTuple (q1560,1);
   return g_returnWith (arity_q1561);
 }
-SiClosure* n18098_si_closure = m_MakeSiFn (0,1,n18097_arityTickcon);
-Nword n18096_closure_arityTickcon = g_MakeFn (n18098_si_closure);
-Ncode n18102_cont () {
+SiClosure* n18097_si_closure = m_MakeSiFn (0,1,n18096_arityTickcon);
+Nword n18095_closure_arityTickcon = g_MakeFn (n18097_si_closure);
+Ncode n18101_cont () {
   return g_call_2 (n2097_closure_cexpTickNewCon,CRET,FRAME (0));
 }
-SiCont* n18103_si_cont = m_MakeSiCont (1,n18102_cont);
-Ncode n18101_cont () {
-  g_PushContinuation (n18103_si_cont);
+SiCont* n18102_si_cont = m_MakeSiCont (1,n18101_cont);
+Ncode n18100_cont () {
+  g_PushContinuation (n18102_si_cont);
   g_SetContFrameElem (0,CRET);
   return g_call_1 (n2102_closure_nTickcon,FRAME (0));
 }
-SiCont* n18104_si_cont = m_MakeSiCont (1,n18101_cont);
-Ncode n18100_anon () {
+SiCont* n18103_si_cont = m_MakeSiCont (1,n18100_cont);
+Ncode n18099_anon () {
   Nword q2251;
-  g_PushContinuation (n18104_si_cont);
+  g_PushContinuation (n18103_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   q2251 = g_Copy (ARG (0));
   return g_call_1 (q2251,FRAME (0));
 }
-SiClosure* n18105_si_closure = m_MakeSiFn (2,1,n18100_anon);
-Ncode n18110_cont () {
+SiClosure* n18104_si_closure = m_MakeSiFn (2,1,n18099_anon);
+Ncode n18109_cont () {
   return g_returnWith (FRAME (0));
 }
-SiCont* n18111_si_cont = m_MakeSiCont (1,n18110_cont);
-Ncode n18109_cont () {
+SiCont* n18110_si_cont = m_MakeSiCont (1,n18109_cont);
+Ncode n18108_cont () {
   Nword q2191,q2190;
   q2191 = g_MakeTuple (3);
   g_SetTupleElement (q2191,0,n1898_constructed);
   g_SetTupleElement (q2191,1,FRAME (0));
   g_SetTupleElement (q2191,2,CRET);
   q2190 = g_MakeCon (3,q2191);
-  g_PushContinuation (n18111_si_cont);
+  g_PushContinuation (n18110_si_cont);
   g_SetContFrameElem (0,FRAME (2));
   return g_call_1 (FRAME (1),q2190);
 }
-SiCont* n18112_si_cont = m_MakeSiCont (3,n18109_cont);
-Ncode n18108_Stage2 () {
+SiCont* n18111_si_cont = m_MakeSiCont (3,n18108_cont);
+Ncode n18107_Stage2 () {
   Nword V_q2187,EmitDef_q2188,EmitAct_q2189;
   V_q2187 = g_DeTuple (ARG (0),0);
   EmitDef_q2188 = g_DeTuple (ARG (0),1);
   EmitAct_q2189 = g_DeTuple (ARG (0),2);
-  g_PushContinuation (n18112_si_cont);
+  g_PushContinuation (n18111_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   g_SetContFrameElem (1,EmitDef_q2188);
   g_SetContFrameElem (2,FRAME (2));
   return g_call_1 (FRAME (0),V_q2187);
 }
-SiClosure* n18113_si_closure = m_MakeSiFn (3,1,n18108_Stage2);
-Ncode n18107_nameExpV () {
+SiClosure* n18112_si_closure = m_MakeSiFn (3,1,n18107_Stage2);
+Ncode n18106_nameExpV () {
   Nword q2185,Stage2_q2186,q2193,q2192,q2196,q2195,q2194;
   q2185 = g_MakeCon (0,ARG (0));
-  Stage2_q2186 = g_MakeFn (n18113_si_closure);
+  Stage2_q2186 = g_MakeFn (n18112_si_closure);
   g_SetFrameElement (Stage2_q2186,0,ARG (1));
   g_SetFrameElement (Stage2_q2186,1,ARG (0));
   g_SetFrameElement (Stage2_q2186,2,q2185);
@@ -76059,19 +76058,19 @@ Ncode n18107_nameExpV () {
   g_SetTupleElement (q2194,1,Stage2_q2186);
   return g_returnWith (q2194);
 }
-SiClosure* n18114_si_closure = m_MakeSiFn (0,2,n18107_nameExpV);
-Nword n18106_closure_nameExpV = g_MakeFn (n18114_si_closure);
-Ncode n18099_cont () {
+SiClosure* n18113_si_closure = m_MakeSiFn (0,2,n18106_nameExpV);
+Nword n18105_closure_nameExpV = g_MakeFn (n18113_si_closure);
+Ncode n18098_cont () {
   Nword q2250;
-  q2250 = g_MakeFn (n18105_si_closure);
+  q2250 = g_MakeFn (n18104_si_closure);
   g_SetFrameElement (q2250,0,FRAME (0));
   g_SetFrameElement (q2250,1,FRAME (1));
-  return g_call_2 (n18106_closure_nameExpV,CRET,q2250);
+  return g_call_2 (n18105_closure_nameExpV,CRET,q2250);
 }
-SiCont* n18115_si_cont = m_MakeSiCont (2,n18099_cont);
-Nword n18116_scon = g_mkString ("constructed");
-Nword n18124_scon = g_mkString ("g_mkExname");
-Ncode n18123_cexpTickexname0 () {
+SiCont* n18114_si_cont = m_MakeSiCont (2,n18098_cont);
+Nword n18115_scon = g_mkString ("constructed");
+Nword n18123_scon = g_mkString ("g_mkExname");
+Ncode n18122_cexpTickexname0 () {
   Nword q1194,q1197,q1196,q1195,q1193,q1192;
   q1194 = g_MakeCon (2,ARG (0));
   q1197 = g_MakeCon (1,ARG (1));
@@ -76083,16 +76082,16 @@ Ncode n18123_cexpTickexname0 () {
   g_SetTupleElement (q1193,0,q1194);
   g_SetTupleElement (q1193,1,q1195);
   q1192 = g_MakeCon (0,q1193);
-  return g_call_2 (n1908_closure_cexpTickcall,n18124_scon,q1192);
+  return g_call_2 (n1908_closure_cexpTickcall,n18123_scon,q1192);
 }
-SiClosure* n18125_si_closure = m_MakeSiFn (0,2,n18123_cexpTickexname0);
-Nword n18122_closure_cexpTickexname0 = g_MakeFn (n18125_si_closure);
-Ncode n18121_cont () {
-  return g_call_2 (n18122_closure_cexpTickexname0,CRET,FRAME (0));
+SiClosure* n18124_si_closure = m_MakeSiFn (0,2,n18122_cexpTickexname0);
+Nword n18121_closure_cexpTickexname0 = g_MakeFn (n18124_si_closure);
+Ncode n18120_cont () {
+  return g_call_2 (n18121_closure_cexpTickexname0,CRET,FRAME (0));
 }
-SiCont* n18126_si_cont = m_MakeSiCont (1,n18121_cont);
-Nword n18131_scon = g_mkString ("g_mkExname");
-Ncode n18130_cexpTickexname1 () {
+SiCont* n18125_si_cont = m_MakeSiCont (1,n18120_cont);
+Nword n18130_scon = g_mkString ("g_mkExname");
+Ncode n18129_cexpTickexname1 () {
   Nword q1201,q1204,q1206,q1205,q1203,q1202,q1200,q1199;
   q1201 = g_MakeCon (2,ARG (0));
   q1204 = g_MakeCon (1,ARG (1));
@@ -76108,29 +76107,29 @@ Ncode n18130_cexpTickexname1 () {
   g_SetTupleElement (q1200,0,q1201);
   g_SetTupleElement (q1200,1,q1202);
   q1199 = g_MakeCon (0,q1200);
-  return g_call_2 (n1908_closure_cexpTickcall,n18131_scon,q1199);
+  return g_call_2 (n1908_closure_cexpTickcall,n18130_scon,q1199);
 }
-SiClosure* n18132_si_closure = m_MakeSiFn (0,3,n18130_cexpTickexname1);
-Nword n18129_closure_cexpTickexname1 = g_MakeFn (n18132_si_closure);
-Ncode n18128_cont () {
-  return g_call_3 (n18129_closure_cexpTickexname1,CRET,FRAME (0),FRAME (1));
-}
-SiCont* n18133_si_cont = m_MakeSiCont (2,n18128_cont);
+SiClosure* n18131_si_closure = m_MakeSiFn (0,3,n18129_cexpTickexname1);
+Nword n18128_closure_cexpTickexname1 = g_MakeFn (n18131_si_closure);
 Ncode n18127_cont () {
-  g_PushContinuation (n18133_si_cont);
+  return g_call_3 (n18128_closure_cexpTickexname1,CRET,FRAME (0),FRAME (1));
+}
+SiCont* n18132_si_cont = m_MakeSiCont (2,n18127_cont);
+Ncode n18126_cont () {
+  g_PushContinuation (n18132_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   g_SetContFrameElem (1,CRET);
   return g_call_1 (n53_closure_sofTickvid,FRAME (0));
 }
-SiCont* n18134_si_cont = m_MakeSiCont (2,n18127_cont);
-Ncode n18120_NEW_ccTickexval () {
+SiCont* n18133_si_cont = m_MakeSiCont (2,n18126_cont);
+Ncode n18119_NEW_ccTickexval () {
   Nword q2169,q2170,vid_q2171,u_q2172,q2162,q2163,q2164,vid_q2165,u_q2166,v_q2167,q2168;
   if (g_matchC1 (ARG (1),0)) {
     q2169 = g_DeCon (ARG (1));
     q2170 = g_DeCon (q2169);
     vid_q2171 = g_DeTuple (q2170,0);
     u_q2172 = g_DeTuple (q2170,1);
-    g_PushContinuation (n18126_si_cont);
+    g_PushContinuation (n18125_si_cont);
     g_SetContFrameElem (0,u_q2172);
     return g_call_1 (n53_closure_sofTickvid,vid_q2171);
   } else {
@@ -76140,52 +76139,52 @@ Ncode n18120_NEW_ccTickexval () {
     vid_q2165 = g_DeTuple (q2164,0);
     u_q2166 = g_DeTuple (q2164,1);
     v_q2167 = g_DeTuple (q2162,1);
-    g_PushContinuation (n18134_si_cont);
+    g_PushContinuation (n18133_si_cont);
     g_SetContFrameElem (0,vid_q2165);
     g_SetContFrameElem (1,u_q2166);
     q2168 = g_Copy (ARG (0));
     return g_call_1 (q2168,v_q2167);
   }
 }
-SiClosure* n18135_si_closure = m_MakeSiFn (0,2,n18120_NEW_ccTickexval);
-Nword n18119_closure_NEW_ccTickexval = g_MakeFn (n18135_si_closure);
-Ncode n18118_anon () {
+SiClosure* n18134_si_closure = m_MakeSiFn (0,2,n18119_NEW_ccTickexval);
+Nword n18118_closure_NEW_ccTickexval = g_MakeFn (n18134_si_closure);
+Ncode n18117_anon () {
   Nword q2246;
   q2246 = g_Copy (ARG (0));
-  return g_call_2 (n18119_closure_NEW_ccTickexval,q2246,FRAME (0));
+  return g_call_2 (n18118_closure_NEW_ccTickexval,q2246,FRAME (0));
 }
-SiClosure* n18136_si_closure = m_MakeSiFn (1,1,n18118_anon);
-Ncode n18117_cont () {
+SiClosure* n18135_si_closure = m_MakeSiFn (1,1,n18117_anon);
+Ncode n18116_cont () {
   Nword q2245;
-  q2245 = g_MakeFn (n18136_si_closure);
+  q2245 = g_MakeFn (n18135_si_closure);
   g_SetFrameElement (q2245,0,FRAME (0));
-  return g_call_2 (n18106_closure_nameExpV,CRET,q2245);
+  return g_call_2 (n18105_closure_nameExpV,CRET,q2245);
 }
-SiCont* n18137_si_cont = m_MakeSiCont (1,n18117_cont);
-Nword n18138_scon = g_mkString ("exval");
-Nword n18145_scon = g_mkString ("g_EmptyRef");
-Nword n18144_constructed = g_MakeCon (0,n18145_scon);
-Nword n18143_tuple = g_MakeTuple (2);
-Nword n18142_constructed = g_MakeCon (0,n18143_tuple);
-Nword n18141_constructed = g_MakeCon (3,n18142_constructed);
-Ncode n18148_cont () {
+SiCont* n18136_si_cont = m_MakeSiCont (1,n18116_cont);
+Nword n18137_scon = g_mkString ("exval");
+Nword n18144_scon = g_mkString ("g_EmptyRef");
+Nword n18143_constructed = g_MakeCon (0,n18144_scon);
+Nword n18142_tuple = g_MakeTuple (2);
+Nword n18141_constructed = g_MakeCon (0,n18142_tuple);
+Nword n18140_constructed = g_MakeCon (3,n18141_constructed);
+Ncode n18147_cont () {
   return g_returnWith (FRAME (0));
 }
-SiCont* n18149_si_cont = m_MakeSiCont (1,n18148_cont);
-Ncode n18147_cont () {
-  g_PushContinuation (n18149_si_cont);
+SiCont* n18148_si_cont = m_MakeSiCont (1,n18147_cont);
+Ncode n18146_cont () {
+  g_PushContinuation (n18148_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   return g_call_1 (FRAME (0),CRET);
 }
-SiCont* n18150_si_cont = m_MakeSiCont (2,n18147_cont);
-Ncode n18151_cont () {
+SiCont* n18149_si_cont = m_MakeSiCont (2,n18146_cont);
+Ncode n18150_cont () {
   Nword q2238;
   q2238 = g_MakeCon (1,CRET);
   return g_returnWith (q2238);
 }
-SiCont* n18152_si_cont = m_MakeSiCont (0,n18151_cont);
-Nword n18156_scon = g_mkString ("g_FixupRef");
-Ncode n18155_ccallTickFixupRef () {
+SiCont* n18151_si_cont = m_MakeSiCont (0,n18150_cont);
+Nword n18155_scon = g_mkString ("g_FixupRef");
+Ncode n18154_ccallTickFixupRef () {
   Nword q1236,q1235,q1234,q1233;
   q1236 = g_MakeTuple (2);
   g_SetTupleElement (q1236,0,ARG (1));
@@ -76195,25 +76194,25 @@ Ncode n18155_ccallTickFixupRef () {
   g_SetTupleElement (q1234,0,ARG (0));
   g_SetTupleElement (q1234,1,q1235);
   q1233 = g_MakeCon (0,q1234);
-  return g_call_2 (n1912_closure_ccallTicks,n18156_scon,q1233);
+  return g_call_2 (n1912_closure_ccallTicks,n18155_scon,q1233);
 }
-SiClosure* n18157_si_closure = m_MakeSiFn (0,2,n18155_ccallTickFixupRef);
-Nword n18154_closure_ccallTickFixupRef = g_MakeFn (n18157_si_closure);
-Ncode n18153_cont () {
-  return g_call_2 (n18154_closure_ccallTickFixupRef,FRAME (0),CRET);
+SiClosure* n18156_si_closure = m_MakeSiFn (0,2,n18154_ccallTickFixupRef);
+Nword n18153_closure_ccallTickFixupRef = g_MakeFn (n18156_si_closure);
+Ncode n18152_cont () {
+  return g_call_2 (n18153_closure_ccallTickFixupRef,FRAME (0),CRET);
 }
-SiCont* n18158_si_cont = m_MakeSiCont (1,n18153_cont);
-Ncode n18146_cont () {
-  g_PushContinuation (n18150_si_cont);
+SiCont* n18157_si_cont = m_MakeSiCont (1,n18152_cont);
+Ncode n18145_cont () {
+  g_PushContinuation (n18149_si_cont);
   g_SetContFrameElem (0,FRAME (2));
   g_SetContFrameElem (1,FRAME (3));
-  g_PushContinuation (n18152_si_cont);
-  g_PushContinuation (n18158_si_cont);
+  g_PushContinuation (n18151_si_cont);
+  g_PushContinuation (n18157_si_cont);
   g_SetContFrameElem (0,FRAME (3));
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n18159_si_cont = m_MakeSiCont (4,n18146_cont);
-Ncode n18140_Stage2 () {
+SiCont* n18158_si_cont = m_MakeSiCont (4,n18145_cont);
+Ncode n18139_Stage2 () {
   Nword V_q2233,EmitDef_q2234,EmitAct_q2235,q2237,q2236;
   V_q2233 = g_DeTuple (ARG (0),0);
   EmitDef_q2234 = g_DeTuple (ARG (0),1);
@@ -76221,20 +76220,20 @@ Ncode n18140_Stage2 () {
   q2237 = g_MakeTuple (3);
   g_SetTupleElement (q2237,0,n1898_constructed);
   g_SetTupleElement (q2237,1,FRAME (0));
-  g_SetTupleElement (q2237,2,n18141_constructed);
+  g_SetTupleElement (q2237,2,n18140_constructed);
   q2236 = g_MakeCon (3,q2237);
-  g_PushContinuation (n18159_si_cont);
+  g_PushContinuation (n18158_si_cont);
   g_SetContFrameElem (0,V_q2233);
   g_SetContFrameElem (1,FRAME (1));
   g_SetContFrameElem (2,EmitAct_q2235);
   g_SetContFrameElem (3,FRAME (2));
   return g_call_1 (EmitDef_q2234,q2236);
 }
-SiClosure* n18160_si_closure = m_MakeSiFn (3,1,n18140_Stage2);
-Ncode n18139_cont () {
+SiClosure* n18159_si_closure = m_MakeSiFn (3,1,n18139_Stage2);
+Ncode n18138_cont () {
   Nword q2231,Stage2_q2232,q2240,q2239,q2243,q2242,q2241;
   q2231 = g_MakeCon (0,CRET);
-  Stage2_q2232 = g_MakeFn (n18160_si_closure);
+  Stage2_q2232 = g_MakeFn (n18159_si_closure);
   g_SetFrameElement (Stage2_q2232,0,CRET);
   g_SetFrameElement (Stage2_q2232,1,FRAME (0));
   g_SetFrameElement (Stage2_q2232,2,q2231);
@@ -76251,129 +76250,129 @@ Ncode n18139_cont () {
   g_SetTupleElement (q2241,1,Stage2_q2232);
   return g_returnWith (q2241);
 }
-SiCont* n18161_si_cont = m_MakeSiCont (1,n18139_cont);
-Nword n18162_scon = g_mkString ("addr");
+SiCont* n18160_si_cont = m_MakeSiCont (1,n18138_cont);
+Nword n18161_scon = g_mkString ("addr");
+Nword n18162_scon = g_mkString ("cc'form");
 Nword n18163_scon = g_mkString ("cc'form");
-Nword n18164_scon = g_mkString ("cc'form");
-Ncode n18165_cont () {
-  return g_call_1 (n17987_closure_stageExp,CRET);
+Ncode n18164_cont () {
+  return g_call_1 (n17986_closure_stageExp,CRET);
 }
-SiCont* n18166_si_cont = m_MakeSiCont (0,n18165_cont);
-Nword n18173_scon = g_mkString ("g_stdOut");
-Nword n18172_constructed = g_MakeCon (0,n18173_scon);
-Nword n18171_tuple = g_MakeTuple (2);
-Nword n18170_constructed = g_MakeCon (0,n18171_tuple);
-Nword n18169_constructed = g_MakeCon (3,n18170_constructed);
-Nword n18178_scon = g_mkString ("g_stdErr");
-Nword n18177_constructed = g_MakeCon (0,n18178_scon);
-Nword n18176_tuple = g_MakeTuple (2);
-Nword n18175_constructed = g_MakeCon (0,n18176_tuple);
-Nword n18174_constructed = g_MakeCon (3,n18175_constructed);
-Nword n18179_scon = g_mkString ("cc/OSD'File/");
-Ncode n18168_ccTickoutstream_descriptor () {
+SiCont* n18165_si_cont = m_MakeSiCont (0,n18164_cont);
+Nword n18172_scon = g_mkString ("g_stdOut");
+Nword n18171_constructed = g_MakeCon (0,n18172_scon);
+Nword n18170_tuple = g_MakeTuple (2);
+Nword n18169_constructed = g_MakeCon (0,n18170_tuple);
+Nword n18168_constructed = g_MakeCon (3,n18169_constructed);
+Nword n18177_scon = g_mkString ("g_stdErr");
+Nword n18176_constructed = g_MakeCon (0,n18177_scon);
+Nword n18175_tuple = g_MakeTuple (2);
+Nword n18174_constructed = g_MakeCon (0,n18175_tuple);
+Nword n18173_constructed = g_MakeCon (3,n18174_constructed);
+Nword n18178_scon = g_mkString ("cc/OSD'File/");
+Ncode n18167_ccTickoutstream_descriptor () {
   Nword s_q1568,q1569;
   if (g_matchC0 (ARG (0),0)) {
-    return g_returnWith (n18169_constructed);
+    return g_returnWith (n18168_constructed);
   } else {
     if (g_matchC0 (ARG (0),1)) {
-      return g_returnWith (n18174_constructed);
+      return g_returnWith (n18173_constructed);
     } else {
       s_q1568 = g_DeCon (ARG (0));
-      q1569 = builtin_Hat (n18179_scon,s_q1568);
+      q1569 = builtin_Hat (n18178_scon,s_q1568);
       return g_call_1 (n37_closure_abort,q1569);
     }
   }
 }
-SiClosure* n18180_si_closure = m_MakeSiFn (0,1,n18168_ccTickoutstream_descriptor);
-Nword n18167_closure_ccTickoutstream_descriptor = g_MakeFn (n18180_si_closure);
-Nword n18181_scon = g_mkString ("cc'form/instream");
-Nword n18182_scon = g_mkString ("cc'form/closure");
-Ncode n17971_ccTickform () {
+SiClosure* n18179_si_closure = m_MakeSiFn (0,1,n18167_ccTickoutstream_descriptor);
+Nword n18166_closure_ccTickoutstream_descriptor = g_MakeFn (n18179_si_closure);
+Nword n18180_scon = g_mkString ("cc'form/instream");
+Nword n18181_scon = g_mkString ("cc'form/closure");
+Ncode n17970_ccTickform () {
   Nword array_q2268,q2258,CC_q2259,scon_q2257,bi_q2255,con_q2252,q2247,con_q2248,v_q2249,exval_q2244,q2229,v_q2230,q2227,desc_q2228,closure_q2226;
   if (g_matchC1 (ARG (0),3)) {
-    g_PushContinuation (n17985_si_cont);
-    return g_call_1 (n1928_closure_newCid,n17986_scon);
+    g_PushContinuation (n17984_si_cont);
+    return g_call_1 (n1928_closure_newCid,n17985_scon);
   } else {
     if (g_matchC0 (ARG (0),0)) {
-      return g_call_1 (n17987_closure_stageExp,n17992_constructed);
+      return g_call_1 (n17986_closure_stageExp,n17991_constructed);
     } else {
       if (g_matchC1 (ARG (0),5)) {
         array_q2268 = g_DeCon (ARG (0));
-        g_PushContinuation (n18024_si_cont);
+        g_PushContinuation (n18023_si_cont);
         g_SetContFrameElem (0,array_q2268);
-        return g_call_1 (n1928_closure_newCid,n18025_scon);
+        return g_call_1 (n1928_closure_newCid,n18024_scon);
       } else {
         if (g_matchC1 (ARG (0),4)) {
           q2258 = g_DeCon (ARG (0));
           CC_q2259 = g_DeTuple (q2258,3);
-          g_PushContinuation (n18027_si_cont);
+          g_PushContinuation (n18026_si_cont);
           return g_call_1 (CC_q2259,g_unit ());
         } else {
           if (g_matchC0 (ARG (0),1)) {
-            return g_call_1 (n17987_closure_stageExp,n18028_constructed);
+            return g_call_1 (n17986_closure_stageExp,n18027_constructed);
           } else {
             if (g_matchC1 (ARG (0),6)) {
               scon_q2257 = g_DeCon (ARG (0));
-              g_PushContinuation (n18037_si_cont);
-              return g_call_1 (n18038_closure_cexpTickscon,scon_q2257);
+              g_PushContinuation (n18036_si_cont);
+              return g_call_1 (n18037_closure_cexpTickscon,scon_q2257);
             } else {
               if (g_matchC1 (ARG (0),7)) {
                 bi_q2255 = g_DeCon (ARG (0));
-                g_PushContinuation (n18059_si_cont);
-                g_PushContinuation (n18075_si_cont);
+                g_PushContinuation (n18058_si_cont);
+                g_PushContinuation (n18074_si_cont);
                 g_SetContFrameElem (0,bi_q2255);
                 return g_call_1 (n4528_closure_arityTickbuiltin,bi_q2255);
               } else {
                 if (g_matchC0 (ARG (0),2)) {
-                  return g_call_1 (n17987_closure_stageExp,n18076_constructed);
+                  return g_call_1 (n17986_closure_stageExp,n18075_constructed);
                 } else {
                   if (g_matchC1 (ARG (0),8)) {
                     con_q2252 = g_DeCon (ARG (0));
-                    g_PushContinuation (n18087_si_cont);
+                    g_PushContinuation (n18086_si_cont);
                     g_SetContFrameElem (0,con_q2252);
-                    g_PushContinuation (n18095_si_cont);
+                    g_PushContinuation (n18094_si_cont);
                     g_SetContFrameElem (0,con_q2252);
-                    return g_call_1 (n18096_closure_arityTickcon,con_q2252);
+                    return g_call_1 (n18095_closure_arityTickcon,con_q2252);
                   } else {
                     if (g_matchC1 (ARG (0),9)) {
                       q2247 = g_DeCon (ARG (0));
                       con_q2248 = g_DeTuple (q2247,0);
                       v_q2249 = g_DeTuple (q2247,1);
-                      g_PushContinuation (n18115_si_cont);
+                      g_PushContinuation (n18114_si_cont);
                       g_SetContFrameElem (0,v_q2249);
                       g_SetContFrameElem (1,con_q2248);
-                      return g_call_1 (n1928_closure_newCid,n18116_scon);
+                      return g_call_1 (n1928_closure_newCid,n18115_scon);
                     } else {
                       if (g_matchC1 (ARG (0),10)) {
                         exval_q2244 = g_DeCon (ARG (0));
-                        g_PushContinuation (n18137_si_cont);
+                        g_PushContinuation (n18136_si_cont);
                         g_SetContFrameElem (0,exval_q2244);
-                        return g_call_1 (n1928_closure_newCid,n18138_scon);
+                        return g_call_1 (n1928_closure_newCid,n18137_scon);
                       } else {
                         if (g_matchC1 (ARG (0),11)) {
                           q2229 = g_DeCon (ARG (0));
                           v_q2230 = g_DeRef (q2229);
-                          g_PushContinuation (n18161_si_cont);
+                          g_PushContinuation (n18160_si_cont);
                           g_SetContFrameElem (0,v_q2230);
-                          return g_call_1 (n1928_closure_newCid,n18162_scon);
+                          return g_call_1 (n1928_closure_newCid,n18161_scon);
                         } else {
                           if (g_matchC1 (ARG (0),13)) {
-                            return g_call_1 (n37_closure_abort,n18163_scon);
+                            return g_call_1 (n37_closure_abort,n18162_scon);
                           } else {
                             if (g_matchC1 (ARG (0),14)) {
-                              return g_call_1 (n37_closure_abort,n18164_scon);
+                              return g_call_1 (n37_closure_abort,n18163_scon);
                             } else {
                               if (g_matchC1 (ARG (0),15)) {
                                 q2227 = g_DeCon (ARG (0));
                                 desc_q2228 = g_DeTuple (q2227,0);
-                                g_PushContinuation (n18166_si_cont);
-                                return g_call_1 (n18167_closure_ccTickoutstream_descriptor,desc_q2228);
+                                g_PushContinuation (n18165_si_cont);
+                                return g_call_1 (n18166_closure_ccTickoutstream_descriptor,desc_q2228);
                               } else {
                                 if (g_matchC1 (ARG (0),16)) {
-                                  return g_call_1 (n37_closure_abort,n18181_scon);
+                                  return g_call_1 (n37_closure_abort,n18180_scon);
                                 } else {
                                   closure_q2226 = g_DeCon (ARG (0));
-                                  return g_call_1 (n37_closure_abort,n18182_scon);
+                                  return g_call_1 (n37_closure_abort,n18181_scon);
                                 }
                               }
                             }
@@ -76391,35 +76390,35 @@ Ncode n17971_ccTickform () {
     }
   }
 }
-SiClosure* n18183_si_closure = m_MakeSiFn (0,1,n17971_ccTickform);
-Nword n17970_closure_ccTickform = g_MakeFn (n18183_si_closure);
-Ncode n17969_cont () {
-  return g_call_1 (n17970_closure_ccTickform,CRET);
+SiClosure* n18182_si_closure = m_MakeSiFn (0,1,n17970_ccTickform);
+Nword n17969_closure_ccTickform = g_MakeFn (n18182_si_closure);
+Ncode n17968_cont () {
+  return g_call_1 (n17969_closure_ccTickform,CRET);
 }
-SiCont* n18184_si_cont = m_MakeSiCont (0,n17969_cont);
-Ncode n17857_cont () {
+SiCont* n18183_si_cont = m_MakeSiCont (0,n17968_cont);
+Ncode n17856_cont () {
   Nword q2306,forwardDef_q2307,breakExp_q2308;
   if (g_matchC1 (CRET,0)) {
     q2306 = g_DeCon (CRET);
     forwardDef_q2307 = g_DeTuple (q2306,0);
     breakExp_q2308 = g_DeTuple (q2306,1);
-    g_PushContinuation (n17859_si_cont);
+    g_PushContinuation (n17858_si_cont);
     g_SetContFrameElem (0,breakExp_q2308);
     return g_call_1 (FRAME (1),forwardDef_q2307);
   } else {
-    g_PushContinuation (n17968_si_cont);
+    g_PushContinuation (n17967_si_cont);
     g_SetContFrameElem (0,FRAME (0));
     g_SetContFrameElem (1,FRAME (1));
     g_SetContFrameElem (2,FRAME (2));
     g_SetContFrameElem (3,FRAME (3));
     g_SetContFrameElem (4,FRAME (4));
     g_SetContFrameElem (5,FRAME (5));
-    g_PushContinuation (n18184_si_cont);
+    g_PushContinuation (n18183_si_cont);
     return g_call_1 (n471_closure_formTickvalue,FRAME (5));
   }
 }
-SiCont* n18185_si_cont = m_MakeSiCont (6,n17857_cont);
-Ncode n18188_cont () {
+SiCont* n18184_si_cont = m_MakeSiCont (6,n17856_cont);
+Ncode n18187_cont () {
   Nword q1027,v_q1028,q1029;
   if (g_matchC0 (CRET,1)) {
     return g_returnWith (n62_con_None);
@@ -76430,8 +76429,8 @@ Ncode n18188_cont () {
     return g_returnWith (q1029);
   }
 }
-SiCont* n18189_si_cont = m_MakeSiCont (0,n18188_cont);
-Ncode n18199_cont () {
+SiCont* n18188_si_cont = m_MakeSiCont (0,n18187_cont);
+Ncode n18198_cont () {
   Nword q844;
   if (g_matchC0 (CRET,0)) {
     q844 = g_MakeCon (0,FRAME (0));
@@ -76440,8 +76439,8 @@ Ncode n18199_cont () {
     return g_call_2 (FRAME (1),FRAME (2),FRAME (3));
   }
 }
-SiCont* n18200_si_cont = m_MakeSiCont (4,n18199_cont);
-Ncode n18198_look () {
+SiCont* n18199_si_cont = m_MakeSiCont (4,n18198_cont);
+Ncode n18197_look () {
   Nword q839,kv_AS_q840,key_q841,bucket_q842,q843;
   if (g_matchC0 (ARG (1),1)) {
     return g_returnWith (n62_con_None);
@@ -76450,7 +76449,7 @@ Ncode n18198_look () {
     kv_AS_q840 = g_DeTuple (q839,0);
     key_q841 = g_DeTuple (kv_AS_q840,0);
     bucket_q842 = g_DeTuple (q839,1);
-    g_PushContinuation (n18200_si_cont);
+    g_PushContinuation (n18199_si_cont);
     g_SetContFrameElem (0,kv_AS_q840);
     g_SetContFrameElem (1,FRAME (0));
     g_SetContFrameElem (2,ARG (0));
@@ -76459,91 +76458,91 @@ Ncode n18198_look () {
     return g_call_1 (q843,key_q841);
   }
 }
-extern Nword n18197_closure_look;
-SiClosure* n18201_si_closure = m_MakeSiFn (1,2,n18198_look);
-Nword n18197_closure_look = g_MakeFn (n18201_si_closure);
-Ncode n18196_cont () {
-  return g_call_2 (n18197_closure_look,CRET,FRAME (0));
+extern Nword n18196_closure_look;
+SiClosure* n18200_si_closure = m_MakeSiFn (1,2,n18197_look);
+Nword n18196_closure_look = g_MakeFn (n18200_si_closure);
+Ncode n18195_cont () {
+  return g_call_2 (n18196_closure_look,CRET,FRAME (0));
 }
-SiCont* n18202_si_cont = m_MakeSiCont (1,n18196_cont);
-Ncode n18195_lookKeyInBucket () {
+SiCont* n18201_si_cont = m_MakeSiCont (1,n18195_cont);
+Ncode n18194_lookKeyInBucket () {
   Nword q846,q847;
-  g_PushContinuation (n18202_si_cont);
+  g_PushContinuation (n18201_si_cont);
   g_SetContFrameElem (0,ARG (2));
   q846 = g_Copy (ARG (0));
   q847 = g_Copy (ARG (1));
   return g_call_1 (q846,q847);
 }
-SiClosure* n18203_si_closure = m_MakeSiFn (0,3,n18195_lookKeyInBucket);
-Nword n18194_closure_lookKeyInBucket = g_MakeFn (n18203_si_closure);
-Ncode n18193_cont () {
+SiClosure* n18202_si_closure = m_MakeSiFn (0,3,n18194_lookKeyInBucket);
+Nword n18193_closure_lookKeyInBucket = g_MakeFn (n18202_si_closure);
+Ncode n18192_cont () {
   Nword q876;
   q876 = builtin_Array_sub (FRAME (0),CRET);
-  return g_call_3 (n18194_closure_lookKeyInBucket,FRAME (1),FRAME (2),q876);
+  return g_call_3 (n18193_closure_lookKeyInBucket,FRAME (1),FRAME (2),q876);
 }
-SiCont* n18204_si_cont = m_MakeSiCont (3,n18193_cont);
-Ncode n18205_cont () {
+SiCont* n18203_si_cont = m_MakeSiCont (3,n18192_cont);
+Ncode n18204_cont () {
   Nword q875;
   q875 = builtin_mod (CRET,FRAME (0));
   return g_returnWith (q875);
 }
-SiCont* n18206_si_cont = m_MakeSiCont (1,n18205_cont);
-Ncode n18192_cont () {
+SiCont* n18205_si_cont = m_MakeSiCont (1,n18204_cont);
+Ncode n18191_cont () {
   Nword q874;
   q874 = builtin_Array_length (CRET);
-  g_PushContinuation (n18204_si_cont);
+  g_PushContinuation (n18203_si_cont);
   g_SetContFrameElem (0,CRET);
   g_SetContFrameElem (1,FRAME (1));
   g_SetContFrameElem (2,FRAME (2));
-  g_PushContinuation (n18206_si_cont);
+  g_PushContinuation (n18205_si_cont);
   g_SetContFrameElem (0,q874);
   return g_call_1 (FRAME (0),FRAME (2));
 }
-SiCont* n18207_si_cont = m_MakeSiCont (3,n18192_cont);
-Ncode n18191_getHT () {
+SiCont* n18206_si_cont = m_MakeSiCont (3,n18191_cont);
+Ncode n18190_getHT () {
   Nword q869,arrayRef_q870,eq_q871,hash_q872,objectCountRef_q873;
   q869 = g_DeCon (ARG (0));
   arrayRef_q870 = g_DeTuple (q869,0);
   eq_q871 = g_DeTuple (q869,1);
   hash_q872 = g_DeTuple (q869,2);
   objectCountRef_q873 = g_DeTuple (q869,3);
-  g_PushContinuation (n18207_si_cont);
+  g_PushContinuation (n18206_si_cont);
   g_SetContFrameElem (0,hash_q872);
   g_SetContFrameElem (1,eq_q871);
   g_SetContFrameElem (2,ARG (1));
   return g_call_1 (n124_closure_Bang,arrayRef_q870);
 }
-SiClosure* n18208_si_closure = m_MakeSiFn (0,2,n18191_getHT);
-Nword n18190_closure_getHT = g_MakeFn (n18208_si_closure);
-Ncode n18187_lookHT () {
+SiClosure* n18207_si_closure = m_MakeSiFn (0,2,n18190_getHT);
+Nword n18189_closure_getHT = g_MakeFn (n18207_si_closure);
+Ncode n18186_lookHT () {
   Nword q1025,q1026;
-  g_PushContinuation (n18189_si_cont);
+  g_PushContinuation (n18188_si_cont);
   q1025 = g_Copy (ARG (0));
   q1026 = g_Copy (ARG (1));
-  return g_call_2 (n18190_closure_getHT,q1025,q1026);
+  return g_call_2 (n18189_closure_getHT,q1025,q1026);
 }
-SiClosure* n18209_si_closure = m_MakeSiFn (0,2,n18187_lookHT);
-Nword n18186_closure_lookHT = g_MakeFn (n18209_si_closure);
-Ncode n17856_cont () {
+SiClosure* n18208_si_closure = m_MakeSiFn (0,2,n18186_lookHT);
+Nword n18185_closure_lookHT = g_MakeFn (n18208_si_closure);
+Ncode n17855_cont () {
   Nword e_q2309;
   if (g_matchC1 (CRET,0)) {
     e_q2309 = g_DeCon (CRET);
     return g_returnWith (e_q2309);
   } else {
-    g_PushContinuation (n18185_si_cont);
+    g_PushContinuation (n18184_si_cont);
     g_SetContFrameElem (0,FRAME (0));
     g_SetContFrameElem (1,FRAME (1));
     g_SetContFrameElem (2,FRAME (2));
     g_SetContFrameElem (3,FRAME (3));
     g_SetContFrameElem (4,FRAME (4));
     g_SetContFrameElem (5,FRAME (5));
-    return g_call_2 (n18186_closure_lookHT,FRAME (3),FRAME (5));
+    return g_call_2 (n18185_closure_lookHT,FRAME (3),FRAME (5));
   }
 }
-SiCont* n18210_si_cont = m_MakeSiCont (6,n17856_cont);
-Ncode n17855_V () {
+SiCont* n18209_si_cont = m_MakeSiCont (6,n17855_cont);
+Ncode n17854_V () {
   Nword q2299;
-  g_PushContinuation (n18210_si_cont);
+  g_PushContinuation (n18209_si_cont);
   g_SetContFrameElem (0,FRAME (0));
   g_SetContFrameElem (1,FRAME (1));
   g_SetContFrameElem (2,FRAME (2));
@@ -76551,28 +76550,28 @@ Ncode n17855_V () {
   g_SetContFrameElem (4,FRAME (4));
   g_SetContFrameElem (5,ARG (0));
   q2299 = g_Copy (ARG (0));
-  return g_call_2 (n18186_closure_lookHT,FRAME (4),q2299);
+  return g_call_2 (n18185_closure_lookHT,FRAME (4),q2299);
 }
-SiClosure* n18211_si_closure = m_MakeSiFn (5,1,n17855_V);
-Ncode n18214_cont () {
+SiClosure* n18210_si_closure = m_MakeSiFn (5,1,n17854_V);
+Ncode n18213_cont () {
   Nword q2310;
   q2310 = g_MakeTuple (2);
   g_SetTupleElement (q2310,0,CRET);
   g_SetTupleElement (q2310,1,FRAME (0));
   return g_returnWith (q2310);
 }
-SiCont* n18215_si_cont = m_MakeSiCont (1,n18214_cont);
-Ncode n18213_cont () {
-  g_PushContinuation (n18215_si_cont);
+SiCont* n18214_si_cont = m_MakeSiCont (1,n18213_cont);
+Ncode n18212_cont () {
+  g_PushContinuation (n18214_si_cont);
   g_SetContFrameElem (0,FRAME (1));
   return g_call_1 (n124_closure_Bang,FRAME (0));
 }
-SiCont* n18216_si_cont = m_MakeSiCont (2,n18213_cont);
-Ncode n18217_cont () {
+SiCont* n18215_si_cont = m_MakeSiCont (2,n18212_cont);
+Ncode n18216_cont () {
   return g_call_1 (FRAME (0),CRET);
 }
-SiCont* n18218_si_cont = m_MakeSiCont (1,n18217_cont);
-Ncode n18223_cont () {
+SiCont* n18217_si_cont = m_MakeSiCont (1,n18216_cont);
+Ncode n18222_cont () {
   Nword q2286,q2285;
   q2286 = g_MakeTuple (4);
   g_SetTupleElement (q2286,0,n1898_constructed);
@@ -76582,8 +76581,8 @@ Ncode n18223_cont () {
   q2285 = g_MakeCon (1,q2286);
   return g_returnWith (q2285);
 }
-SiCont* n18224_si_cont = m_MakeSiCont (1,n18223_cont);
-Ncode n18226_anon () {
+SiCont* n18223_si_cont = m_MakeSiCont (1,n18222_cont);
+Ncode n18225_anon () {
   Nword q2284,q2283;
   q2284 = g_MakeTuple (2);
   g_SetTupleElement (q2284,0,ARG (1));
@@ -76591,76 +76590,76 @@ Ncode n18226_anon () {
   q2283 = g_MakeCon (4,q2284);
   return g_returnWith (q2283);
 }
-SiClosure* n18227_si_closure = m_MakeSiFn (0,2,n18226_anon);
-Ncode n18225_cont () {
+SiClosure* n18226_si_closure = m_MakeSiFn (0,2,n18225_anon);
+Ncode n18224_cont () {
   Nword q2282;
-  q2282 = g_MakeFn (n18227_si_closure);
+  q2282 = g_MakeFn (n18226_si_closure);
   return g_call_3 (n421_closure_fold,q2282,FRAME (0),CRET);
 }
-SiCont* n18228_si_cont = m_MakeSiCont (1,n18225_cont);
-Ncode n18222_makeInitDef () {
+SiCont* n18227_si_cont = m_MakeSiCont (1,n18224_cont);
+Ncode n18221_makeInitDef () {
   Nword q2280,q2281;
-  q2280 = g_MakeCon (0,n17992_constructed);
-  g_PushContinuation (n18224_si_cont);
+  q2280 = g_MakeCon (0,n17991_constructed);
+  g_PushContinuation (n18223_si_cont);
   g_SetContFrameElem (0,ARG (0));
-  g_PushContinuation (n18228_si_cont);
+  g_PushContinuation (n18227_si_cont);
   g_SetContFrameElem (0,q2280);
   q2281 = g_Copy (ARG (1));
   return g_call_1 (n151_closure_rev,q2281);
 }
-SiClosure* n18229_si_closure = m_MakeSiFn (0,2,n18222_makeInitDef);
-Nword n18221_closure_makeInitDef = g_MakeFn (n18229_si_closure);
-Ncode n18220_cont () {
-  return g_call_2 (n18221_closure_makeInitDef,CRET,FRAME (0));
-}
-SiCont* n18230_si_cont = m_MakeSiCont (1,n18220_cont);
-Nword n18231_scon = g_mkString ("Init");
+SiClosure* n18228_si_closure = m_MakeSiFn (0,2,n18221_makeInitDef);
+Nword n18220_closure_makeInitDef = g_MakeFn (n18228_si_closure);
 Ncode n18219_cont () {
-  g_PushContinuation (n18230_si_cont);
-  g_SetContFrameElem (0,CRET);
-  return g_call_1 (n2045_closure_makeCid,n18231_scon);
+  return g_call_2 (n18220_closure_makeInitDef,CRET,FRAME (0));
 }
-SiCont* n18232_si_cont = m_MakeSiCont (0,n18219_cont);
-Ncode n18212_cont () {
-  g_PushContinuation (n18216_si_cont);
+SiCont* n18229_si_cont = m_MakeSiCont (1,n18219_cont);
+Nword n18230_scon = g_mkString ("Init");
+Ncode n18218_cont () {
+  g_PushContinuation (n18229_si_cont);
+  g_SetContFrameElem (0,CRET);
+  return g_call_1 (n2045_closure_makeCid,n18230_scon);
+}
+SiCont* n18231_si_cont = m_MakeSiCont (0,n18218_cont);
+Ncode n18211_cont () {
+  g_PushContinuation (n18215_si_cont);
   g_SetContFrameElem (0,FRAME (2));
   g_SetContFrameElem (1,CRET);
-  g_PushContinuation (n18218_si_cont);
+  g_PushContinuation (n18217_si_cont);
   g_SetContFrameElem (0,FRAME (1));
-  g_PushContinuation (n18232_si_cont);
+  g_PushContinuation (n18231_si_cont);
   return g_call_1 (n124_closure_Bang,FRAME (0));
 }
-SiCont* n18233_si_cont = m_MakeSiCont (3,n18212_cont);
-Ncode n17854_cont () {
+SiCont* n18232_si_cont = m_MakeSiCont (3,n18211_cont);
+Ncode n17853_cont () {
   Nword V_q2298;
-  V_q2298 = g_MakeFn (n18211_si_closure);
+  V_q2298 = g_MakeFn (n18210_si_closure);
   g_SetFrameElement (V_q2298,0,V_q2298);
   g_SetFrameElement (V_q2298,1,FRAME (4));
   g_SetFrameElement (V_q2298,2,FRAME (0));
   g_SetFrameElement (V_q2298,3,CRET);
   g_SetFrameElement (V_q2298,4,FRAME (1));
-  g_PushContinuation (n18233_si_cont);
+  g_PushContinuation (n18232_si_cont);
   g_SetContFrameElem (0,FRAME (3));
   g_SetContFrameElem (1,FRAME (4));
   g_SetContFrameElem (2,FRAME (5));
   return g_call_1 (V_q2298,FRAME (2));
 }
-SiCont* n18234_si_cont = m_MakeSiCont (6,n17854_cont);
-Ncode n18238_cont () {
+SiCont* n18233_si_cont = m_MakeSiCont (6,n17853_cont);
+Ncode n18237_cont () {
   return g_returnWith (FRAME (0));
 }
-SiCont* n18239_si_cont = m_MakeSiCont (1,n18238_cont);
-Ncode n18237_cont () {
-  g_PushContinuation (n18239_si_cont);
+SiCont* n18238_si_cont = m_MakeSiCont (1,n18237_cont);
+Ncode n18236_cont () {
+  g_PushContinuation (n18238_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n17895_closure_anon,CRET);
+  return g_call_1 (n17894_closure_anon,CRET);
 }
-SiCont* n18240_si_cont = m_MakeSiCont (0,n18237_cont);
-Nword n18242_scon = g_mkNum (0);
-Ncode n18241_cont () {
+SiCont* n18239_si_cont = m_MakeSiCont (0,n18236_cont);
+Nword n18241_scon = g_mkNum (0);
+Ncode n18240_cont () {
   Nword q767,q768,q766,q765;
   q767 = g_MakeRef (CRET);
-  q768 = g_MakeRef (n18242_scon);
+  q768 = g_MakeRef (n18241_scon);
   q766 = g_MakeTuple (4);
   g_SetTupleElement (q766,0,q767);
   g_SetTupleElement (q766,1,FRAME (0));
@@ -76669,280 +76668,277 @@ Ncode n18241_cont () {
   q765 = g_MakeCon (0,q766);
   return g_returnWith (q765);
 }
-SiCont* n18243_si_cont = m_MakeSiCont (2,n18241_cont);
-Nword n18244_scon = g_mkNum (1);
-Ncode n18236_mkEmptyHT () {
+SiCont* n18242_si_cont = m_MakeSiCont (2,n18240_cont);
+Nword n18243_scon = g_mkNum (1);
+Ncode n18235_mkEmptyHT () {
   Nword eq_q762,hash_q763,q764;
   eq_q762 = g_DeTuple (ARG (0),0);
   hash_q763 = g_DeTuple (ARG (0),1);
-  g_PushContinuation (n18240_si_cont);
-  g_PushContinuation (n18243_si_cont);
+  g_PushContinuation (n18239_si_cont);
+  g_PushContinuation (n18242_si_cont);
   g_SetContFrameElem (0,eq_q762);
   g_SetContFrameElem (1,hash_q763);
-  q764 = builtin_Array_array (n18244_scon,n84_con_nil);
+  q764 = builtin_Array_array (n18243_scon,n84_con_nil);
   return g_returnWith (q764);
 }
-SiClosure* n18245_si_closure = m_MakeSiFn (0,1,n18236_mkEmptyHT);
-Nword n18235_closure_mkEmptyHT = g_MakeFn (n18245_si_closure);
-Ncode n18250_cont () {
+SiClosure* n18244_si_closure = m_MakeSiFn (0,1,n18235_mkEmptyHT);
+Nword n18234_closure_mkEmptyHT = g_MakeFn (n18244_si_closure);
+Ncode n18249_cont () {
   Nword q2096;
   q2096 = builtin_Equal (FRAME (0),CRET);
   return g_returnWith (q2096);
 }
-SiCont* n18251_si_cont = m_MakeSiCont (1,n18250_cont);
-Ncode n18253_uniqueTickvalue () {
+SiCont* n18250_si_cont = m_MakeSiCont (1,n18249_cont);
+Ncode n18252_uniqueTickvalue () {
   Nword q1577,n_q1578;
   q1577 = g_DeCon (ARG (0));
   n_q1578 = g_DeTuple (q1577,0);
   return g_returnWith (n_q1578);
 }
-SiClosure* n18254_si_closure = m_MakeSiFn (0,1,n18253_uniqueTickvalue);
-Nword n18252_closure_uniqueTickvalue = g_MakeFn (n18254_si_closure);
-Ncode n18249_cont () {
-  g_PushContinuation (n18251_si_cont);
+SiClosure* n18253_si_closure = m_MakeSiFn (0,1,n18252_uniqueTickvalue);
+Nword n18251_closure_uniqueTickvalue = g_MakeFn (n18253_si_closure);
+Ncode n18248_cont () {
+  g_PushContinuation (n18250_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n18252_closure_uniqueTickvalue,FRAME (0));
+  return g_call_1 (n18251_closure_uniqueTickvalue,FRAME (0));
 }
-SiCont* n18255_si_cont = m_MakeSiCont (1,n18249_cont);
-Ncode n18248_eqTickvalue () {
+SiCont* n18254_si_cont = m_MakeSiCont (1,n18248_cont);
+Ncode n18247_eqTickvalue () {
   Nword q2095;
-  g_PushContinuation (n18255_si_cont);
+  g_PushContinuation (n18254_si_cont);
   g_SetContFrameElem (0,ARG (1));
   q2095 = g_Copy (ARG (0));
-  return g_call_1 (n18252_closure_uniqueTickvalue,q2095);
+  return g_call_1 (n18251_closure_uniqueTickvalue,q2095);
 }
-SiClosure* n18256_si_closure = m_MakeSiFn (0,2,n18248_eqTickvalue);
-Nword n18247_closure_eqTickvalue = g_MakeFn (n18256_si_closure);
-Nword n18246_tuple = g_MakeTuple (2);
-Ncode n17853_cont () {
-  g_PushContinuation (n18234_si_cont);
+SiClosure* n18255_si_closure = m_MakeSiFn (0,2,n18247_eqTickvalue);
+Nword n18246_closure_eqTickvalue = g_MakeFn (n18255_si_closure);
+Nword n18245_tuple = g_MakeTuple (2);
+Ncode n17852_cont () {
+  g_PushContinuation (n18233_si_cont);
   g_SetContFrameElem (0,FRAME (0));
   g_SetContFrameElem (1,CRET);
   g_SetContFrameElem (2,FRAME (1));
   g_SetContFrameElem (3,FRAME (2));
   g_SetContFrameElem (4,FRAME (3));
   g_SetContFrameElem (5,FRAME (4));
-  return g_call_1 (n18235_closure_mkEmptyHT,n18246_tuple);
+  return g_call_1 (n18234_closure_mkEmptyHT,n18245_tuple);
 }
-SiCont* n18257_si_cont = m_MakeSiCont (5,n17853_cont);
-Ncode n17844_ccTickvalue () {
+SiCont* n18256_si_cont = m_MakeSiCont (5,n17852_cont);
+Ncode n17843_ccTickvalue () {
   Nword q2288,EmitDef_q2289,q2293,EmitAct_q2294;
   q2288 = g_MakeRef (n84_con_nil);
-  EmitDef_q2289 = g_MakeFn (n17848_si_closure);
+  EmitDef_q2289 = g_MakeFn (n17847_si_closure);
   g_SetFrameElement (EmitDef_q2289,0,q2288);
   q2293 = g_MakeRef (n84_con_nil);
-  EmitAct_q2294 = g_MakeFn (n17852_si_closure);
+  EmitAct_q2294 = g_MakeFn (n17851_si_closure);
   g_SetFrameElement (EmitAct_q2294,0,q2293);
-  g_PushContinuation (n18257_si_cont);
+  g_PushContinuation (n18256_si_cont);
   g_SetContFrameElem (0,EmitAct_q2294);
   g_SetContFrameElem (1,ARG (0));
   g_SetContFrameElem (2,q2293);
   g_SetContFrameElem (3,EmitDef_q2289);
   g_SetContFrameElem (4,q2288);
-  return g_call_1 (n18235_closure_mkEmptyHT,n18246_tuple);
+  return g_call_1 (n18234_closure_mkEmptyHT,n18245_tuple);
 }
-SiClosure* n18258_si_closure = m_MakeSiFn (0,1,n17844_ccTickvalue);
-Nword n17843_closure_ccTickvalue = g_MakeFn (n18258_si_closure);
-Ncode n17540_exportC () {
+SiClosure* n18257_si_closure = m_MakeSiFn (0,1,n17843_ccTickvalue);
+Nword n17842_closure_ccTickvalue = g_MakeFn (n18257_si_closure);
+Ncode n17539_exportC () {
   Nword q2312;
-  g_PushContinuation (n17842_si_cont);
+  g_PushContinuation (n17841_si_cont);
   g_SetContFrameElem (0,ARG (0));
   q2312 = g_Copy (ARG (1));
-  return g_call_1 (n17843_closure_ccTickvalue,q2312);
+  return g_call_1 (n17842_closure_ccTickvalue,q2312);
 }
-SiClosure* n18259_si_closure = m_MakeSiFn (0,2,n17540_exportC);
-Nword n17539_closure_exportC = g_MakeFn (n18259_si_closure);
-Ncode n17538_cont () {
-  return g_call_2 (n17539_closure_exportC,FRAME (0),CRET);
+SiClosure* n18258_si_closure = m_MakeSiFn (0,2,n17539_exportC);
+Nword n17538_closure_exportC = g_MakeFn (n18258_si_closure);
+Ncode n17537_cont () {
+  return g_call_2 (n17538_closure_exportC,FRAME (0),CRET);
 }
-SiCont* n18260_si_cont = m_MakeSiCont (1,n17538_cont);
-Ncode n18263_cont () {
+SiCont* n18259_si_cont = m_MakeSiCont (1,n17537_cont);
+Ncode n18262_cont () {
   Nword v_q12423;
   v_q12423 = g_DeTuple (CRET,0);
   return g_returnWith (v_q12423);
 }
-SiCont* n18264_si_cont = m_MakeSiCont (0,n18263_cont);
-Nword n18266_scon = g_mkString ("it");
-Nword n18267_scon = g_mkString ("");
-Ncode n18265_cont () {
+SiCont* n18263_si_cont = m_MakeSiCont (0,n18262_cont);
+Nword n18265_scon = g_mkString ("it");
+Nword n18266_scon = g_mkString ("");
+Ncode n18264_cont () {
   Nword q12422,q12421,q12420,q12419;
-  q12422 = g_MakeCon (0,n18266_scon);
+  q12422 = g_MakeCon (0,n18265_scon);
   q12421 = g_MakeCon (0,q12422);
   q12420 = g_MakeTuple (2);
   g_SetTupleElement (q12420,0,n84_con_nil);
   g_SetTupleElement (q12420,1,q12421);
   q12419 = g_MakeCon (0,q12420);
-  return g_call_3 (n6779_closure_lookTicklongvid,n18267_scon,CRET,q12419);
+  return g_call_3 (n6779_closure_lookTicklongvid,n18266_scon,CRET,q12419);
 }
-SiCont* n18268_si_cont = m_MakeSiCont (0,n18265_cont);
-Ncode n18269_cont () {
+SiCont* n18267_si_cont = m_MakeSiCont (0,n18264_cont);
+Ncode n18268_cont () {
   return g_call_1 (n8669_closure_envTickbasis,CRET);
 }
-SiCont* n18270_si_cont = m_MakeSiCont (0,n18269_cont);
-Ncode n18272_getTheBasis () {
+SiCont* n18269_si_cont = m_MakeSiCont (0,n18268_cont);
+Ncode n18271_getTheBasis () {
   return g_call_1 (n124_closure_Bang,n14842_addr);
 }
-SiClosure* n18273_si_closure = m_MakeSiFn (0,1,n18272_getTheBasis);
-Nword n18271_closure_getTheBasis = g_MakeFn (n18273_si_closure);
-Ncode n18262_getIt () {
-  g_PushContinuation (n18264_si_cont);
-  g_PushContinuation (n18268_si_cont);
-  g_PushContinuation (n18270_si_cont);
-  return g_call_1 (n18271_closure_getTheBasis,g_unit ());
+SiClosure* n18272_si_closure = m_MakeSiFn (0,1,n18271_getTheBasis);
+Nword n18270_closure_getTheBasis = g_MakeFn (n18272_si_closure);
+Ncode n18261_getIt () {
+  g_PushContinuation (n18263_si_cont);
+  g_PushContinuation (n18267_si_cont);
+  g_PushContinuation (n18269_si_cont);
+  return g_call_1 (n18270_closure_getTheBasis,g_unit ());
 }
-SiClosure* n18274_si_closure = m_MakeSiFn (0,1,n18262_getIt);
-Nword n18261_closure_getIt = g_MakeFn (n18274_si_closure);
-Ncode n17533_cont () {
-  g_PushContinuation (n17537_si_cont);
+SiClosure* n18273_si_closure = m_MakeSiFn (0,1,n18261_getIt);
+Nword n18260_closure_getIt = g_MakeFn (n18273_si_closure);
+Ncode n17532_cont () {
+  g_PushContinuation (n17536_si_cont);
   g_SetContFrameElem (0,CRET);
-  g_PushContinuation (n18260_si_cont);
+  g_PushContinuation (n18259_si_cont);
   g_SetContFrameElem (0,CRET);
-  return g_call_1 (n18261_closure_getIt,g_unit ());
+  return g_call_1 (n18260_closure_getIt,g_unit ());
 }
-SiCont* n18275_si_cont = m_MakeSiCont (0,n17533_cont);
-Ncode n18276_cont () {
+SiCont* n18274_si_cont = m_MakeSiCont (0,n17532_cont);
+Ncode n18275_cont () {
   return g_returnWith (CRET);
 }
-SiCont* n18277_si_cont = m_MakeSiCont (0,n18276_cont);
-Ncode n17532_cont () {
+SiCont* n18276_si_cont = m_MakeSiCont (0,n18275_cont);
+Ncode n17531_cont () {
   Nword q12427;
-  g_PushContinuation (n18275_si_cont);
-  g_PushContinuation (n18277_si_cont);
+  g_PushContinuation (n18274_si_cont);
+  g_PushContinuation (n18276_si_cont);
   q12427 = builtin_TextIO_openOut (FRAME (0));
   return g_returnWith (q12427);
 }
-SiCont* n18278_si_cont = m_MakeSiCont (1,n17532_cont);
-Nword n18279_scon = g_mkString ("***export-> ");
-Nword n18280_scon = g_mkString ("...");
-Ncode n17531_Nexport_it () {
+SiCont* n18277_si_cont = m_MakeSiCont (1,n17531_cont);
+Nword n18278_scon = g_mkString ("***export-> ");
+Nword n18279_scon = g_mkString ("...");
+Ncode n17530_Nexport_it () {
   Nword q12426,q12425;
-  g_PushContinuation (n18278_si_cont);
+  g_PushContinuation (n18277_si_cont);
   g_SetContFrameElem (0,ARG (0));
-  q12426 = builtin_Hat (n18279_scon,ARG (0));
-  q12425 = builtin_Hat (q12426,n18280_scon);
+  q12426 = builtin_Hat (n18278_scon,ARG (0));
+  q12425 = builtin_Hat (q12426,n18279_scon);
   return g_call_1 (n14829_closure_NMLecho,q12425);
 }
-SiClosure* n18281_si_closure = m_MakeSiFn (0,1,n17531_Nexport_it);
-Nword n17530_closure_Nexport_it = g_MakeFn (n18281_si_closure);
-Ncode n17529_cont () {
-  return g_call_1 (n17530_closure_Nexport_it,FRAME (0));
+SiClosure* n18280_si_closure = m_MakeSiFn (0,1,n17530_Nexport_it);
+Nword n17529_closure_Nexport_it = g_MakeFn (n18280_si_closure);
+Ncode n17528_cont () {
+  return g_call_1 (n17529_closure_Nexport_it,FRAME (0));
 }
-SiCont* n18282_si_cont = m_MakeSiCont (1,n17529_cont);
-Nword n18283_scon = g_mkString ("nux/export\n");
-Ncode n18284_cont () {
+SiCont* n18281_si_cont = m_MakeSiCont (1,n17528_cont);
+Nword n18282_scon = g_mkString ("nux/export");
+Ncode n18283_cont () {
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n18285_si_cont = m_MakeSiCont (2,n18284_cont);
-Ncode n18286_cont () {
+SiCont* n18284_si_cont = m_MakeSiCont (2,n18283_cont);
+Ncode n18285_cont () {
   return g_call_1 (n17498_pap_G_Nuse,FRAME (0));
 }
-SiCont* n18287_si_cont = m_MakeSiCont (1,n18286_cont);
-Ncode n18288_cont () {
+SiCont* n18286_si_cont = m_MakeSiCont (1,n18285_cont);
+Ncode n18287_cont () {
   return g_call_1 (FRAME (0),FRAME (1));
 }
-SiCont* n18289_si_cont = m_MakeSiCont (2,n18288_cont);
-Ncode n18290_cont () {
+SiCont* n18288_si_cont = m_MakeSiCont (2,n18287_cont);
+Ncode n18289_cont () {
   return g_call_1 (n17498_pap_G_Nuse,FRAME (0));
 }
-SiCont* n18291_si_cont = m_MakeSiCont (1,n18290_cont);
+SiCont* n18290_si_cont = m_MakeSiCont (1,n18289_cont);
 Ncode n2_nux () {
-  Nword q12434,q12435,q12445,q12448,x_q12449,xs_q12450,q12447,q12446,q12439,q12442,x_q12443,xs_q12444,q12441,q12440,xs_q12436,q12438,q12437;
+  Nword q12434,q12435,q12443,q12445,x_q12446,xs_q12447,q12444,q12438,q12440,x_q12441,xs_q12442,q12439,xs_q12436,q12437;
   if (g_matchC0 (ARG (0),1)) {
     return g_returnWith (g_unit ());
   } else {
     q12434 = g_DeCon (ARG (0));
     q12435 = g_DeTuple (q12434,0);
     if (g_matchString (q12435,"-x")) {
-      q12445 = g_DeTuple (q12434,1);
-      if (g_matchC1 (q12445,0)) {
-        q12448 = g_DeCon (q12445);
-        x_q12449 = g_DeTuple (q12448,0);
-        xs_q12450 = g_DeTuple (q12448,1);
+      q12443 = g_DeTuple (q12434,1);
+      if (g_matchC1 (q12443,0)) {
+        q12445 = g_DeCon (q12443);
+        x_q12446 = g_DeTuple (q12445,0);
+        xs_q12447 = g_DeTuple (q12445,1);
         g_PushContinuation (n4_si_cont);
         g_SetContFrameElem (0,FRAME (0));
-        g_SetContFrameElem (1,xs_q12450);
+        g_SetContFrameElem (1,xs_q12447);
         g_PushContinuation (n17493_si_cont);
-        g_SetContFrameElem (0,x_q12449);
+        g_SetContFrameElem (0,x_q12446);
         return g_call_1 (n14829_closure_NMLecho,n17494_scon);
       } else {
         g_PushContinuation (n17496_si_cont);
         g_SetContFrameElem (0,FRAME (0));
-        g_SetContFrameElem (1,q12445);
+        g_SetContFrameElem (1,q12443);
         g_PushContinuation (n17524_si_cont);
         g_SetContFrameElem (0,q12435);
-        q12447 = builtin_Hat (n17525_scon,q12435);
-        q12446 = builtin_Hat (q12447,n17526_scon);
-        return g_call_1 (n14829_closure_NMLecho,q12446);
+        q12444 = builtin_Hat (n17525_scon,q12435);
+        return g_call_1 (n14829_closure_NMLecho,q12444);
       }
     } else {
       if (g_matchString (q12435,"--export")) {
-        q12439 = g_DeTuple (q12434,1);
-        if (g_matchC1 (q12439,0)) {
-          q12442 = g_DeCon (q12439);
-          x_q12443 = g_DeTuple (q12442,0);
-          xs_q12444 = g_DeTuple (q12442,1);
-          g_PushContinuation (n17528_si_cont);
+        q12438 = g_DeTuple (q12434,1);
+        if (g_matchC1 (q12438,0)) {
+          q12440 = g_DeCon (q12438);
+          x_q12441 = g_DeTuple (q12440,0);
+          xs_q12442 = g_DeTuple (q12440,1);
+          g_PushContinuation (n17527_si_cont);
           g_SetContFrameElem (0,FRAME (0));
-          g_SetContFrameElem (1,xs_q12444);
-          g_PushContinuation (n18282_si_cont);
-          g_SetContFrameElem (0,x_q12443);
-          return g_call_1 (n14829_closure_NMLecho,n18283_scon);
+          g_SetContFrameElem (1,xs_q12442);
+          g_PushContinuation (n18281_si_cont);
+          g_SetContFrameElem (0,x_q12441);
+          return g_call_1 (n14829_closure_NMLecho,n18282_scon);
         } else {
-          g_PushContinuation (n18285_si_cont);
+          g_PushContinuation (n18284_si_cont);
           g_SetContFrameElem (0,FRAME (0));
-          g_SetContFrameElem (1,q12439);
-          g_PushContinuation (n18287_si_cont);
+          g_SetContFrameElem (1,q12438);
+          g_PushContinuation (n18286_si_cont);
           g_SetContFrameElem (0,q12435);
-          q12441 = builtin_Hat (n17525_scon,q12435);
-          q12440 = builtin_Hat (q12441,n17526_scon);
-          return g_call_1 (n14829_closure_NMLecho,q12440);
+          q12439 = builtin_Hat (n17525_scon,q12435);
+          return g_call_1 (n14829_closure_NMLecho,q12439);
         }
       } else {
         xs_q12436 = g_DeTuple (q12434,1);
-        g_PushContinuation (n18289_si_cont);
+        g_PushContinuation (n18288_si_cont);
         g_SetContFrameElem (0,FRAME (0));
         g_SetContFrameElem (1,xs_q12436);
-        g_PushContinuation (n18291_si_cont);
+        g_PushContinuation (n18290_si_cont);
         g_SetContFrameElem (0,q12435);
-        q12438 = builtin_Hat (n17525_scon,q12435);
-        q12437 = builtin_Hat (q12438,n17526_scon);
+        q12437 = builtin_Hat (n17525_scon,q12435);
         return g_call_1 (n14829_closure_NMLecho,q12437);
       }
     }
   }
 }
 extern Nword n1_closure_nux;
-SiClosure* n18292_si_closure = m_MakeSiFn (1,1,n2_nux);
-Nword n1_closure_nux = g_MakeFn (n18292_si_closure);
+SiClosure* n18291_si_closure = m_MakeSiFn (1,1,n2_nux);
+Nword n1_closure_nux = g_MakeFn (n18291_si_closure);
 Nword Init () {
   g_SetFrameElement (n1_closure_nux,0,n1_closure_nux);
-  g_SetTupleElement (n18246_tuple,1,n18252_closure_uniqueTickvalue);
-  g_SetTupleElement (n18246_tuple,0,n18247_closure_eqTickvalue);
-  g_SetFrameElement (n18197_closure_look,0,n18197_closure_look);
-  g_SetTupleElement (n18176_tuple,1,n84_con_nil);
-  g_SetTupleElement (n18176_tuple,0,n18177_constructed);
-  g_SetTupleElement (n18171_tuple,1,n84_con_nil);
-  g_SetTupleElement (n18171_tuple,0,n18172_constructed);
-  g_SetTupleElement (n18143_tuple,1,n84_con_nil);
-  g_SetTupleElement (n18143_tuple,0,n18144_constructed);
-  g_SetTupleElement (n18078_tuple,1,n84_con_nil);
-  g_SetTupleElement (n18078_tuple,0,n18079_constructed);
-  g_SetTupleElement (n18030_tuple,1,n84_con_nil);
-  g_SetTupleElement (n18030_tuple,0,n18031_constructed);
-  g_SetTupleElement (n17994_tuple,1,n84_con_nil);
-  g_SetTupleElement (n17994_tuple,0,n17995_constructed);
-  g_SetTupleElement (n17982_tuple,1,n84_con_nil);
-  g_SetTupleElement (n17982_tuple,0,n17983_constructed);
-  g_SetFrameElement (n17929_closure_isMem,0,n17929_closure_isMem);
-  g_SetFrameElement (n17880_closure_accDel,0,n17880_closure_accDel);
-  g_SetFrameElement (n17884_closure_revOnto,0,n17884_closure_revOnto);
-  g_SetFrameElement (n17636_closure_layCstat,0,n17636_closure_layCstat);
-  g_SetFrameElement (n17646_closure_layCexp,0,n17659_closure_layCcall);
-  g_SetFrameElement (n17659_closure_layCcall,0,n17646_closure_layCexp);
-  g_SetTupleElement (n17558_tuple,2,n245_con_true);
-  g_SetTupleElement (n17558_tuple,1,n245_con_true);
-  g_SetTupleElement (n17558_tuple,0,n17559_constructed);
-  g_SetFrameElement (n17546_pap_prefixed_stream_layout,0,n17547_scon);
+  g_SetTupleElement (n18245_tuple,1,n18251_closure_uniqueTickvalue);
+  g_SetTupleElement (n18245_tuple,0,n18246_closure_eqTickvalue);
+  g_SetFrameElement (n18196_closure_look,0,n18196_closure_look);
+  g_SetTupleElement (n18175_tuple,1,n84_con_nil);
+  g_SetTupleElement (n18175_tuple,0,n18176_constructed);
+  g_SetTupleElement (n18170_tuple,1,n84_con_nil);
+  g_SetTupleElement (n18170_tuple,0,n18171_constructed);
+  g_SetTupleElement (n18142_tuple,1,n84_con_nil);
+  g_SetTupleElement (n18142_tuple,0,n18143_constructed);
+  g_SetTupleElement (n18077_tuple,1,n84_con_nil);
+  g_SetTupleElement (n18077_tuple,0,n18078_constructed);
+  g_SetTupleElement (n18029_tuple,1,n84_con_nil);
+  g_SetTupleElement (n18029_tuple,0,n18030_constructed);
+  g_SetTupleElement (n17993_tuple,1,n84_con_nil);
+  g_SetTupleElement (n17993_tuple,0,n17994_constructed);
+  g_SetTupleElement (n17981_tuple,1,n84_con_nil);
+  g_SetTupleElement (n17981_tuple,0,n17982_constructed);
+  g_SetFrameElement (n17928_closure_isMem,0,n17928_closure_isMem);
+  g_SetFrameElement (n17879_closure_accDel,0,n17879_closure_accDel);
+  g_SetFrameElement (n17883_closure_revOnto,0,n17883_closure_revOnto);
+  g_SetFrameElement (n17635_closure_layCstat,0,n17635_closure_layCstat);
+  g_SetFrameElement (n17645_closure_layCexp,0,n17658_closure_layCcall);
+  g_SetFrameElement (n17658_closure_layCcall,0,n17645_closure_layCexp);
+  g_SetTupleElement (n17557_tuple,2,n245_con_true);
+  g_SetTupleElement (n17557_tuple,1,n245_con_true);
+  g_SetTupleElement (n17557_tuple,0,n17558_constructed);
+  g_SetFrameElement (n17545_pap_prefixed_stream_layout,0,n17546_scon);
   g_SetFrameElement (n17498_pap_G_Nuse,0,n7_pap_G_evalTickprogram);
   g_SetFrameElement (n6_pap_G_Nexec,0,n7_pap_G_evalTickprogram);
   g_SetFrameElement (n17464_pap_echoTicklay,0,n737_pap_X_layTickvalue);
