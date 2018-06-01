@@ -33,6 +33,6 @@ boot/nux.exe \
     prelude/IMP_HASH.ML \
     -x 'val prefixNML = "NML-gen1: ";' \
     bind.ML \
-    -x 'quiet := true' \
+    -x 'quiet := false' \
     -x Run.nux \
     --export $1

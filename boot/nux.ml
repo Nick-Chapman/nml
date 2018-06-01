@@ -6,5 +6,5 @@ map Run.Nuse pervasives;
 map Run.Nuse nml_sources;
 Run.Nexec "val prefixNML = \"NML-boot: \";";
 Run.Nuse "bind.ML";
-Run.Nexec "quiet := true";
+Run.Nexec "quiet := false";
 Run.Nexport "boot/nux.C" "Run.nux";

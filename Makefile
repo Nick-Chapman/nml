@@ -26,7 +26,7 @@ RUN = runtime
 OPT =
 CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
-%.nml.C: %.nml.sh
+%.nml.C: %.nml.sh boot/nux.exe
 	time ./$< $@
 
 %.o : %.nml.C $(RUNTIME)
