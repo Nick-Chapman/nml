@@ -1,8 +1,6 @@
 (*Control.Print.out := {say = fn _ => (), flush = fn () => ()};*)
-val preludeDir = "prelude/"
-fun prefixPrelude s = preludeDir^s
-val pervasives = map prefixPrelude ["pervasives.ML"]
-;map use pervasives;
+fun prefixPrelude s = "prelude/"^s
+;use "prelude/pervasives.ML";
 val nml_sources = map (fn s => "ML/"^s)
     [
      "CCODE.ML",

@@ -2,9 +2,12 @@
 quiet:=true;
 Run.Nuse "predefined/nml_NonPrim.ML";
 Run.Nexec "open NonPrim";
-map Run.Nuse pervasives;
+Run.Nuse "prelude/pervasives.ML";
 map Run.Nuse nml_sources;
 Run.Nexec "val prefixNML = \"NML-boot: \";";
 Run.Nuse "bind.ML";
 Run.Nexec "quiet := false";
+quiet:=false;
+Run.Nexec "Run.Nuse \"predefined/nml_NonPrim.ML\"";
+Run.Nexec "Run.Nexec \"open NonPrim\"";
 Run.Nexport "boot/nux.C" "Run.nux";
