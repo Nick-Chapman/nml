@@ -14,15 +14,16 @@ This explains the name "nux" which might mean: `Nml,Use/eXport'. (But this is us
 
 
 Nux can be used like a top level:
+(And in now has some predefined values from predefined/* available)
+
 $ boot/nux.exe -x 'fun sqr x = x * x' -x 'sqr 7'
-$ boot/nux.exe 'predefined/nml_NonPrim.ML' -x 'open NonPrim; length (explode "something")'
+$ boot/nux.exe -x 'length (explode "something")'
 
 Or like a compiler:
 $ boot/nux.exe -x 'fn _ => print "Hello Nux!\n";' --export hello.C
 
 The generated C++ being compiled and linked thus:
-$ g++ -Wno-write-strings -Iruntime -c hello.C -o hello.o
-$ g++ runtime/nml_runtime.o hello.o -o hello.exe
+$ g++ -Wall -Wno-write-strings -Wno-format -Iruntime hello.C -o hello.exe
 
 
 The nml system in written in ML; the code is in ML/*.ML
