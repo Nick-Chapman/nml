@@ -288,10 +288,12 @@ sig
     val cexp'string                 : string -> cexp
     val cexp'exname0                : string -> int -> cexp
     val cexp'exname1                : string -> int -> cexp -> cexp
+    val cexp'NewArray               : int -> cexp
     val cexp'NewTup                 : int -> cexp
     val cexp'EmptyRef               : cexp
     val ccall'FixupRef              : cexp -> cexp -> ccall
     val cexp'NewCon                 : int -> cexp -> cexp
+    val ccall'SetArrayElement       : cexp -> int -> cexp -> ccall
     val ccall'SetTupleElement       : cexp -> int -> cexp -> ccall
     val cexp'stdOut                   : cexp
     val cexp'stdErr                   : cexp
@@ -1382,6 +1384,15 @@ end
       in cexp'Id cid
       end
 
+  fun cexp'array EmitDef EmitAct cid es =
+      let val acts = map (fn (e,n) => cact'Call (ccall'SetArrayElement (cexp'Id cid) n e)) (enumerateFrom 0 es)
+          val (_:unit list) = map EmitAct acts
+          val exp = cexp'NewArray (length es)
+          val def = cdef'VarDef (ctype'Nword,cid,exp)
+          val () = EmitDef def
+      in cexp'Id cid
+      end
+
 
   fun cc'form vform =
       case vform
@@ -1407,6 +1418,15 @@ end
                                                end
                                            (*val breakExp = cexp'FunCall (ccall (name,[]))
                                            val forwardDef = cdef'FuncDec (ctype'Nword,name,[])*)
+                                           val forwardDef = cdef'VarDec (ctype'Nword,name)
+                                           val breakExp = cexp'Id name
+                                       in (Some (forwardDef,breakExp),Stage2)
+                                       end
+        | VALUE'Array array         => let val name = newCid "array"
+                                           fun Stage2 (V,EmitDef,EmitAct) =
+                                               let val es = map V (list'array array)
+                                               in cexp'array EmitDef EmitAct name es
+                                               end
                                            val forwardDef = cdef'VarDec (ctype'Nword,name)
                                            val breakExp = cexp'Id name
                                        in (Some (forwardDef,breakExp),Stage2)
@@ -1450,7 +1470,6 @@ end
                                        in (Some (forwardDef,breakExp), Stage2)
                                        end
         | VALUE'Vector _            => abort "cc'form"
-        | VALUE'Array _             => abort "cc'form"
         | VALUE'Outstream (desc,_)  => stageExp (cc'outstream_descriptor desc)
         | VALUE'Instream _          => abort "cc'form/instream"
         | VALUE'Closure closure     => abort "cc'form/closure"

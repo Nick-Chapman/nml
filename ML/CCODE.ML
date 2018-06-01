@@ -70,6 +70,7 @@ sig
     val cexp'string                 : string -> cexp
     val cexp'exname0                : string -> int -> cexp
     val cexp'exname1                : string -> int -> cexp -> cexp
+    val cexp'NewArray               : int -> cexp
     val cexp'NewTup                 : int -> cexp
     val cexp'NewException           : string -> cexp
 
@@ -96,6 +97,7 @@ sig
     val ccall'PushContinuation      : cexp -> ccall
     val ccall'PushHandler           : cexp -> ccall
 
+    val ccall'SetArrayElement       : cexp -> int -> cexp -> ccall
     val ccall'SetTupleElement       : cexp -> int -> cexp -> ccall
     val ccall'SetFrameElement       : cexp -> int -> cexp -> ccall
     val ccall'SetContFrameElem      : int -> cexp -> ccall
@@ -324,6 +326,7 @@ INDEX: build
 
   fun cexp'MakeFn si                        = cexp'call "g_MakeFn" [si]
 
+  fun cexp'NewArray size                    = cexp'call "g_MakeArray" [cexp'IntLit size]
   fun cexp'NewTup size                      = cexp'call "g_MakeTuple" [cexp'IntLit size]
   fun cexp'NewException s                   = cexp'call "g_MakeException" [cexp'StringLit s]
   fun cexp'NewRef e                         = cexp'call "g_MakeRef" [e]
@@ -345,6 +348,7 @@ INDEX: build
   fun ccall'PushContinuation si             = ccall's "g_PushContinuation" [si]
   fun ccall'PushHandler si                  = ccall's "g_PushHandler" [si]
 
+  fun ccall'SetArrayElement r1 n r2         = ccall's "g_SetArrayElement" [r1, cexp'IntLit n, r2]
   fun ccall'SetTupleElement r1 n r2         = ccall's "g_SetTupleElement" [r1, cexp'IntLit n, r2]
   fun ccall'SetFrameElement r1 n r2         = ccall's "g_SetFrameElement" [r1, cexp'IntLit n, r2]
   fun ccall'SetContFrameElem n r            = ccall's "g_SetContFrameElem" [cexp'IntLit n, r]
