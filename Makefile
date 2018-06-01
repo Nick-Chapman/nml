@@ -59,6 +59,7 @@ boot/nux.C: boot/nux.ml boot/nml.image.$(ARCH) $(PREDEF) $(PREL) $(NML)
 	cat $< | time $(NJ) @SMLload=boot/nml.image
 
 boot/nux.o: OPT =
+boot/nux.o: $(RUNTIME)
 
 # gen1
 
