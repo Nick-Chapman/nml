@@ -82,3 +82,8 @@ Round #2...
      6.2    dynamic_cast --> reinterpret_cast (when TYPE_ERROR otherwise)
      4.1    remove if-test when using reinterpret_cast for down_cast
      3.1    inline core functions (-Winline --param inline-unit-growth=100)
+
+
+More...
+
+    2.9     ??? no idea what I did
