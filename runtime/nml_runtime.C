@@ -1514,11 +1514,12 @@ unsigned stackDepth() {
 }
 
 //----------------------------------------------------------------------
-//INDEX: callFunc (arg count check) - variable num_actual_args
+//INDEX: callCountStats
 //----------------------------------------------------------------------
 
+#ifdef CALL_FUNC_STATS
 
-long xxx[8][8] = {
+long callCountsArray[8][8] = {
   {0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0},
@@ -1529,39 +1530,44 @@ long xxx[8][8] = {
   {0,0,0,0,0,0,0,0}
 };
 
-//#define call_func_trace(f,a)
-#define call_func_trace(f,a) (logXXX(f,a))
-
-void logXXX(int f, int a) {
+void logCallCounts(int f, int a) {
   if (f>7 || a>7) {
     return;
   }
-  xxx[f][a]++;
+  callCountsArray[f][a]++;
   return;
 }
 
-void printXXX() {
+void printCallCounts() {
   long tot = 0;
   for (int f=0; f < 8; f++) {
     for (int a=0; a < 8; a++) {
-      tot+=xxx[f][a];
+      tot += callCountsArray[f][a];
     }
   }
   for (int f=0; f < 8; f++) {
     for (int a=0; a < 8; a++) {
-      //printf("%9d ",xxx[f][a]);
-
-      printf("%2d  ",(xxx[f][a] * 100) / tot);
+      printf("%2d  ",  callCountsArray[f][a] * 100 / tot);
     }
     printf("\n");
   }
   return;
 }
 
+#else
+#define logCallCounts(f,a)
+#define printCallCounts()
+#endif
+
+
+//----------------------------------------------------------------------
+//INDEX: callFunc (arg count check) - variable num_actual_args
+//----------------------------------------------------------------------
+
 Ncode callFunc(unsigned num_actual_args, Nword func) {
   Closure* closure = getClosure(func);
   unsigned num_formal_args = closure->si->num_args;
-  call_func_trace(num_formal_args,num_actual_args);
+  logCallCounts(num_formal_args,num_actual_args);
   if (show_progress) {
     char* name = closure->si->name;
     cout << "**callFunc: " << name << ", "
@@ -2316,7 +2322,7 @@ int main(int argc, char* argv[]) {
     cout << "**number GCs = " << gc_count  << endl;
   }
 
-  printXXX();
+  printCallCounts();
 
   exit(0);
 }

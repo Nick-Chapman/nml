@@ -3,7 +3,7 @@ start: boot gen1 nfib bedlam life
 
 boot: boot/nux.exe
 gen1: gen1.cmp
-nfib: nfib.run
+nfib: nfib.run #nfib/nfib.gprof.out
 bedlam: bedlam.run bedlam/bedlam.gprof.out
 life: life.cmp life/life.gprof.out
 
@@ -58,7 +58,7 @@ boot/nml.image.$(ARCH): boot/create_nml_image.sml $(PREL) $(NML)
 boot/nux.C: boot/nux.ml boot/nml.image.$(ARCH) $(PREDEF) $(PREL) $(NML)
 	cat $< | time $(NJ) @SMLload=boot/nml.image
 
-boot/nux.o: OPT = # avoid optimize compiler...so slow!
+boot/nux.o: OPT = -DCALL_FUNC_STATS
 boot/nux.o: $(RUNTIME)
 
 # gen1
@@ -73,21 +73,19 @@ nfib/nfib.nml.C : nfib/nfib.ml
 nfib.run: nfib/nfib.exe
 	nfib/nfib.exe 25
 
+nfib/nfib.pg.o: OPT += -DCALL_FUNC_STATS
+
 # bedlam
 
 bedlam/bedlam.nml.C : bedlam/bedlam.ml
 
-#bedlam/bedlam.o: OPT = -O3 -DNDEBUG
-
-#bedlam/bedlam.pg.o: OPT = -O3 -DNDEBUG
-
-bedlam.run: bedlam.nj-run bedlam.nml-run
+bedlam/bedlam.pg.o: OPT += -DCALL_FUNC_STATS
 
 bedlam.nj-run: bedlam/nj-load.ml bedlam/bedlam.ml
 	@echo '==================================================[nj]'
 	cat $< | time $(NJ)
 
-bedlam.nml-run: bedlam/bedlam.exe
+bedlam.run: bedlam/bedlam.exe
 	@echo '==================================================[nml]'
 	time $<
 
@@ -95,7 +93,7 @@ bedlam.nml-run: bedlam/bedlam.exe
 
 life/life.nml.C : life/life.ml
 
-#life/life.o: OPT = -O3 -DNDEBUG
+life/life.pg.o: OPT += -DCALL_FUNC_STATS
 
 life/life.out : life/life.exe
 	time ./$< | tee $@
