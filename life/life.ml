@@ -153,6 +153,6 @@ structure Main : BMARK =
        in loop size
        end
 
-    fun testit strm = show (fn c => TextIO.output (strm, c)) (nthgen gun 50)
+    fun testit strm = show (fn c => TextIO.output (strm, c)) (nthgen gun 500)
 
   end (* Life *)

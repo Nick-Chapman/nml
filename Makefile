@@ -5,7 +5,7 @@ boot: boot/nux.exe
 gen1: gen1.cmp
 nfib: nfib.run
 bedlam: bedlam.run bedlam/bedlam.gprof.out
-life: life.cmp
+life: life.cmp life/life.gprof.out
 
 clean:
 	git clean -Xf
@@ -23,7 +23,7 @@ NJ = sml -Ccm.verbose=false
 ARCH = x86-linux
 
 RUN = runtime
-OPT =
+OPT = -O3 -DNDEBUG
 CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
 %.nml.C: %.nml.sh boot/nux.exe
@@ -58,7 +58,7 @@ boot/nml.image.$(ARCH): boot/create_nml_image.sml $(PREL) $(NML)
 boot/nux.C: boot/nux.ml boot/nml.image.$(ARCH) $(PREDEF) $(PREL) $(NML)
 	cat $< | time $(NJ) @SMLload=boot/nml.image
 
-boot/nux.o: OPT =
+boot/nux.o: OPT = # avoid optimize compiler...so slow!
 boot/nux.o: $(RUNTIME)
 
 # gen1
@@ -77,9 +77,9 @@ nfib.run: nfib/nfib.exe
 
 bedlam/bedlam.nml.C : bedlam/bedlam.ml
 
-bedlam/bedlam.o: OPT = -O3 -DNDEBUG
+#bedlam/bedlam.o: OPT = -O3 -DNDEBUG
 
-bedlam/bedlam.pg.o: OPT = -O3 -DNDEBUG
+#bedlam/bedlam.pg.o: OPT = -O3 -DNDEBUG
 
 bedlam.run: bedlam.nj-run bedlam.nml-run
 
@@ -95,7 +95,7 @@ bedlam.nml-run: bedlam/bedlam.exe
 
 life/life.nml.C : life/life.ml
 
-life/life.o: OPT = -O3 -DNDEBUG
+#life/life.o: OPT = -O3 -DNDEBUG
 
 life/life.out : life/life.exe
 	time ./$< | tee $@
