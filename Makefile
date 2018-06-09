@@ -26,7 +26,7 @@ RUN = runtime
 OPT = -O3 -DNDEBUG
 CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
-%.nml.C: %.nml.sh #boot/nux.exe # avoid regen .C when hacking on runtime
+%.nml.C: %.nml.sh boot/nux.exe # avoid regen .C when hacking on runtime
 	time ./$< $@
 
 %.o : %.nml.C $(RUNTIME)
