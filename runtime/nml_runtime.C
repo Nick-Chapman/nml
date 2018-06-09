@@ -641,7 +641,8 @@ Ncode Enter(Closure* closure) {
   TheCurrentFunction = closure;
   CRET = Nword::fromRawUnboxed(0); XRET = Nword::fromRawUnboxed(0);
   maybe_gc();
-  closure->SetFrameReference(); // must be after any gc!
+  closure = getClosure(TheCurrentFunction); //may have been moved by GC
+  closure->SetFrameReference();
   return closure->si->code;
 }
 
