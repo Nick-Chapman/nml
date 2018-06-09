@@ -26,7 +26,7 @@ RUN = runtime
 OPT = -O3 -DNDEBUG
 CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strings -Wno-format -I$(RUN)
 
-%.nml.C: %.nml.sh boot/nux.exe
+%.nml.C: %.nml.sh #boot/nux.exe # avoid regen .C when hacking on runtime
 	time ./$< $@
 
 %.o : %.nml.C $(RUNTIME)
@@ -83,7 +83,7 @@ nfib/nfib.pg.o: OPT += -DCALL_FUNC_STATS
 
 bedlam/bedlam.nml.C : bedlam/bedlam.ml
 
-bedlam/bedlam.pg.o: OPT += -DCALL_FUNC_STATS
+#bedlam/bedlam.pg.o: OPT += -DCALL_FUNC_STATS
 
 bedlam.nj-run: bedlam/nj-load.ml bedlam/bedlam.ml
 	@echo '==================================================[nj]'

@@ -21,6 +21,8 @@
 #   define INLINE
 #endif
 
+#define NOINLINE __attribute__ ((noinline)) // useful when profiling
+
 using namespace std;
 
 bool debug = false; //TODO: is this debug useful?
@@ -614,6 +616,7 @@ void* stack_alloc(size_t size) {
 
 const unsigned MaxAlloctaionWhichMightOccurBeforeNextJump = 2000;
 
+INLINE
 void  maybe_gc() {
   // We only dare do GC when we are jumping from one code sequence to
   // another because it is the only time we can find all the roots.
@@ -629,17 +632,17 @@ INLINE Ncode Jump(SiCont* si, Nword* words) {
   return si->code;
 }
 
-INLINE Ncode Enter(Closure* closure) {
-  if (show_progress) {
-    char* name = closure->si->name;
-    cout << "**Enter: " << name << endl;
-  }
+INLINE
+Ncode Enter(Closure* closure) {
+  // if (show_progress) {
+  //   char* name = closure->si->name;
+  //   cout << "**Enter: " << name << endl;
+  // }
   TheCurrentFunction = closure;
   CRET = Nword::fromRawUnboxed(0); XRET = Nword::fromRawUnboxed(0);
-  Ncode code = closure->si->code;
   maybe_gc();
-  getClosure(TheCurrentFunction)->SetFrameReference(); // must be after any gc!
-  return code;
+  closure->SetFrameReference(); // must be after any gc!
+  return closure->si->code;
 }
 
 //----------------------------------------------------------------------
@@ -1286,11 +1289,11 @@ Ncode ApplyPapCode () {
   Nword func = FRAME(num_early_args);
   Closure* closure = getClosure(func);
   unsigned num_formal_args = closure->si->num_args;
-  if (show_progress) {
-    char* name = closure->si->name;
-    cout << "**ApplyPapCode: " << name << ", " << num_early_args
-         << "/" << num_formal_args << endl;
-  }
+  // if (show_progress) {
+  //   char* name = closure->si->name;
+  //   cout << "**ApplyPapCode: " << name << ", " << num_early_args
+  //        << "/" << num_formal_args << endl;
+  // }
   unsigned num_remaining_args = num_formal_args - num_early_args;
   ShiftUpArgs_upto(num_early_args,num_remaining_args);
   SetArgsFromFrame_upto(num_early_args);
@@ -1559,35 +1562,51 @@ void printCallCounts() {
 #define printCallCounts()
 #endif
 
-
 //----------------------------------------------------------------------
 //INDEX: callFunc (arg count check) - variable num_actual_args
 //----------------------------------------------------------------------
 
-Ncode callFunc(unsigned num_actual_args, Nword func) {
-  Closure* closure = getClosure(func);
-  unsigned num_formal_args = closure->si->num_args;
-  logCallCounts(num_formal_args,num_actual_args);
-  if (show_progress) {
-    char* name = closure->si->name;
-    cout << "**callFunc: " << name << ", "
-         << num_actual_args << "/" << num_formal_args << endl;
-  }
+// cant inline this anyway, causes too much growth
+NOINLINE
+Ncode callFuncWrongArgs(unsigned num_actual_args,
+                        unsigned num_formal_args,
+                        Nword func,
+                        Closure* closure) {
+
+  // if (show_progress) {
+  //   char* name = closure->si->name;
+  //   cout << "**callFunc: " << name << ", "
+  //        << num_actual_args << "/" << num_formal_args << endl;
+  // }
+
   if (num_actual_args < num_formal_args) { // pap
     unsigned num_remaining_args = num_formal_args - num_actual_args;
     Nword pap = makePap(func,num_actual_args,num_remaining_args);
     SetClosureFrameFromArgs_upto(pap,num_actual_args);
     return ReturnWith(pap);
   }
-  if (num_actual_args > num_formal_args) { // overapp
-    unsigned num_extra_args = num_actual_args - num_formal_args;
-    PushOverApp(num_extra_args);
-    SetContFrameFromArgs_upto(num_formal_args, num_extra_args);
-  }
+
+  assert(num_actual_args > num_formal_args); // overapp
+  unsigned num_extra_args = num_actual_args - num_formal_args;
+  PushOverApp(num_extra_args);
+  SetContFrameFromArgs_upto(num_formal_args, num_extra_args);
   return Enter(closure);
+
 }
 
-INLINE Ncode ApplyOverApp () {
+INLINE
+Ncode callFunc(unsigned num_actual_args, Nword func) {
+  Closure* closure = getClosure(func);
+  unsigned num_formal_args = closure->si->num_args;
+  logCallCounts(num_formal_args,num_actual_args);
+  if (num_actual_args == num_formal_args) {
+    return Enter(closure);
+  } else {
+    return callFuncWrongArgs(num_actual_args, num_formal_args, func, closure);
+  }
+}
+
+Ncode ApplyOverApp () {
   unsigned frame_size = TheFrameSize;
   SetArgsFromFrame_upto(frame_size);
   return callFunc(frame_size,CRET);
