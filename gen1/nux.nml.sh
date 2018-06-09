@@ -1,6 +1,6 @@
 #!/bin/bash
-#predefined/nml_NonPrim.ML -x 'open NonPrim'
 boot/nux.exe \
+    predefined/nml_NonPrim.ML -x 'open NonPrim' \
     prelude/pervasives.ML \
     ML/CCODE.ML \
     ML/MACHINE.ML \
@@ -33,7 +33,5 @@ boot/nux.exe \
     -x 'val prefixNML = "NML-gen1: ";' \
     bind.ML \
     -x 'quiet := false' \
-    -x 'Run.Nuse "predefined/nml_NonPrim.ML"' \
-    -x 'Run.Nexec "open NonPrim"' \
     -x Run.nux \
     --export $1

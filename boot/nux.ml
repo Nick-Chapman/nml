@@ -8,6 +8,4 @@ Run.Nexec "val prefixNML = \"NML-boot: \";";
 Run.Nuse "bind.ML";
 Run.Nexec "quiet := false";
 quiet:=false;
-Run.Nexec "Run.Nuse \"predefined/nml_NonPrim.ML\"";
-Run.Nexec "Run.Nexec \"open NonPrim\"";
 Run.Nexport "boot/nux.C.gen" "Run.nux";
