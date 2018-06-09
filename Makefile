@@ -9,7 +9,7 @@ life: life.cmp life/life.gprof.out
 
 clean:
 	git clean -Xf
-	rm -f boot/nux.C
+	rm -f boot/nux.C.gen
 
 PREL = prelude/ASSOC.ML prelude/IMP_HASH.ML prelude/MISCLAY.ML prelude/PAR1.ML prelude/PAR2.ML prelude/PAR3.ML prelude/pervasives.ML prelude/PREL.ML prelude/QLAYOUT.ML prelude/SORT.ML
 
@@ -55,16 +55,20 @@ CXXFLAGS = $(OPT) --param inline-unit-growth=100 -Winline -Wall -Wno-write-strin
 boot/nml.image.$(ARCH): boot/create_nml_image.sml $(PREL) $(NML)
 	cat $< | time $(NJ)
 
-boot/nux.C: boot/nux.ml boot/nml.image.$(ARCH) $(PREDEF) $(PREL) $(NML)
+boot/nux.C.gen: boot/nux.ml boot/nml.image.$(ARCH) $(PREDEF) $(PREL) $(NML)
 	cat $< | time $(NJ) @SMLload=boot/nml.image
 
-boot/nux.o: OPT = -DCALL_FUNC_STATS
+boot/nux.nml.C: boot/nux.C.gen # comment out the dep to avoid using nj to regen
+	cp boot/nux.C.gen $@
+
+boot/nux.o: OPT = # build boot compiler, no opt!
+#boot/nux.o: OPT = -DCALL_FUNC_STATS # build boot compiler, no opt!, but when it runs it shows stats for compilation
 boot/nux.o: $(RUNTIME)
 
 # gen1
 
-gen1.cmp: boot/nux.C gen1/nux.nml.C
-	sed s/NML-boot/NML-gen1/ boot/nux.C | cmp - gen1/nux.nml.C
+gen1.cmp: boot/nux.nml.C gen1/nux.nml.C
+	sed s/NML-boot/NML-gen1/ boot/nux.nml.C | cmp - gen1/nux.nml.C
 
 # nfib
 
