@@ -1,7 +1,8 @@
 (*create nux.C using nml loaded in nj*)
 quiet:=true;
-Run.Nuse "predefined/nml_NonPrim.ML";
-Run.Nexec "open NonPrim";
+Run.Nuse "predefined/PredefinedSig.ml";
+Run.Nuse "predefined/Predefined.ml";
+Run.Nexec "open Predefined";
 Run.Nuse "prelude/pervasives.ML";
 map Run.Nuse nml_sources;
 Run.Nexec "val prefixNML = \"NML-boot: \";";

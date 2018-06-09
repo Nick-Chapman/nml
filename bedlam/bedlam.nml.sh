@@ -1,6 +1,6 @@
 #!/bin/bash
 boot/nux.exe\
-    predefined/nml_NonPrim.ML -x 'open NonPrim' \
+    predefined/Predefined{Sig,}.ml -x 'open Predefined' \
     prelude/pervasives.ML\
     prelude/PREL.ML\
     -x 'structure Prel = PREL()'\

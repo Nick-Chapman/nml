@@ -1,5 +1,5 @@
 
-signature NonPrimSig =
+signature PredefinedSig =
 sig
     val @       : 'a list * 'a list -> 'a list
     val !       : 'a ref -> 'a

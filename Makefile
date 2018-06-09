@@ -15,7 +15,7 @@ PREL = prelude/ASSOC.ML prelude/IMP_HASH.ML prelude/MISCLAY.ML prelude/PAR1.ML p
 
 NML = bind.ML ML/ATOM.ML ML/BASIS.ML ML/BUILTIN.ML ML/CCODE.ML ML/COMPILE3.ML ML/CPS.ML ML/EMBED.ML ML/EVAL3.ML ML/INTERPRETER.ML ML/LANG.ML ML/LEX.ML ML/MACHINE.ML ML/PARSER.ML ML/POS.ML ML/PRETTY.ML ML/PROGRAM.ML ML/RUN.ML ML/tc.ML ML/TOK.ML ML/VALUE.ML
 
-PREDEF = predefined/nml_NonPrim.ML
+PREDEF = predefined/Predefined.ml predefined/PredefinedSig.ml
 
 RUNTIME = runtime/nml_runtime.C runtime/nml_runtime.h
 
