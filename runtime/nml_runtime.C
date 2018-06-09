@@ -2203,8 +2203,11 @@ void print_stats(char* tag) {
 //INDEX: StopExecution / CatchAny
 //----------------------------------------------------------------------
 
+int nml_exit_code = 2;
+
 //TODO: why does this function rank so high in the gprof stats?
 Ncode StopExecution () {
+  nml_exit_code = 0;
   return Ncode(0);
 }
 
@@ -2212,6 +2215,7 @@ SiCont SiStopExection = SiCont("<Stop>",Ncode(StopExecution),0);
 
 Ncode CatchAll () {
   cout << "** Unhandled exception: " << getExName(XRET) << endl;
+  nml_exit_code = 1;
   return Ncode(0);
 }
 
@@ -2324,5 +2328,5 @@ int main(int argc, char* argv[]) {
 
   printCallCounts();
 
-  exit(0);
+  exit(nml_exit_code);
 }
