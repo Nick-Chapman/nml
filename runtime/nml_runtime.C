@@ -2111,10 +2111,10 @@ Nword builtin_TextIO_inputN(Nword w1,Nword w2) {
   assert(n>=0);
   char c;
   string res;
-  while (n && is.get(c)) {
+  while (n && is.get(c)) { //TODO: this looks terrible!
     res += c;
   }
-   return makeString(res);
+  return makeString(res);
 }
 
 //----------------------------------------------------------------------
